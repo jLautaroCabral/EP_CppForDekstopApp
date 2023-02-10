@@ -22,6 +22,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+	//return MessageBox(NULL, L"hello, world", L"caption", 0);
+
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -132,7 +134,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             switch (wmId)
             {
             case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX_DEFAULT), hWnd, About);
+                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX_NEW), hWnd, About);
                 break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);
