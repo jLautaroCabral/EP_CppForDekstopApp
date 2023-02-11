@@ -1,2 +1,4 @@
 ﻿  TiendaCPP.cpp
+C:\Users\Lautaro\source\repos\TiendaCPP\TiendaCPP\TiendaCPP.cpp(221,54): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Lautaro\source\repos\TiendaCPP\TiendaCPP\TiendaCPP.cpp(289,52): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
   TiendaCPP.vcxproj -> C:\Users\Lautaro\source\repos\TiendaCPP\x64\Debug\TiendaCPP.exe
