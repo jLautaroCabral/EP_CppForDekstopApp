@@ -5,18 +5,21 @@
 #define IDC_MYICON                      2
 #define IDD_TIENDACPP_DIALOG            102
 #define IDD_ABOUTBOX_NEW                102
+#define IDD_HISTORYBOX                  102
 #define IDS_APP_TITLE                   103
 #define IDD_ABOUTBOX_DEFAULT            103
 #define IDM_ABOUT                       104
 #define IDM_EXIT                        105
 #define IDD_OLE_PROPPAGE_LARGE          105
+#define IDD_COTIZACIONBOX               106
 #define IDI_TIENDACPP                   107
+#define IDD_ABOUTBOX_NEW2               107
+#define IDD_SETTINGSBOX                 107
 #define IDI_SMALL                       108
 #define IDC_TIENDACPP                   109
 #define IDR_MAINFRAME                   128
 #define IDD_ABOUTBOX_SLABEL1            128
 #define IDD_ABOUTBOX_SLABEL2            129
-#define IDC_MFCVSLISTBOX1               1001
 #define IDC_STATIC                      -1
 
 // Next default values for new objects

@@ -140,11 +140,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="MainWindowController.h" />
+    <ClInclude Include="QuotesHistoryWindowController.h" />
+    <ClInclude Include="QuoteWindowController.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SettingsWindowController.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TiendaCPP.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MainWindowController.cpp" />
+    <ClCompile Include="QuotesHistoryWindowController.cpp" />
+    <ClCompile Include="QuoteWindowController.cpp" />
+    <ClCompile Include="SettingsWindowController.cpp" />
     <ClCompile Include="TiendaCPP.cpp" />
   </ItemGroup>
   <ItemGroup>

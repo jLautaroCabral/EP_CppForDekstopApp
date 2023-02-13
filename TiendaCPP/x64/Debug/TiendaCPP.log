@@ -1,4 +1,8 @@
-﻿  TiendaCPP.cpp
-C:\Users\Lautaro\source\repos\TiendaCPP\TiendaCPP\TiendaCPP.cpp(221,54): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\Lautaro\source\repos\TiendaCPP\TiendaCPP\TiendaCPP.cpp(289,52): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+﻿  MainWindowController.cpp
+C:\Users\Lautaro\source\repos\TiendaCPP\TiendaCPP\MainWindowController.cpp(111,53): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Lautaro\source\repos\TiendaCPP\TiendaCPP\MainWindowController.cpp(113,55): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Lautaro\source\repos\TiendaCPP\TiendaCPP\MainWindowController.cpp(114,53): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Lautaro\source\repos\TiendaCPP\TiendaCPP\MainWindowController.cpp(176,51): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Lautaro\source\repos\TiendaCPP\TiendaCPP\MainWindowController.cpp(94,32): warning C4101: 'hFont2': variable local sin referencia
+C:\Users\Lautaro\source\repos\TiendaCPP\TiendaCPP\MainWindowController.cpp(94,40): warning C4101: 'hFont3': variable local sin referencia
   TiendaCPP.vcxproj -> C:\Users\Lautaro\source\repos\TiendaCPP\x64\Debug\TiendaCPP.exe
