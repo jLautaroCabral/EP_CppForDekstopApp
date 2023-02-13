@@ -24,7 +24,7 @@
     <ClInclude Include="Resource.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="TiendaCPP.h">
+    <ClInclude Include="Main.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="MainWindowController.h">

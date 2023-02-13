@@ -4,7 +4,6 @@
 #include "QuoteWindowController.h"
 #include "QuotesHistoryWindowController.h"
 #include "SettingsWindowController.h"
-#include "TiendaCPP.h"
 
 static struct {
 	const wchar_t* txt;    // pointer to text to display on button face
@@ -65,6 +64,14 @@ MainWindowController::~MainWindowController()
 {
 }
 
+
+//  FUNCIÓN: WndProc(HWND, UINT, WPARAM, LPARAM)
+//
+//  PROPÓSITO: Procesa mensajes de la ventana principal.
+//
+//  WM_COMMAND  - procesar el menú de aplicaciones
+//  WM_PAINT    - Pintar la ventana principal
+//  WM_DESTROY  - publicar un mensaje de salida y volver
 LRESULT MainWindowController::HandleMainWindowProd(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)

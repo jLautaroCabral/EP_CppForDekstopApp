@@ -1,14 +1,9 @@
-// TiendaCPP.cpp : Define el punto de entrada de la aplicación.
-//
-
 #include "framework.h"
-#include "TiendaCPP.h"
+#include "Main.h"
 #include "QuoteWindowController.h"
 #include "QuotesHistoryWindowController.h"
 #include "SettingsWindowController.h"
 #include "MainWindowController.h"
-#include <exception>
-#include <iostream>
 
 #define MAX_LOADSTRING 100
 
@@ -17,15 +12,15 @@ HINSTANCE hInst;                                // instancia actual
 WCHAR szTitle[MAX_LOADSTRING];                  // Texto de la barra de título
 WCHAR szWindowClass[MAX_LOADSTRING];            // nombre de clase de la ventana principal
 
+MainWindowController* mainWindow = nullptr;		// Puntero a controllador de la ventana principal
+
 // Declaraciones de funciones adelantadas incluidas en este módulo de código:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
-// Puntero a controllador de la ventana principal
-MainWindowController *mainWindow = nullptr;
-
+// Entrada del programa para aplicación de escritorio usando este framework
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -86,14 +81,8 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     return RegisterClassExW(&wcex);
 }
 
-
-//   FUNCIÓN: InitInstance(HINSTANCE, int)
-//
-//   PROPÓSITO: Guarda el identificador de instancia y crea la ventana principal
-//
-//   COMENTARIOS:
-//        En esta función, se guarda el identificador de instancia en una variable común y
-//        se crea y muestra la ventana principal del programa.
+//   Guarda el identificador de instancia y crea la ventana principal
+//   En esta función, se guarda el identificador de instancia en una variable común y se crea y muestra la ventana principal del programa.
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // Almacenar identificador de instancia en una variable global
@@ -124,29 +113,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
-//
-//  FUNCIÓN: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  PROPÓSITO: Procesa mensajes de la ventana principal.
-//
-//  WM_COMMAND  - procesar el menú de aplicaciones
-//  WM_PAINT    - Pintar la ventana principal
-//  WM_DESTROY  - publicar un mensaje de salida y volver
-//
-//
+//  Procesa mensajes de la ventana principal.
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	return mainWindow->HandleMainWindowProd(hWnd, message, wParam, lParam);
 }
-
-/*
-*
-try
-{
-
-}
-catch (const std::exception& ex)
-{
-	std::cout << ex.what() << std::endl;
-}
-*/

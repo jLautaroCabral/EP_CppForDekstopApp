@@ -1,4 +1,5 @@
 #include "QuotesHistoryWindowController.h"
+
 INT_PTR QuotesHistoryWindowController::HandleWindow(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	UNREFERENCED_PARAMETER(lParam);
