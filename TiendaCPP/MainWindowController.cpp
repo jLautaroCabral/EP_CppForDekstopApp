@@ -5,46 +5,47 @@
 #include "QuotesHistoryWindowController.h"
 #include "SettingsWindowController.h"
 
-static struct {
-	const wchar_t* txt;    // pointer to text to display on button face
-	int      iCount;       // count of number of times button clicked
-	HWND     hWnd;         // button window handle which identifies the button
-	//void (*onPressAction)();
-	LPCWSTR ResourceID;
-	OnPressActionHandler onPressActionHandler;
-	void OnPressAction()
-	{
-		OpenDialogBox();
-	}
-private:
-	void OpenDialogBox()
-	{
-		//DialogBox(hInst, ResourceID, hWnd, onPressActionHandler);
-	}
-} myButtons[] = {
-	{L"Realizar cotizacion", 0, 0, MAKEINTRESOURCE(IDD_COTIZACIONBOX), QuoteWindowController::HandleWindow},
-	{L"Historial de cotizaciones", 0, 0, MAKEINTRESOURCE(IDD_HISTORYBOX), QuotesHistoryWindowController::HandleWindow},
-	{L"Configurar vendedor", 0, 0, MAKEINTRESOURCE(IDD_SETTINGSBOX), SettingsWindowController::HandleWindow},
-	//{L"Level dwn", 0, 0}
-};
+
 
 TCHAR greeting[] = _T("Software para venta de ropa, proyecto estudiantil");
 TCHAR storeName[] = _T("Tienda: Nike");
 TCHAR userName[] = _T("Vendedor: Rebeca");
 
+
+// Declaraciones de funciones adelantadas incluidas en este módulo de código:
+void CreateButtons(HWND);
+
+
+
+MainWindowController::MainWindowController(HINSTANCE* inst, HWND* hwnd)
+{
+	hInst = inst;
+	hWnd = hwnd;
+
+	windowButtonsInfo[0] = { L"Realizar cotizacion", 0, 0, MAKEINTRESOURCE(IDD_COTIZACIONBOX), hInst, QuoteWindowController::HandleWindow };
+	windowButtonsInfo[1] = { L"Historial de cotizaciones", 0, 0, MAKEINTRESOURCE(IDD_HISTORYBOX), hInst, QuotesHistoryWindowController::HandleWindow };
+	windowButtonsInfo[2] = { L"Configurar vendedor", 0, 0, MAKEINTRESOURCE(IDD_SETTINGSBOX), hInst, SettingsWindowController::HandleWindow };
+
+	CreateButtons(*hWnd);
+}
+
+MainWindowController::~MainWindowController()
+{
+}
+
 // process a button click event and return an indication
 // whether the button handle matches one we are managing (1)
 // or not managing (0).
-int HandleButtonClick(HWND hWnd, HWND hButton)
+int MainWindowController::HandleButtonClick(HWND hWnd, HWND hButton)
 {
 	// look through the list of buttons to see if the window handle
 	// of the button event matches one of our buttons.
-	for (auto& a : myButtons) {
-		if (a.hWnd == hButton) {
+	for (auto& button : windowButtonsInfo) {
+		if (button.hWnd == hButton) {
 			// this is one of our buttons so we increment button click count.
 			// then invalidate the window area and update to trigger WM_PAINT message.
-			a.iCount++;
-			a.OnPressAction();
+			button.iCount++;
+			button.OnPressAction();
 			InvalidateRect(hWnd, NULL, TRUE);
 			UpdateWindow(hWnd);
 			return 1;    // indicate we processed this event.
@@ -54,16 +55,29 @@ int HandleButtonClick(HWND hWnd, HWND hButton)
 	return 0;    // indicate we did not process this event
 }
 
-
-MainWindowController::MainWindowController(HINSTANCE* inst, HWND* hWnd)
+// create the displayed window along with the buttons.
+// the buttons are in a single row at the top of the window.
+void MainWindowController::CreateButtons(HWND hWnd)
 {
-	hInst = inst;
-}
+	POINT myPoint = { 100, 300 };  // x, y
 
-MainWindowController::~MainWindowController()
-{
-}
+	for (auto& button : windowButtonsInfo) {
+		button.hWnd = CreateWindow(
+			L"BUTTON",  // Predefined class; Unicode assumed 
+			button.txt,      // Button text 
+			WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,  // Styles 
+			myPoint.x,  // x position 
+			myPoint.y,  // y position 
+			420,        // Button width
+			50,         // Button height
+			hWnd,       // Parent window
+			NULL,       // No menu.
+			(HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE),
+			NULL);      // Pointer not needed.
 
+		myPoint.y += 50 + 20;    // button width plus a separation distance
+	}
+}
 
 //  FUNCIÓN: WndProc(HWND, UINT, WPARAM, LPARAM)
 //
@@ -170,8 +184,8 @@ LRESULT MainWindowController::HandleMainWindowProd(HWND hWnd, UINT message, WPAR
 		// following swprintf_s() works because template
 		// generates the proper call with the additional buffer
 		// size argument.
-		swprintf_s(myText[0], L"Points: %d", myButtons[0].iCount - myButtons[1].iCount);
-		swprintf_s(myText[1], L"Level: %d", myButtons[2].iCount - myButtons[3].iCount);
+		swprintf_s(myText[0], L"Points: %d", windowButtonsInfo[0].iCount - windowButtonsInfo[1].iCount);
+		swprintf_s(myText[1], L"Level: %d", windowButtonsInfo[2].iCount - windowButtonsInfo[3].iCount);
 
 		// get the text metrics of the font we are using to draw the text so
 		// that we can find out how tall the letters are and can adjust the
@@ -202,28 +216,4 @@ LRESULT MainWindowController::HandleMainWindowProd(HWND hWnd, UINT message, WPAR
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	return 0;
-}
-
-// create the displayed window along with the buttons.
-// the buttons are in a single row at the top of the window.
-void CreateButtons(HWND hWnd)
-{
-	POINT myPoint = { 100, 300 };  // x, y
-
-	for (auto& a : myButtons) {
-		a.hWnd = CreateWindow(
-			L"BUTTON",  // Predefined class; Unicode assumed 
-			a.txt,      // Button text 
-			WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,  // Styles 
-			myPoint.x,  // x position 
-			myPoint.y,  // y position 
-			420,        // Button width
-			50,         // Button height
-			hWnd,       // Parent window
-			NULL,       // No menu.
-			(HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE),
-			NULL);      // Pointer not needed.
-
-		myPoint.y += 50 + 20;    // button width plus a separation distance
-	}
 }

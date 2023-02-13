@@ -10,9 +10,29 @@ typedef	INT_PTR(*OnPressActionHandler)(HWND, UINT, WPARAM, LPARAM);
 class MainWindowController
 {
 private:
-	HINSTANCE* hInst = nullptr;                                // instancia actual
+
+	struct ButtonInfo
+	{
+		const wchar_t* txt;		// pointer to text to display on button face
+		int iCount;				// count of number of times button clicked
+		HWND hWnd;				// button window handle which identifies the button
+
+		LPCWSTR ResourceID;		//
+		HINSTANCE* hInstance;	//
+
+		OnPressActionHandler onPressActionHandler;		// OnPressActionHandle is a own typedef
+		void OnPressAction() { DialogBox(*hInstance, ResourceID, hWnd, onPressActionHandler); }
+	};
+
+	HINSTANCE* hInst = nullptr;
+	HWND* hWnd = nullptr;
+	ButtonInfo windowButtonsInfo[3];
+
+	int HandleButtonClick(HWND hWnd, HWND hButton);
+	void CreateButtons(HWND hWnd);
+
 public:
-	MainWindowController(HINSTANCE* inst, HWND* hWnd);
+	MainWindowController(HINSTANCE* inst, HWND* hwnd);
 	~MainWindowController();
 	LRESULT CALLBACK HandleMainWindowProd(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
