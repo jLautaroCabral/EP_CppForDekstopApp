@@ -7,6 +7,8 @@
 #include "QuotesHistoryWindowController.h"
 #include "SettingsWindowController.h"
 #include "MainWindowController.h"
+#include <exception>
+#include <iostream>
 
 #define MAX_LOADSTRING 100
 
@@ -21,7 +23,8 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
-MainWindowController mainWindow;
+// Puntero a controllador de la ventana principal
+MainWindowController *mainWindow = nullptr;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -32,8 +35,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     UNREFERENCED_PARAMETER(hPrevInstance); //
     UNREFERENCED_PARAMETER(lpCmdLine); //
-
-    // TODO: Colocar código aquí.
 
     // Inicializar cadenas globales
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING); //
@@ -63,13 +64,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     return (int) msg.wParam;
 }
 
-
-
-//
-//  FUNCIÓN: MyRegisterClass()
-//
-//  PROPÓSITO: Registra la clase de ventana.
-//
+//  Registra la clase de ventana.
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
     WNDCLASSEXW wcex;
@@ -92,33 +87,36 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 }
 
 
-//
 //   FUNCIÓN: InitInstance(HINSTANCE, int)
 //
 //   PROPÓSITO: Guarda el identificador de instancia y crea la ventana principal
 //
 //   COMENTARIOS:
-//
 //        En esta función, se guarda el identificador de instancia en una variable común y
 //        se crea y muestra la ventana principal del programa.
-//
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // Almacenar identificador de instancia en una variable global
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+   HWND hWnd = CreateWindowW(
+	   szWindowClass,
+	   szTitle,
+	   WS_OVERLAPPEDWINDOW,
+	   CW_USEDEFAULT,
+	   0,
+	   CW_USEDEFAULT,
+	   0,
+	   nullptr,
+	   nullptr,
+	   hInst,
+	   nullptr);
 
    if (!hWnd)
    {
       return FALSE;
    }
 
-   
-
-   //CreateButtons(hWnd);
-
-   
+   mainWindow = new MainWindowController(&hInst);	// Inicializacion del controllador de la ventana principal
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
@@ -138,7 +136,17 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	return mainWindow.HandleMainWindowProd(hWnd, message, wParam, lParam);
+	return mainWindow->HandleMainWindowProd(hWnd, message, wParam, lParam);
 }
 
+/*
+*
+try
+{
 
+}
+catch (const std::exception& ex)
+{
+	std::cout << ex.what() << std::endl;
+}
+*/

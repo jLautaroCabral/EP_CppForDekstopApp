@@ -56,6 +56,15 @@ int HandleButtonClick(HWND hWnd, HWND hButton)
 }
 
 
+MainWindowController::MainWindowController(HINSTANCE* inst)
+{
+	hInst = inst;
+}
+
+MainWindowController::~MainWindowController()
+{
+}
+
 LRESULT MainWindowController::HandleMainWindowProd(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -69,7 +78,6 @@ LRESULT MainWindowController::HandleMainWindowProd(HWND hWnd, UINT message, WPAR
 		{
 		case IDM_ABOUT:
 			//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX_NEW), hWnd, About);
-			//DialogBox(hInst, MAKEINTRESOURCE(IDD_OLE_PROPPAGE_LARGE), hWnd, About);
 			break;
 		case IDM_EXIT:
 			DestroyWindow(hWnd);
