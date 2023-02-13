@@ -153,7 +153,7 @@
     <ClCompile Include="QuotesHistoryWindowController.cpp" />
     <ClCompile Include="QuoteWindowController.cpp" />
     <ClCompile Include="SettingsWindowController.cpp" />
-    <ClCompile Include="TiendaCPP.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TiendaCPP.rc" />

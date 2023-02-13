@@ -12,7 +12,7 @@ class MainWindowController
 private:
 	HINSTANCE* hInst = nullptr;                                // instancia actual
 public:
-	MainWindowController(HINSTANCE* inst);
+	MainWindowController(HINSTANCE* inst, HWND* hWnd);
 	~MainWindowController();
 	LRESULT CALLBACK HandleMainWindowProd(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };

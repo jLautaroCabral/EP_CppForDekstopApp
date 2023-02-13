@@ -55,7 +55,7 @@ int HandleButtonClick(HWND hWnd, HWND hButton)
 }
 
 
-MainWindowController::MainWindowController(HINSTANCE* inst)
+MainWindowController::MainWindowController(HINSTANCE* inst, HWND* hWnd)
 {
 	hInst = inst;
 }
