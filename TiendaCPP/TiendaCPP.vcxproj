@@ -140,21 +140,33 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Garment.h" />
     <ClInclude Include="MainWindowController.h" />
+    <ClInclude Include="Pants.h" />
+    <ClInclude Include="Quotation.h" />
     <ClInclude Include="QuotesHistoryWindowController.h" />
     <ClInclude Include="QuoteWindowController.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Seller.h" />
     <ClInclude Include="SettingsWindowController.h" />
+    <ClInclude Include="Shirt.h" />
+    <ClInclude Include="Store.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="WindowController.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Garment.cpp" />
     <ClCompile Include="MainWindowController.cpp" />
+    <ClCompile Include="Pants.cpp" />
+    <ClCompile Include="Quotation.cpp" />
     <ClCompile Include="QuotesHistoryWindowController.cpp" />
     <ClCompile Include="QuoteWindowController.cpp" />
+    <ClCompile Include="Seller.cpp" />
     <ClCompile Include="SettingsWindowController.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Shirt.cpp" />
+    <ClCompile Include="Store.cpp" />
     <ClCompile Include="WindowController.cpp" />
   </ItemGroup>
   <ItemGroup>

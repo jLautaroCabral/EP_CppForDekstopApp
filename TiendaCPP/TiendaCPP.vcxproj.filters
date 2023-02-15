@@ -54,11 +54,26 @@
     <ClInclude Include="WindowController.h">
       <Filter>Archivos de encabezado\Controladores</Filter>
     </ClInclude>
+    <ClInclude Include="Garment.h">
+      <Filter>Archivos de encabezado\Modelos</Filter>
+    </ClInclude>
+    <ClInclude Include="Quotation.h">
+      <Filter>Archivos de encabezado\Modelos</Filter>
+    </ClInclude>
+    <ClInclude Include="Seller.h">
+      <Filter>Archivos de encabezado\Modelos</Filter>
+    </ClInclude>
+    <ClInclude Include="Store.h">
+      <Filter>Archivos de encabezado\Modelos</Filter>
+    </ClInclude>
+    <ClInclude Include="Pants.h">
+      <Filter>Archivos de encabezado\Modelos</Filter>
+    </ClInclude>
+    <ClInclude Include="Shirt.h">
+      <Filter>Archivos de encabezado\Modelos</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="MainWindowController.cpp">
       <Filter>Archivos de origen\Controladores</Filter>
     </ClCompile>
@@ -73,6 +88,27 @@
     </ClCompile>
     <ClCompile Include="WindowController.cpp">
       <Filter>Archivos de origen\Controladores</Filter>
+    </ClCompile>
+    <ClCompile Include="Garment.cpp">
+      <Filter>Archivos de origen\Modelos</Filter>
+    </ClCompile>
+    <ClCompile Include="Store.cpp">
+      <Filter>Archivos de origen\Modelos</Filter>
+    </ClCompile>
+    <ClCompile Include="Seller.cpp">
+      <Filter>Archivos de origen\Modelos</Filter>
+    </ClCompile>
+    <ClCompile Include="Pants.cpp">
+      <Filter>Archivos de origen\Modelos</Filter>
+    </ClCompile>
+    <ClCompile Include="Shirt.cpp">
+      <Filter>Archivos de origen\Modelos</Filter>
+    </ClCompile>
+    <ClCompile Include="Quotation.cpp">
+      <Filter>Archivos de origen\Modelos</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
