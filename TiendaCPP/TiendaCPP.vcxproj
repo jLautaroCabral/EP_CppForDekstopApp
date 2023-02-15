@@ -147,6 +147,7 @@
     <ClInclude Include="SettingsWindowController.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="WindowController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainWindowController.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="QuoteWindowController.cpp" />
     <ClCompile Include="SettingsWindowController.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="WindowController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TiendaCPP.rc" />

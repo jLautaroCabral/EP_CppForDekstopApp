@@ -20,6 +20,27 @@
 #define IDR_MAINFRAME                   128
 #define IDD_ABOUTBOX_SLABEL1            128
 #define IDD_ABOUTBOX_SLABEL2            129
+#define IDC_RADIO1                      1004
+#define IDC_RADIO2                      1008
+#define IDC_RADIO                       1008
+#define RBTN2_SHIRT                     1010
+#define RBTN2_PANT                      1011
+#define CHK_MANGA                       1012
+#define CHK_CUELLO                      1013
+#define CHK_CHUPIN                      1014
+#define RBTN_STANDAR                    1015
+#define RBTN_PREMIUM                    1016
+#define GBC_CLOTH                       1017
+#define LBL_STOCK                       1018
+#define GBC_QUALITY                     1019
+#define GBC_PRICE                       1020
+#define LBL_MONTO                       1022
+#define INPF_PRICE                      1023
+#define LBL_QUANTITY                    1024
+#define INPF_QUANTITY                   1025
+#define IDC_BUTTON1                     1026
+#define IDC_EDIT1                       1027
+#define LBL_QUOTATION                   1028
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -29,7 +50,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1002
+#define _APS_NEXT_CONTROL_VALUE         1029
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

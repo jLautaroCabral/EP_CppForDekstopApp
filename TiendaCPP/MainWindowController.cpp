@@ -16,12 +16,11 @@ TCHAR userName[] = _T("Vendedor: Rebeca");
 void CreateButtons(HWND);
 
 
-
 MainWindowController::MainWindowController(HINSTANCE* inst, HWND* hwnd)
 {
 	hInst = inst;
 	hWnd = hwnd;
-
+	
 	windowButtonsInfo[0] = { L"Realizar cotizacion", 0, 0, MAKEINTRESOURCE(IDD_COTIZACIONBOX), hInst, QuoteWindowController::HandleWindow };
 	windowButtonsInfo[1] = { L"Historial de cotizaciones", 0, 0, MAKEINTRESOURCE(IDD_HISTORYBOX), hInst, QuotesHistoryWindowController::HandleWindow };
 	windowButtonsInfo[2] = { L"Configurar vendedor", 0, 0, MAKEINTRESOURCE(IDD_SETTINGSBOX), hInst, SettingsWindowController::HandleWindow };
@@ -185,7 +184,7 @@ LRESULT MainWindowController::HandleMainWindowProd(HWND hWnd, UINT message, WPAR
 		// generates the proper call with the additional buffer
 		// size argument.
 		swprintf_s(myText[0], L"Points: %d", windowButtonsInfo[0].iCount - windowButtonsInfo[1].iCount);
-		swprintf_s(myText[1], L"Level: %d", windowButtonsInfo[2].iCount - windowButtonsInfo[3].iCount);
+		//swprintf_s(myText[1], L"Level: %d", windowButtonsInfo[2].iCount - windowButtonsInfo[3].iCount);
 
 		// get the text metrics of the font we are using to draw the text so
 		// that we can find out how tall the letters are and can adjust the

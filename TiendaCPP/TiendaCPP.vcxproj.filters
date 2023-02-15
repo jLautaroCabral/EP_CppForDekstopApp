@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de origen\Controladores">
+      <UniqueIdentifier>{44d596fc-33a0-4f2f-9aac-01ff87cf88f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Modelos">
+      <UniqueIdentifier>{4f683dcf-44fd-48b7-ac5e-741636d20fa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Controladores">
+      <UniqueIdentifier>{c10eb6de-4596-4240-a002-da94b77a5761}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Modelos">
+      <UniqueIdentifier>{c6e35980-5eda-4f37-a166-5e30cb876bc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -27,17 +39,20 @@
     <ClInclude Include="Main.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="MainWindowController.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="QuoteWindowController.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="QuotesHistoryWindowController.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Controladores</Filter>
     </ClInclude>
     <ClInclude Include="SettingsWindowController.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
+    <ClInclude Include="QuotesHistoryWindowController.h">
+      <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
+    <ClInclude Include="MainWindowController.h">
+      <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowController.h">
+      <Filter>Archivos de encabezado\Controladores</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -45,16 +60,19 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="MainWindowController.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="QuoteWindowController.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Controladores</Filter>
     </ClCompile>
     <ClCompile Include="QuotesHistoryWindowController.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Controladores</Filter>
+    </ClCompile>
+    <ClCompile Include="QuoteWindowController.cpp">
+      <Filter>Archivos de origen\Controladores</Filter>
     </ClCompile>
     <ClCompile Include="SettingsWindowController.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\Controladores</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowController.cpp">
+      <Filter>Archivos de origen\Controladores</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
