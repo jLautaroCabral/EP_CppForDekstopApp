@@ -7,12 +7,12 @@
 #ifndef QUOTE_WINDOW_CONTROLLER_H
 #define QUOTE_WINDOW_CONTROLLER_H
 
-class QuoteWindowController :  WindowController
+class QuoteWindowController : WindowController
 {
 protected:
 	QuoteWindowController();
 	static QuoteWindowController* singleton_;
-
+	static int nextIDForQuotation;
 	RECT rect;
 
 	HWND hRbtnMangaCorta;
@@ -22,9 +22,6 @@ protected:
 
 	HWND hRbtnPantalonComun;
 	HWND hRbtnPantalonChupin;
-
-	HWND hRbtnCamisa;
-	HWND hRbtnPantalon;
 
 	HWND hRbtnStandar;
 	HWND hRbtnPremium;
@@ -58,6 +55,8 @@ public:
 	bool PerformItemCheck(HWND hDlg, int dlgID);
 
 	void BuildQuotation(Quotation& quotation, Garment& garment, std::string& quotationText);
+
+	void RegisterQuotation(Quotation* quotation);
 
 	static QuoteWindowController* GetInstance();
 	

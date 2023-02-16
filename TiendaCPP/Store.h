@@ -10,11 +10,13 @@
 class Store
 {
 public:
+	Store();
+
 	std::string storeName;
 	std::string storeAddress;
-	Store();
-	Seller currentSeller;
-	std::list<Garment> garments;
-	std::list<Quotation> quotationHistory;
+	
+	Seller* currentSeller;
+	std::list<Garment*> garments;
+	std::list<Quotation*> quotationHistory;
 };
 #endif

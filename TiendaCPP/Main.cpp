@@ -105,7 +105,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
-   mainWindow = new MainWindowController(&hInst, &hWnd);	// Inicializacion del controllador de la ventana principal
+   mainWindow = MainWindowController::GetInstance();	// Inicializacion del controllador de la ventana principal
+   mainWindow->Initialize(&hInst, &hWnd);
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);

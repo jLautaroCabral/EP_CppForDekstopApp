@@ -12,6 +12,8 @@ public:
 	int unitaryPrice;
 	int garmentQuantity;
 	float quotationResult;
+	time_t quotationDate;
+	int quotationID;
 	Quotation();
 	Quotation(Garment* garmentPtr, std::string sellerID, int unitaryPrice, int garmentQuantity, int quotationResult);
 };

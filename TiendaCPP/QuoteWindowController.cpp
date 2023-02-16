@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <chrono>
 
 #include "QuoteWindowController.h"
 #include "resource.h"
@@ -7,6 +8,7 @@
 #include "Pants.h"
 #include "Shirt.h"
 #include "Utils.h"
+#include "MainWindowController.h"
 using namespace std;
 
 QuoteWindowController* QuoteWindowController::GetInstance()
@@ -21,14 +23,12 @@ QuoteWindowController* QuoteWindowController::GetInstance()
 	return singleton_;
 }
 
-QuoteWindowController* QuoteWindowController::singleton_ = nullptr;;
+QuoteWindowController* QuoteWindowController::singleton_ = nullptr;
+int QuoteWindowController::nextIDForQuotation = 0;
 
-QuoteWindowController::QuoteWindowController()
-{
+QuoteWindowController::QuoteWindowController() {}
 
-}
-
-QuoteWindowController::~QuoteWindowController() { }
+QuoteWindowController::~QuoteWindowController() {}
 
 void QuoteWindowController::InitializeWindowHandlersIfNeeded(HWND hDlg)
 {
@@ -40,12 +40,6 @@ void QuoteWindowController::InitializeWindowHandlersIfNeeded(HWND hDlg)
 		hRbtnCuelloComun = GetDlgItem(hDlg, RBTN4_CUELLO_MAO);
 		hRbtnPantalonComun = GetDlgItem(hDlg, RBTN5_COMUN);
 		hRbtnPantalonChupin = GetDlgItem(hDlg, RBTN5_CHUPIN);
-
-		//hRbtnCamisa = GetDlgItem(hDlg, CHK_MANGA);
-		//hRbtnPantalon = GetDlgItem(hDlg, CHK_MANGA);
-
-		//hRbtnStandar = GetDlgItem(hDlg, CHK_MANGA);
-		//hRbtnPremium = GetDlgItem(hDlg, CHK_MANGA);
 
 		hInpFPrice = GetDlgItem(hDlg, INPF_PRICE);
 		hInpFQuantity = GetDlgItem(hDlg, INPF_QUANTITY);
@@ -134,7 +128,6 @@ void QuoteWindowController::HandleWindowCommand(HWND hDlg, UINT message, WPARAM 
 		strFinal += std::to_wstring(quoteFinalPrice) + L"\n precio final";
 
 		SetDlgItemText(hDlg, LBL_QUOTATION, strFinal.c_str());
-		//a = UpdateWindow(hDlg);
 		break;
 	}
 	case BTN_QUOTE:
@@ -181,7 +174,13 @@ void QuoteWindowController::HandleWindowCommand(HWND hDlg, UINT message, WPARAM 
 			quotation->unitaryPrice = quotePrice;
 			quotation->garmentQuantity = quoteQuantity;
 
+			auto currentTime = std::chrono::system_clock::now();
+			quotation->quotationDate = chrono::system_clock::to_time_t(currentTime);
+			quotation->sellerID = MainWindowController::GetInstance()->store->currentSeller->sellerID;
+			quotation->quotationID = nextIDForQuotation;
+			nextIDForQuotation++;
 			BuildQuotation(*quotation, *(singleton_->garmetToQuote), message);
+			RegisterQuotation(quotation);
 
 			SetDlgItemText(hDlg, LBL_QUOTATION_RESUME, (wstring(message.begin(), message.end())).c_str());
 		}
@@ -192,14 +191,16 @@ void QuoteWindowController::HandleWindowCommand(HWND hDlg, UINT message, WPARAM 
 		break;
 	}
 
-	
-
 	if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
 	{
 		EndDialog(hDlg, LOWORD(wParam));
 	}
 }
 
+void QuoteWindowController::RegisterQuotation(Quotation* quotation)
+{
+	MainWindowController::GetInstance()->store->quotationHistory.push_front(quotation);
+}
 
 void QuoteWindowController::BuildQuotation(Quotation& quotation, Garment& garment, std::string& quotationText)
 {
@@ -272,35 +273,8 @@ void QuoteWindowController::BuildQuotation(Quotation& quotation, Garment& garmen
 	quotation.quotationResult = priceWithDiscoutns;
 }
 
-
 void QuoteWindowController::HandlePaintCommand(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	PAINTSTRUCT ps;
-	
-	HFONT hFontOriginal, hFont1;
-	HDC hdc = BeginPaint(hDlg, &ps);
-	
-	/*
-	
-	hFont1 = CreateFont(25, 0, 0, 0, FW_DONTCARE, FALSE, TRUE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, VARIABLE_PITCH, TEXT("Impact"));
-	hFontOriginal = (HFONT)SelectObject(hdc, hFont1);
-
-	
-	quoteFinalPrice = quoteQuantity * quotePrice;
-
-	std::wstring str = L"$  ";
-	str += std::to_wstring(quoteFinalPrice);
-
-	//Sets the coordinates for the rectangle in which the text is to be formatted.
-	SetRect(&QuoteWindowController::GetInstance()->rect, 250, 280, 750, 200);
-	SetTextColor(hdc, RGB(0, 0, 0));
-	DrawText(hdc, str.c_str(), -1, &QuoteWindowController::GetInstance()->rect, DT_NOCLIP);
-
-	SelectObject(hdc, hFontOriginal);
-	DeleteObject(hFont1);
-	*/
-	EndPaint(hDlg, &ps);
 }
 
 bool QuoteWindowController::PerformChecks(HWND hDlg)

@@ -53,11 +53,15 @@
 #define LBL_QUOTATION                   1028
 #define LBL_QUOTATION2                  1029
 #define LBL_QUOTATION_RESUME            1029
-#define LBL_QUOTATION_RESUMEquotationText 1029
 #define BTN_QUOTE                       1030
 #define GBC_MANGA                       1031
 #define GBC_CUELLO                      1032
 #define GBC_PANTALON                    1033
+#define IDC_COMBO1                      1034
+#define CBC_HISTORY                     1034
+#define LBC_DESCRIPTION                 1035
+#define LBL_STATIC                      1036
+#define LBL_HISTORY_TEXT                1036
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -67,7 +71,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1032
+#define _APS_NEXT_CONTROL_VALUE         1037
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "framework.h"
+#include "Store.h"
 
 #ifndef MAIN_WINDOW_CONTROLLER_H
 #define MAIN_WINDOW_CONTROLLER_H
@@ -10,7 +11,7 @@ typedef	INT_PTR(*OnPressActionHandler)(HWND, UINT, WPARAM, LPARAM);
 class MainWindowController
 {
 private:
-	static QuoteWindowController* singleton_;
+	static MainWindowController* singleton_;
 
 	struct ButtonInfo
 	{
@@ -27,15 +28,16 @@ private:
 
 	HINSTANCE* hInst = nullptr;
 	HWND* hWnd = nullptr;
-	ButtonInfo windowButtonsInfo[3];
+	ButtonInfo windowButtonsInfo[2] = { nullptr };
 
 	int HandleButtonClick(HWND hWnd, HWND hButton);
 	void CreateButtons(HWND hWnd);
 
 public:
-	MainWindowController(HINSTANCE* inst, HWND* hwnd);
+	Store* store;
+	MainWindowController();
 	~MainWindowController();
-
+	void Initialize(HINSTANCE* inst, HWND* hwnd);
 
 	static MainWindowController* GetInstance();
 

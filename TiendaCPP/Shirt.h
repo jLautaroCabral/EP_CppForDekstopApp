@@ -1,5 +1,8 @@
 #pragma once
 #include "Garment.h"
+#include <string>
+using namespace std;
+
 
 #ifndef SHIRT_H
 #define SHIRT_H
