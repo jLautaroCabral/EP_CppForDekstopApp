@@ -10,6 +10,7 @@ typedef	INT_PTR(*OnPressActionHandler)(HWND, UINT, WPARAM, LPARAM);
 class MainWindowController
 {
 private:
+	static QuoteWindowController* singleton_;
 
 	struct ButtonInfo
 	{
@@ -34,6 +35,10 @@ private:
 public:
 	MainWindowController(HINSTANCE* inst, HWND* hwnd);
 	~MainWindowController();
+
+
+	static MainWindowController* GetInstance();
+
 	LRESULT CALLBACK HandleMainWindowProd(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
 #endif

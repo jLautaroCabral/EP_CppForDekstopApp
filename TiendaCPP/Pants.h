@@ -7,22 +7,14 @@
 class Pants : public Garment
 {
 public:
-	enum PantsTypesFlag
+	enum PantsType
 	{
-		Normal = 0,
+		Comun = 0,
 		Chupin = 1,
-		//Jean = 2,
-		//Short = 4,
-		//Etc = 8
 	};
 
-	PantsTypesFlag flag;
+	PantsType pantType;
 	Pants();
 	~Pants() override;
-
-	friend inline PantsTypesFlag operator|(PantsTypesFlag a, PantsTypesFlag b)
-	{
-		return static_cast<PantsTypesFlag>(static_cast<int>(a) | static_cast<int>(b));
-	}
 };
 #endif

@@ -8,13 +8,14 @@
 
 class Garment
 {
-	enum GarmentType { Shirt, Pants };
-	enum QualityType { Standar, Premium };
+	
 	
 public:
+	enum GarmentType { Shirt, Pants };
+	enum QualityType { Standar, Premium };
 	Garment();
 	virtual ~Garment() = 0;
-	std::string garmentName = "";
+	std::string garmentName;
 	GarmentType garmentType = Shirt;
 	QualityType qualityType = Standar;
 };

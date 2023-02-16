@@ -52,6 +52,8 @@
 #define IDC_EDIT1                       1027
 #define LBL_QUOTATION                   1028
 #define LBL_QUOTATION2                  1029
+#define LBL_QUOTATION_RESUME            1029
+#define LBL_QUOTATION_RESUMEquotationText 1029
 #define BTN_QUOTE                       1030
 #define GBC_MANGA                       1031
 #define GBC_CUELLO                      1032

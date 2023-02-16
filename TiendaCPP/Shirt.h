@@ -8,21 +8,22 @@ class Shirt : public Garment
 {
 public:
 
-	enum ShirtTypesFlag
+	enum ShirtMangaTypes
 	{
-		Normal = 0,
+		MangaLarga = 0,
 		MangaCorta = 1,
-		CuelloMao = 2,
-		//Etc = 4,
 	};
 
-	ShirtTypesFlag flag;
+	enum ShirtCuelloTypes
+	{
+		CuelloComun = 0,
+		CuelloMao = 1,
+	};
+
+	ShirtMangaTypes mangaType;
+	ShirtCuelloTypes cuelloType;
+
 	Shirt();
 	~Shirt() override;
-
-	friend inline ShirtTypesFlag operator|(ShirtTypesFlag a, ShirtTypesFlag b)
-	{
-		return static_cast<ShirtTypesFlag>(static_cast<int>(a) | static_cast<int>(b));
-	}
 };
 #endif

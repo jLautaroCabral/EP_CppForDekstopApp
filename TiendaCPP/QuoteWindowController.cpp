@@ -79,6 +79,230 @@ INT_PTR QuoteWindowController::HandleWindow(HWND hDlg, UINT message, WPARAM wPar
 	return (INT_PTR)FALSE;
 }
 
+void QuoteWindowController::HandleWindowCommand(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	QuoteWindowController::GetInstance()->InitializeWindowHandlersIfNeeded(hDlg);
+
+	int lWord = LOWORD(wParam);
+	int hWord = HIWORD(wParam);
+	int iTextLength;
+	int a;
+	std::wstring strFinal;
+	wchar_t str[100];
+	LPWSTR priceStr(str);
+	
+	switch (lWord)
+	{
+	case RBTN2_SHIRT:
+		EnableWindow(hRbtnMangaCorta, TRUE);
+		EnableWindow(hRbtnMangaLarga , TRUE);
+		EnableWindow(hRbtnCuelloMao, TRUE);
+		EnableWindow(hRbtnCuelloComun, TRUE);
+		EnableWindow(hRbtnPantalonComun, FALSE);
+		EnableWindow(hRbtnPantalonChupin, FALSE);
+		CheckDlgButton(hDlg, RBTN5_COMUN, BST_UNCHECKED);
+		CheckDlgButton(hDlg, RBTN5_CHUPIN, BST_UNCHECKED);
+		break;
+
+	case RBTN2_PANT:
+		EnableWindow(hRbtnMangaCorta, FALSE);
+		EnableWindow(hRbtnMangaLarga, FALSE);
+		EnableWindow(hRbtnCuelloMao, FALSE);
+		EnableWindow(hRbtnCuelloComun, FALSE);
+		EnableWindow(hRbtnPantalonComun, TRUE);
+		EnableWindow(hRbtnPantalonChupin, TRUE);
+		CheckDlgButton(hDlg, RBTN3_MANGA_CORTA, BST_UNCHECKED);
+		CheckDlgButton(hDlg, RBTN3_MANGA_LARGA, BST_UNCHECKED);
+		CheckDlgButton(hDlg, RBTN4_CUELLO_COMUN, BST_UNCHECKED);
+		CheckDlgButton(hDlg, RBTN4_CUELLO_MAO, BST_UNCHECKED);
+		break;
+
+	case INPF_QUANTITY:
+	case INPF_PRICE:
+	{
+		iTextLength = GetWindowTextLength(hInpFPrice);
+		GetWindowTextW(hInpFPrice, priceStr, iTextLength + 1);
+		quotePrice = _wtoi(priceStr);
+
+		iTextLength = GetWindowTextLength(hInpFQuantity);
+		GetWindowTextW(hInpFQuantity, priceStr, iTextLength + 1);
+		quoteQuantity = _wtoi(priceStr);
+
+		quoteFinalPrice = quoteQuantity * quotePrice;
+
+		strFinal = L"$  ";
+		strFinal += std::to_wstring(quoteFinalPrice) + L"\n precio final";
+
+		SetDlgItemText(hDlg, LBL_QUOTATION, strFinal.c_str());
+		//a = UpdateWindow(hDlg);
+		break;
+	}
+	case BTN_QUOTE:
+	{
+		if (PerformChecks(hDlg)) // Comprobación de campos antes de hacer la cotización
+		{
+			Quotation* quotation = new Quotation();
+			string message = "";
+			// Aqui viene la cotizacion
+			if (IsDlgButtonChecked(hDlg, RBTN2_PANT) == BST_CHECKED)
+			{
+				singleton_->garmetToQuote = new Pants();
+				Pants* garmentPants = dynamic_cast<Pants*>(singleton_->garmetToQuote);
+
+				garmentPants->garmentType = Garment::Pants;
+
+				garmentPants->pantType =
+					IsDlgButtonChecked(hDlg, RBTN5_COMUN) == BST_CHECKED ? Pants::Comun : Pants::Chupin;
+			}
+			else if (IsDlgButtonChecked(hDlg, RBTN2_SHIRT) == BST_CHECKED)
+			{
+				singleton_->garmetToQuote = new Shirt();
+				Shirt* garmentShirt = dynamic_cast<Shirt*>(singleton_->garmetToQuote);
+
+				garmentShirt->garmentType = Garment::Shirt;
+
+				garmentShirt->qualityType =
+					IsDlgButtonChecked(hDlg, RBTN_STANDAR) == BST_CHECKED ? Garment::Standar : Garment::Premium;
+				
+				garmentShirt->mangaType =
+					IsDlgButtonChecked(hDlg, RBTN3_MANGA_CORTA) == BST_CHECKED ? Shirt::MangaCorta : Shirt::MangaLarga;
+
+				garmentShirt->cuelloType =
+					IsDlgButtonChecked(hDlg, RBTN4_CUELLO_COMUN) == BST_CHECKED ? Shirt::CuelloComun : Shirt::CuelloMao;
+			}
+
+			iTextLength = GetWindowTextLength(hInpFPrice);
+			GetWindowTextW(hInpFPrice, priceStr, iTextLength + 1);
+			quotePrice = _wtoi(priceStr);
+			iTextLength = GetWindowTextLength(hInpFQuantity);
+			GetWindowTextW(hInpFQuantity, priceStr, iTextLength + 1);
+			quoteQuantity = _wtoi(priceStr);
+
+			quotation->unitaryPrice = quotePrice;
+			quotation->garmentQuantity = quoteQuantity;
+
+			BuildQuotation(*quotation, *(singleton_->garmetToQuote), message);
+
+			SetDlgItemText(hDlg, LBL_QUOTATION_RESUME, (wstring(message.begin(), message.end())).c_str());
+		}
+		
+		break;
+	}
+	default:
+		break;
+	}
+
+	
+
+	if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+	{
+		EndDialog(hDlg, LOWORD(wParam));
+	}
+}
+
+
+void QuoteWindowController::BuildQuotation(Quotation& quotation, Garment& garment, std::string& quotationText)
+{
+	string descountString;
+	size_t pos;
+	string descountStringTruncated;
+
+	int originalPrice = quotation.unitaryPrice * quotation.garmentQuantity;
+	quotationText = "";
+
+	float priceWithDiscoutns = originalPrice;
+	quotationText = "Precio base: $ " + std::to_string(originalPrice) + "\n";
+
+	if (garment.garmentType == Garment::Shirt)
+	{
+		Shirt garmentShirt = dynamic_cast<Shirt&>(garment);
+
+		if (garmentShirt.mangaType == Shirt::MangaCorta)
+		{
+			descountString = to_string(originalPrice * 0.10f);
+			pos = descountString.find(".");
+			descountStringTruncated = descountString.substr(0, pos + 3);
+
+			quotationText += "Descuento por remera tipo Manga Corta: - $" + descountStringTruncated + "\n";
+			priceWithDiscoutns -= originalPrice * 0.10f;
+		}
+
+		if (garmentShirt.cuelloType == Shirt::CuelloMao)
+		{
+			descountString = to_string(originalPrice * 0.3f);
+			pos = descountString.find(".");
+			descountStringTruncated = descountString.substr(0, pos + 3);
+
+			quotationText += "Aumento por remera tipo Cuello Mao: + $" + descountStringTruncated + "\n";
+			priceWithDiscoutns += originalPrice * 0.03f;
+		}
+	}
+	else
+	{
+		Pants garmentPants = dynamic_cast<Pants&>(garment);
+		
+		if (garmentPants.pantType == Pants::Chupin)
+		{
+			descountString = to_string(originalPrice * 0.12f);
+			pos = descountString.find(".");
+			descountStringTruncated = descountString.substr(0, pos + 3);
+
+			quotationText += "Descuento por pantalon tipo Chupin: - $" + descountStringTruncated + "\n";
+			priceWithDiscoutns -= originalPrice * 0.12f;
+		}
+	}
+
+	if (garment.qualityType == Garment::Premium)
+	{
+		descountString = to_string(priceWithDiscoutns * 0.30f);
+		pos = descountString.find(".");
+		descountStringTruncated = descountString.substr(0, pos + 3);
+		quotationText += "\n";
+		quotationText += "Aumento por prenda tipo Premium: + $" + descountStringTruncated + "\n";
+		priceWithDiscoutns += priceWithDiscoutns * 0.30f;
+	}
+
+	string priceWithDiscoutnsTructated;
+	pos = to_string(priceWithDiscoutns).find(".");
+	priceWithDiscoutnsTructated = to_string(priceWithDiscoutns).substr(0, pos + 3);
+	quotationText += "\n";
+	quotationText += "RESULTADO FINAL DE COTIZACION: $ " + priceWithDiscoutnsTructated;
+
+	quotation.sellerID = "Vendedor de ejemplo";
+	quotation.quotationResult = priceWithDiscoutns;
+}
+
+
+void QuoteWindowController::HandlePaintCommand(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	PAINTSTRUCT ps;
+	
+	HFONT hFontOriginal, hFont1;
+	HDC hdc = BeginPaint(hDlg, &ps);
+	
+	/*
+	
+	hFont1 = CreateFont(25, 0, 0, 0, FW_DONTCARE, FALSE, TRUE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, VARIABLE_PITCH, TEXT("Impact"));
+	hFontOriginal = (HFONT)SelectObject(hdc, hFont1);
+
+	
+	quoteFinalPrice = quoteQuantity * quotePrice;
+
+	std::wstring str = L"$  ";
+	str += std::to_wstring(quoteFinalPrice);
+
+	//Sets the coordinates for the rectangle in which the text is to be formatted.
+	SetRect(&QuoteWindowController::GetInstance()->rect, 250, 280, 750, 200);
+	SetTextColor(hdc, RGB(0, 0, 0));
+	DrawText(hdc, str.c_str(), -1, &QuoteWindowController::GetInstance()->rect, DT_NOCLIP);
+
+	SelectObject(hdc, hFontOriginal);
+	DeleteObject(hFont1);
+	*/
+	EndPaint(hDlg, &ps);
+}
+
 bool QuoteWindowController::PerformChecks(HWND hDlg)
 {
 	int dlgItemsIDsToCheck[] =
@@ -192,7 +416,7 @@ bool QuoteWindowController::PerformItemCheck(HWND hDlg, int dlgID)
 		break;
 	}
 	case INPF_PRICE:
-	{		
+	{
 		iTextLength = GetWindowTextLength(hInpFPrice);
 		if (iTextLength == 0)
 		{
@@ -217,137 +441,4 @@ bool QuoteWindowController::PerformItemCheck(HWND hDlg, int dlgID)
 		break;
 	}
 	return thereIsAError;
-}
-
-bool ConvertWideStringToInt(wchar_t* wStr, int& nInt);
-
-void QuoteWindowController::HandleWindowCommand(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	QuoteWindowController::GetInstance()->InitializeWindowHandlersIfNeeded(hDlg);
-
-	int lWord = LOWORD(wParam);
-	int hWord = HIWORD(wParam);
-	int iTextLength;
-	int a;
-	std::wstring strFinal;
-	wchar_t str[100];
-	LPWSTR priceStr(str);
-	
-	switch (lWord)
-	{
-	case RBTN2_SHIRT:
-		EnableWindow(hRbtnMangaCorta, TRUE);
-		EnableWindow(hRbtnMangaLarga , TRUE);
-		EnableWindow(hRbtnCuelloMao, TRUE);
-		EnableWindow(hRbtnCuelloComun, TRUE);
-		EnableWindow(hRbtnPantalonComun, FALSE);
-		EnableWindow(hRbtnPantalonChupin, FALSE);
-		CheckDlgButton(hDlg, RBTN5_COMUN, BST_UNCHECKED);
-		CheckDlgButton(hDlg, RBTN5_CHUPIN, BST_UNCHECKED);
-		break;
-
-	case RBTN2_PANT:
-		EnableWindow(hRbtnMangaCorta, FALSE);
-		EnableWindow(hRbtnMangaLarga, FALSE);
-		EnableWindow(hRbtnCuelloMao, FALSE);
-		EnableWindow(hRbtnCuelloComun, FALSE);
-		EnableWindow(hRbtnPantalonComun, TRUE);
-		EnableWindow(hRbtnPantalonChupin, TRUE);
-		CheckDlgButton(hDlg, RBTN3_MANGA_CORTA, BST_UNCHECKED);
-		CheckDlgButton(hDlg, RBTN3_MANGA_LARGA, BST_UNCHECKED);
-		CheckDlgButton(hDlg, RBTN4_CUELLO_COMUN, BST_UNCHECKED);
-		CheckDlgButton(hDlg, RBTN4_CUELLO_MAO, BST_UNCHECKED);
-		break;
-
-	case INPF_QUANTITY:
-	case INPF_PRICE:
-	{
-		iTextLength = GetWindowTextLength(hInpFPrice);
-		GetWindowTextW(hInpFPrice, priceStr, iTextLength + 1);
-		quotePrice = _wtoi(priceStr);
-
-		iTextLength = GetWindowTextLength(hInpFQuantity);
-		GetWindowTextW(hInpFQuantity, priceStr, iTextLength + 1);
-		quoteQuantity = _wtoi(priceStr);
-
-		quoteFinalPrice = quoteQuantity * quotePrice;
-
-		strFinal = L"$  ";
-		strFinal += std::to_wstring(quoteFinalPrice) + L"\n precio final";
-
-		SetDlgItemText(hDlg, LBL_QUOTATION, strFinal.c_str());
-		//a = UpdateWindow(hDlg);
-		break;
-	}
-	case BTN_QUOTE:
-	{
-		if (PerformChecks(hDlg))
-		{
-			// Aqui viene la cotizacion
-			if (IsDlgButtonChecked(hDlg, RBTN2_PANT) == BST_CHECKED)
-			{
-				singleton_->garmetToQuote = new Pants();
-				MessageBox(NULL, L"Hola", L"PANTALONES", MB_OK);
-			}
-			else if (IsDlgButtonChecked(hDlg, RBTN2_SHIRT) == BST_CHECKED)
-			{
-				singleton_->garmetToQuote = new Shirt();
-				MessageBox(NULL, L"Hola", L"CAMISA", MB_OK);
-			}
-			else
-			{
-				MessageBox(NULL, L"Hola", L"Seleccione un tipo de prenda", MB_OK);
-			}
-		}
-		
-		break;
-	}
-	default:
-		break;
-	}
-
-	
-
-	if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-	{
-		EndDialog(hDlg, LOWORD(wParam));
-	}
-}
-
-bool ConvertWideStringToInt (wchar_t* wStr, int& nInt)
-{
-	if (wscanf_s(wStr, _T("%d"), &nInt) == 1)
-		return (true);
-	return (false);
-}
-
-
-void QuoteWindowController::HandlePaintCommand(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	PAINTSTRUCT ps;
-	
-	HFONT hFontOriginal, hFont1;
-	HDC hdc = BeginPaint(hDlg, &ps);
-	
-	/*
-	
-	hFont1 = CreateFont(25, 0, 0, 0, FW_DONTCARE, FALSE, TRUE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, VARIABLE_PITCH, TEXT("Impact"));
-	hFontOriginal = (HFONT)SelectObject(hdc, hFont1);
-
-	
-	quoteFinalPrice = quoteQuantity * quotePrice;
-
-	std::wstring str = L"$  ";
-	str += std::to_wstring(quoteFinalPrice);
-
-	//Sets the coordinates for the rectangle in which the text is to be formatted.
-	SetRect(&QuoteWindowController::GetInstance()->rect, 250, 280, 750, 200);
-	SetTextColor(hdc, RGB(0, 0, 0));
-	DrawText(hdc, str.c_str(), -1, &QuoteWindowController::GetInstance()->rect, DT_NOCLIP);
-
-	SelectObject(hdc, hFontOriginal);
-	DeleteObject(hFont1);
-	*/
-	EndPaint(hDlg, &ps);
 }

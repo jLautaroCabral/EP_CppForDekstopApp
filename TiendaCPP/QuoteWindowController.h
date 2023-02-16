@@ -2,6 +2,7 @@
 #include "framework.h"
 #include "WindowController.h"
 #include "Garment.h"
+#include "Quotation.h"
 
 #ifndef QUOTE_WINDOW_CONTROLLER_H
 #define QUOTE_WINDOW_CONTROLLER_H
@@ -43,6 +44,7 @@ protected:
 	virtual void InitializeWindowHandlersIfNeeded(HWND hDlg) override;
 	virtual void HandleWindowCommand(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) override;
 	virtual void HandlePaintCommand(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) override;
+
 public:
 	virtual ~QuoteWindowController() override;
 	//      * Singletons should not be cloneable.
@@ -54,6 +56,8 @@ public:
 	bool PerformChecks(HWND hDlg);
 
 	bool PerformItemCheck(HWND hDlg, int dlgID);
+
+	void BuildQuotation(Quotation& quotation, Garment& garment, std::string& quotationText);
 
 	static QuoteWindowController* GetInstance();
 	

@@ -78,6 +78,18 @@ void MainWindowController::CreateButtons(HWND hWnd)
 	}
 }
 
+MainWindowController* MainWindowController::GetInstance()
+{
+	/**
+	 * This is a safer way to create an instance. instance = new Singleton is
+	 * dangeruous in case two instance threads wants to access at the same time
+	 */
+	if (singleton_ == nullptr) {
+		singleton_ = new MainWindowController();
+	}
+	return singleton_;
+}
+
 //  FUNCIÓN: WndProc(HWND, UINT, WPARAM, LPARAM)
 //
 //  PROPÓSITO: Procesa mensajes de la ventana principal.
