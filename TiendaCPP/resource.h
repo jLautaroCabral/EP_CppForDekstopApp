@@ -21,8 +21,17 @@
 #define IDD_ABOUTBOX_SLABEL1            128
 #define IDD_ABOUTBOX_SLABEL2            129
 #define IDC_RADIO1                      1004
+#define RBTN3_MANGA_CORTA               1004
+#define RBTN3_MANGA_LARGA               1005
+#define RBTN4_CUELLO_COMUN              1006
+#define RBTN4_CUELLO_MAO                1007
 #define IDC_RADIO2                      1008
 #define IDC_RADIO                       1008
+#define RBTN4_PANTALON_COMUN            1008
+#define RBTN4_COMUN                     1008
+#define RBTN5_COMUN                     1008
+#define RBTN4_CHUPIN                    1009
+#define RBTN5_CHUPIN                    1009
 #define RBTN2_SHIRT                     1010
 #define RBTN2_PANT                      1011
 #define CHK_MANGA                       1012
@@ -44,6 +53,9 @@
 #define LBL_QUOTATION                   1028
 #define LBL_QUOTATION2                  1029
 #define BTN_QUOTE                       1030
+#define GBC_MANGA                       1031
+#define GBC_CUELLO                      1032
+#define GBC_PANTALON                    1033
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -53,7 +65,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1031
+#define _APS_NEXT_CONTROL_VALUE         1032
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

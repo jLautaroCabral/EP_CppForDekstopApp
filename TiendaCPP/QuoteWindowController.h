@@ -14,9 +14,13 @@ protected:
 
 	RECT rect;
 
-	HWND hChkManga;
-	HWND hChkCuello;
-	HWND hChkChupin;
+	HWND hRbtnMangaCorta;
+	HWND hRbtnMangaLarga;
+	HWND hRbtnCuelloComun;
+	HWND hRbtnCuelloMao;
+
+	HWND hRbtnPantalonComun;
+	HWND hRbtnPantalonChupin;
 
 	HWND hRbtnCamisa;
 	HWND hRbtnPantalon;
@@ -49,7 +53,7 @@ public:
 
 	bool PerformChecks(HWND hDlg);
 
-	void PerformItemCheck(HWND hDlg, int dlgID, bool& error);
+	bool PerformItemCheck(HWND hDlg, int dlgID);
 
 	static QuoteWindowController* GetInstance();
 	

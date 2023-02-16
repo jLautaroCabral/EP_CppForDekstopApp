@@ -34,15 +34,18 @@ void QuoteWindowController::InitializeWindowHandlersIfNeeded(HWND hDlg)
 {
 	if (!QuoteWindowController::GetInstance()->handlersInitialized)
 	{
-		hChkManga = GetDlgItem(hDlg, CHK_MANGA);
-		hChkCuello = GetDlgItem(hDlg, CHK_CUELLO);
-		hChkChupin = GetDlgItem(hDlg, CHK_CHUPIN);
+		hRbtnMangaCorta = GetDlgItem(hDlg, RBTN3_MANGA_CORTA);
+		hRbtnMangaLarga = GetDlgItem(hDlg, RBTN3_MANGA_LARGA);
+		hRbtnCuelloMao = GetDlgItem(hDlg, RBTN4_CUELLO_COMUN);
+		hRbtnCuelloComun = GetDlgItem(hDlg, RBTN4_CUELLO_MAO);
+		hRbtnPantalonComun = GetDlgItem(hDlg, RBTN5_COMUN);
+		hRbtnPantalonChupin = GetDlgItem(hDlg, RBTN5_CHUPIN);
 
-		hRbtnCamisa = GetDlgItem(hDlg, CHK_MANGA);
-		hRbtnPantalon = GetDlgItem(hDlg, CHK_MANGA);
+		//hRbtnCamisa = GetDlgItem(hDlg, CHK_MANGA);
+		//hRbtnPantalon = GetDlgItem(hDlg, CHK_MANGA);
 
-		hRbtnStandar = GetDlgItem(hDlg, CHK_MANGA);
-		hRbtnPremium = GetDlgItem(hDlg, CHK_MANGA);
+		//hRbtnStandar = GetDlgItem(hDlg, CHK_MANGA);
+		//hRbtnPremium = GetDlgItem(hDlg, CHK_MANGA);
 
 		hInpFPrice = GetDlgItem(hDlg, INPF_PRICE);
 		hInpFQuantity = GetDlgItem(hDlg, INPF_QUANTITY);
@@ -78,38 +81,91 @@ INT_PTR QuoteWindowController::HandleWindow(HWND hDlg, UINT message, WPARAM wPar
 
 bool QuoteWindowController::PerformChecks(HWND hDlg)
 {
-	bool withoutErrors = true;
-	PerformItemCheck(hDlg, RBTN2_PANT, withoutErrors);
-	PerformItemCheck(hDlg, RBTN_STANDAR, withoutErrors);
-	PerformItemCheck(hDlg, INPF_PRICE, withoutErrors);
-	PerformItemCheck(hDlg, INPF_QUANTITY, withoutErrors);
-	return withoutErrors;
+	int dlgItemsIDsToCheck[] =
+	{
+		RBTN_STANDAR,
+		RBTN_PREMIUM,
+		RBTN2_SHIRT,
+		RBTN2_PANT,
+		RBTN3_MANGA_CORTA,
+		RBTN3_MANGA_LARGA,
+		RBTN4_CUELLO_COMUN,
+		RBTN4_CUELLO_MAO,
+		RBTN5_COMUN,
+		RBTN5_CHUPIN,
+		INPF_PRICE,
+		INPF_QUANTITY,
+		INPF_PRICE
+	};
+
+	for (int const& id : dlgItemsIDsToCheck)
+	{
+		if (PerformItemCheck(hDlg, id)) return false;
+	}
+	return true;
 }
 
-void QuoteWindowController::PerformItemCheck(HWND hDlg, int dlgID, bool& withoutErrors)
+bool QuoteWindowController::PerformItemCheck(HWND hDlg, int dlgID)
 {
+	bool thereIsAError = false;
 	int iTextLength;
 	LPWSTR stringInTheField;
 	wchar_t str[100];
 	switch (dlgID)
 	{
-	case RBTN2_PANT:
-	case RBTN2_SHIRT:
-	{
-		if (IsDlgButtonChecked(hDlg, RBTN2_PANT) == BST_UNCHECKED && IsDlgButtonChecked(hDlg, RBTN2_SHIRT) == BST_UNCHECKED)
-		{
-			withoutErrors = false;
-			MessageBox(NULL, L"Es necesario seleccionar un tipo de prenda (Camisa o Pantalón)", L"Error", MB_ICONERROR);
-		}
-		break;
-	}
 	case RBTN_STANDAR:
 	case RBTN_PREMIUM:
 	{
 		if (IsDlgButtonChecked(hDlg, RBTN_STANDAR) == BST_UNCHECKED && IsDlgButtonChecked(hDlg, RBTN_PREMIUM) == BST_UNCHECKED)
 		{
-			withoutErrors = false;
+			thereIsAError = true;
 			MessageBox(NULL, L"Es necesario seleccionar un tipo de calidad (Standar o Premium)", L"Error", MB_ICONERROR);
+		}
+		break;
+	}
+	case RBTN2_PANT:
+	case RBTN2_SHIRT:
+	{
+		if (IsDlgButtonChecked(hDlg, RBTN2_PANT) == BST_UNCHECKED && IsDlgButtonChecked(hDlg, RBTN2_SHIRT) == BST_UNCHECKED)
+		{
+			thereIsAError = true;
+			MessageBox(NULL, L"Es necesario seleccionar un tipo de prenda (Camisa o Pantalón)", L"Error", MB_ICONERROR);
+		}
+		break;
+	}
+	case RBTN3_MANGA_LARGA:
+	case RBTN3_MANGA_CORTA:
+	{
+		if (IsDlgButtonChecked(hDlg, RBTN2_SHIRT) == BST_CHECKED &&
+			IsDlgButtonChecked(hDlg, RBTN3_MANGA_CORTA) == BST_UNCHECKED &&
+			IsDlgButtonChecked(hDlg, RBTN3_MANGA_LARGA) == BST_UNCHECKED)
+		{
+			thereIsAError = true;
+			MessageBox(NULL, L"Es necesario seleccionar un tipo de manga (Manga corta o Manga larga)", L"Error", MB_ICONERROR);
+		}
+		break;
+	}
+	case RBTN4_CUELLO_COMUN:
+	case RBTN4_CUELLO_MAO:
+	{
+		if (IsDlgButtonChecked(hDlg, RBTN2_SHIRT) == BST_CHECKED &&
+			IsDlgButtonChecked(hDlg, RBTN4_CUELLO_COMUN) == BST_UNCHECKED &&
+			IsDlgButtonChecked(hDlg, RBTN4_CUELLO_MAO) == BST_UNCHECKED)
+		{
+			thereIsAError = true;
+			MessageBox(NULL, L"Es necesario seleccionar un tipo de cuello (Cuello común o Cuello Mao)", L"Error", MB_ICONERROR);
+		}
+		break;
+	}
+	case RBTN5_COMUN:
+	case RBTN5_CHUPIN:
+	{
+		if (IsDlgButtonChecked(hDlg, RBTN2_PANT) == BST_CHECKED &&
+			IsDlgButtonChecked(hDlg, RBTN5_COMUN) == BST_UNCHECKED &&
+			IsDlgButtonChecked(hDlg, RBTN5_CHUPIN) == BST_UNCHECKED)
+		{
+			thereIsAError = true;
+			MessageBox(NULL, L"Es necesario seleccionar un tipo de pantalon (Común o Chupín)", L"Error", MB_ICONERROR);
 		}
 		break;
 	}
@@ -118,7 +174,7 @@ void QuoteWindowController::PerformItemCheck(HWND hDlg, int dlgID, bool& without
 		iTextLength = GetWindowTextLength(hInpFQuantity);
 		if (iTextLength == 0)
 		{
-			withoutErrors = false;
+			thereIsAError = true;
 			MessageBox(NULL, L"Es necesario ingresar una cantidad de prendas a cotizar en el campo 'Cantidad'", L"Error", MB_ICONERROR);
 		}
 		else
@@ -129,7 +185,7 @@ void QuoteWindowController::PerformItemCheck(HWND hDlg, int dlgID, bool& without
 			string stdStr(ws.begin(), ws.end());
 			if (!Utils::isNumber(stdStr))
 			{
-				withoutErrors = false;
+				thereIsAError = true;
 				MessageBox(NULL, L"Es necesario ingresar un número válido en el campo 'Cantidad'", L"Error", MB_ICONERROR);
 			}
 		}
@@ -137,16 +193,30 @@ void QuoteWindowController::PerformItemCheck(HWND hDlg, int dlgID, bool& without
 	}
 	case INPF_PRICE:
 	{		
-		if (GetWindowTextLength(hInpFPrice) == 0)
+		iTextLength = GetWindowTextLength(hInpFPrice);
+		if (iTextLength == 0)
 		{
-			withoutErrors = false;
-			MessageBox(NULL, L"Es necesario ingresar un precio unitario a la prenda en el campo 'Precio'", L"Error", MB_ICONERROR);
+			thereIsAError = true;
+			MessageBox(NULL, L"Es necesario ingresar un precio unitario a la prenda a cotizar en el campo 'Precio'", L"Error", MB_ICONERROR);
+		}
+		else
+		{
+			GetWindowTextW(hInpFPrice, str, iTextLength + 1);
+
+			wstring ws(str);
+			string stdStr(ws.begin(), ws.end());
+			if (!Utils::isNumber(stdStr))
+			{
+				thereIsAError = true;
+				MessageBox(NULL, L"Es necesario ingresar un número válido en el campo 'Precio'", L"Error", MB_ICONERROR);
+			}
 		}
 		break;
 	}
 	default:
 		break;
 	}
+	return thereIsAError;
 }
 
 bool ConvertWideStringToInt(wchar_t* wStr, int& nInt);
@@ -166,18 +236,27 @@ void QuoteWindowController::HandleWindowCommand(HWND hDlg, UINT message, WPARAM 
 	switch (lWord)
 	{
 	case RBTN2_SHIRT:
-		EnableWindow(hChkManga, TRUE);
-		EnableWindow(hChkCuello, TRUE);
-		EnableWindow(hChkChupin, FALSE);
-		CheckDlgButton(hDlg, CHK_CHUPIN, BST_UNCHECKED);
+		EnableWindow(hRbtnMangaCorta, TRUE);
+		EnableWindow(hRbtnMangaLarga , TRUE);
+		EnableWindow(hRbtnCuelloMao, TRUE);
+		EnableWindow(hRbtnCuelloComun, TRUE);
+		EnableWindow(hRbtnPantalonComun, FALSE);
+		EnableWindow(hRbtnPantalonChupin, FALSE);
+		CheckDlgButton(hDlg, RBTN5_COMUN, BST_UNCHECKED);
+		CheckDlgButton(hDlg, RBTN5_CHUPIN, BST_UNCHECKED);
 		break;
 
 	case RBTN2_PANT:
-		EnableWindow(hChkManga, FALSE);
-		EnableWindow(hChkCuello, FALSE);
-		EnableWindow(hChkChupin, TRUE);
-		CheckDlgButton(hDlg, CHK_MANGA, BST_UNCHECKED);
-		CheckDlgButton(hDlg, CHK_CUELLO, BST_UNCHECKED);
+		EnableWindow(hRbtnMangaCorta, FALSE);
+		EnableWindow(hRbtnMangaLarga, FALSE);
+		EnableWindow(hRbtnCuelloMao, FALSE);
+		EnableWindow(hRbtnCuelloComun, FALSE);
+		EnableWindow(hRbtnPantalonComun, TRUE);
+		EnableWindow(hRbtnPantalonChupin, TRUE);
+		CheckDlgButton(hDlg, RBTN3_MANGA_CORTA, BST_UNCHECKED);
+		CheckDlgButton(hDlg, RBTN3_MANGA_LARGA, BST_UNCHECKED);
+		CheckDlgButton(hDlg, RBTN4_CUELLO_COMUN, BST_UNCHECKED);
+		CheckDlgButton(hDlg, RBTN4_CUELLO_MAO, BST_UNCHECKED);
 		break;
 
 	case INPF_QUANTITY:
@@ -204,6 +283,7 @@ void QuoteWindowController::HandleWindowCommand(HWND hDlg, UINT message, WPARAM 
 	{
 		if (PerformChecks(hDlg))
 		{
+			// Aqui viene la cotizacion
 			if (IsDlgButtonChecked(hDlg, RBTN2_PANT) == BST_CHECKED)
 			{
 				singleton_->garmetToQuote = new Pants();
@@ -219,7 +299,6 @@ void QuoteWindowController::HandleWindowCommand(HWND hDlg, UINT message, WPARAM 
 				MessageBox(NULL, L"Hola", L"Seleccione un tipo de prenda", MB_OK);
 			}
 		}
-		
 		
 		break;
 	}
