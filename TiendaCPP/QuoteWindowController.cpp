@@ -1,8 +1,13 @@
+#include <string>
+#include <iostream>
+
 #include "QuoteWindowController.h"
 #include "resource.h"
 #include "framework.h"
-#include <string>
-#include <iostream>
+#include "Pants.h"
+#include "Shirt.h"
+#include "Utils.h"
+using namespace std;
 
 QuoteWindowController* QuoteWindowController::GetInstance()
 {
@@ -71,6 +76,79 @@ INT_PTR QuoteWindowController::HandleWindow(HWND hDlg, UINT message, WPARAM wPar
 	return (INT_PTR)FALSE;
 }
 
+bool QuoteWindowController::PerformChecks(HWND hDlg)
+{
+	bool withoutErrors = true;
+	PerformItemCheck(hDlg, RBTN2_PANT, withoutErrors);
+	PerformItemCheck(hDlg, RBTN_STANDAR, withoutErrors);
+	PerformItemCheck(hDlg, INPF_PRICE, withoutErrors);
+	PerformItemCheck(hDlg, INPF_QUANTITY, withoutErrors);
+	return withoutErrors;
+}
+
+void QuoteWindowController::PerformItemCheck(HWND hDlg, int dlgID, bool& withoutErrors)
+{
+	int iTextLength;
+	LPWSTR stringInTheField;
+	wchar_t str[100];
+	switch (dlgID)
+	{
+	case RBTN2_PANT:
+	case RBTN2_SHIRT:
+	{
+		if (IsDlgButtonChecked(hDlg, RBTN2_PANT) == BST_UNCHECKED && IsDlgButtonChecked(hDlg, RBTN2_SHIRT) == BST_UNCHECKED)
+		{
+			withoutErrors = false;
+			MessageBox(NULL, L"Es necesario seleccionar un tipo de prenda (Camisa o Pantalón)", L"Error", MB_ICONERROR);
+		}
+		break;
+	}
+	case RBTN_STANDAR:
+	case RBTN_PREMIUM:
+	{
+		if (IsDlgButtonChecked(hDlg, RBTN_STANDAR) == BST_UNCHECKED && IsDlgButtonChecked(hDlg, RBTN_PREMIUM) == BST_UNCHECKED)
+		{
+			withoutErrors = false;
+			MessageBox(NULL, L"Es necesario seleccionar un tipo de calidad (Standar o Premium)", L"Error", MB_ICONERROR);
+		}
+		break;
+	}
+	case INPF_QUANTITY:
+	{
+		iTextLength = GetWindowTextLength(hInpFQuantity);
+		if (iTextLength == 0)
+		{
+			withoutErrors = false;
+			MessageBox(NULL, L"Es necesario ingresar una cantidad de prendas a cotizar en el campo 'Cantidad'", L"Error", MB_ICONERROR);
+		}
+		else
+		{
+			GetWindowTextW(hInpFQuantity, str, iTextLength + 1);
+
+			wstring ws(str);
+			string stdStr(ws.begin(), ws.end());
+			if (!Utils::isNumber(stdStr))
+			{
+				withoutErrors = false;
+				MessageBox(NULL, L"Es necesario ingresar un número válido en el campo 'Cantidad'", L"Error", MB_ICONERROR);
+			}
+		}
+		break;
+	}
+	case INPF_PRICE:
+	{		
+		if (GetWindowTextLength(hInpFPrice) == 0)
+		{
+			withoutErrors = false;
+			MessageBox(NULL, L"Es necesario ingresar un precio unitario a la prenda en el campo 'Precio'", L"Error", MB_ICONERROR);
+		}
+		break;
+	}
+	default:
+		break;
+	}
+}
+
 bool ConvertWideStringToInt(wchar_t* wStr, int& nInt);
 
 void QuoteWindowController::HandleWindowCommand(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
@@ -84,6 +162,7 @@ void QuoteWindowController::HandleWindowCommand(HWND hDlg, UINT message, WPARAM 
 	std::wstring strFinal;
 	wchar_t str[100];
 	LPWSTR priceStr(str);
+	
 	switch (lWord)
 	{
 	case RBTN2_SHIRT:
@@ -119,6 +198,29 @@ void QuoteWindowController::HandleWindowCommand(HWND hDlg, UINT message, WPARAM 
 
 		SetDlgItemText(hDlg, LBL_QUOTATION, strFinal.c_str());
 		//a = UpdateWindow(hDlg);
+		break;
+	}
+	case BTN_QUOTE:
+	{
+		if (PerformChecks(hDlg))
+		{
+			if (IsDlgButtonChecked(hDlg, RBTN2_PANT) == BST_CHECKED)
+			{
+				singleton_->garmetToQuote = new Pants();
+				MessageBox(NULL, L"Hola", L"PANTALONES", MB_OK);
+			}
+			else if (IsDlgButtonChecked(hDlg, RBTN2_SHIRT) == BST_CHECKED)
+			{
+				singleton_->garmetToQuote = new Shirt();
+				MessageBox(NULL, L"Hola", L"CAMISA", MB_OK);
+			}
+			else
+			{
+				MessageBox(NULL, L"Hola", L"Seleccione un tipo de prenda", MB_OK);
+			}
+		}
+		
+		
 		break;
 	}
 	default:

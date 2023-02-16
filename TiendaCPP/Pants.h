@@ -4,11 +4,12 @@
 #ifndef PANTS_H
 #define PANTS_H
 
-class Pants : Garment
+class Pants : public Garment
 {
 public:
 	enum PantsTypesFlag
 	{
+		Normal = 0,
 		Chupin = 1,
 		//Jean = 2,
 		//Short = 4,
@@ -16,6 +17,7 @@ public:
 	};
 
 	PantsTypesFlag flag;
+	Pants();
 	~Pants() override;
 
 	friend inline PantsTypesFlag operator|(PantsTypesFlag a, PantsTypesFlag b)

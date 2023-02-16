@@ -39,8 +39,11 @@
 #define LBL_QUANTITY                    1024
 #define INPF_QUANTITY                   1025
 #define IDC_BUTTON1                     1026
+#define LBL_QUANTITY2                   1026
 #define IDC_EDIT1                       1027
 #define LBL_QUOTATION                   1028
+#define LBL_QUOTATION2                  1029
+#define BTN_QUOTE                       1030
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -50,7 +53,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1029
+#define _APS_NEXT_CONTROL_VALUE         1031
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

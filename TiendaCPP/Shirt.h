@@ -4,19 +4,20 @@
 #ifndef SHIRT_H
 #define SHIRT_H
 
-class Shirt : Garment
+class Shirt : public Garment
 {
 public:
 
 	enum ShirtTypesFlag
 	{
+		Normal = 0,
 		MangaCorta = 1,
 		CuelloMao = 2,
-		//Short = 4,
-		//Etc = 8
+		//Etc = 4,
 	};
 
 	ShirtTypesFlag flag;
+	Shirt();
 	~Shirt() override;
 
 	friend inline ShirtTypesFlag operator|(ShirtTypesFlag a, ShirtTypesFlag b)

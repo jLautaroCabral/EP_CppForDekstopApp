@@ -1,6 +1,7 @@
 #pragma once
 #include "framework.h"
 #include "WindowController.h"
+#include "Garment.h"
 
 #ifndef QUOTE_WINDOW_CONTROLLER_H
 #define QUOTE_WINDOW_CONTROLLER_H
@@ -29,6 +30,8 @@ protected:
 	HWND hBtnQuitation;
 	HWND hLblQuotation;
 
+	Garment* garmetToQuote;
+
 	int quotePrice;
 	int quoteQuantity;
 	int quoteFinalPrice;
@@ -43,6 +46,10 @@ public:
 
 	//      * Singletons should not be assignable.
 	void operator=(const QuoteWindowController&) = delete;
+
+	bool PerformChecks(HWND hDlg);
+
+	void PerformItemCheck(HWND hDlg, int dlgID, bool& error);
 
 	static QuoteWindowController* GetInstance();
 	
