@@ -9,7 +9,6 @@ class Partner
 	std::string name;
 	std::string lastName;
 	std::string idNumber;
-	std::string idNumber;
 	int maxWithdrawalAmount;
 	
 	std::list<Exemplary*> withdrawnExemplaries;
