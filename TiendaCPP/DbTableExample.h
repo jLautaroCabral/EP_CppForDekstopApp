@@ -10,13 +10,16 @@
 class DbTableExample
 {
 private:
+	typedef	bool(*Predicade)(Loan*);
 	std::vector<Loan*> listItems;
 public:
 	DbTableExample();
 	~DbTableExample();
 
 	void Get();
+	Loan* GetElementByID(int id);
 	const std::vector<Loan*> GetAllItems() const;
+	const std::vector<Loan*> GetElementsWich(Predicade func);
 	void Add(Loan itemToAdd);
 	void Remove(Loan itemToRemove);
 };

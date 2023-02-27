@@ -16,6 +16,9 @@ void DbContextLibrary::Example()
 	bookExample->name = "Harry Potter";
 
 	Exemplary* exemplaryExample;
+
+	std::vector<Exemplary*> exemplaries;
+	std::vector<Exemplary> exemplariesInDB;
 	for (int i = 0; i < 3; i++)
 	{
 		exemplaryExample = new Exemplary();
@@ -23,10 +26,20 @@ void DbContextLibrary::Example()
 		exemplaryTable.Add(exemplaryExample);
 		exemplaryExample->book = *bookExample;
 	}
-	exemplaryExample->libraryUbication = "AAA";
+
+	//exemplaryExample->libraryUbication = "AAA";
+	// 
 	//exemplaryTable.Remove(*exemplaryExample);
-	exemplaryTable.RemoveItemsWich([](Exemplary* const p) { return p->libraryUbication == "AAA"; }); // I AM A FUCKING GENIOUS
+	//exemplaryTable.RemoveElementsWich([](Exemplary* const p) { return p->libraryUbication == "AAA"; }); // I AM A FUCKING GENIOUS
 	//exemplaryTable.Remove(exemplaryTable.GetAllItems());
+
+	exemplaryTable.GetElementByID(0)->libraryUbication = "AAA";
+	exemplaryTable.GetElementByID(1)->libraryUbication = "BBB";
+	exemplaryTable.GetElementByID(2)->libraryUbication = "CCC";
+
+	std::vector<Exemplary*> exemList = exemplaryTable.GetElementsWhich([](Exemplary* const ex) { return ex->libraryUbication == "AAA"; });
+	exemList[0]->libraryUbication = "CCC";
+
 	delete bookExample;
 
 	for (const Exemplary* item : exemplaryTable.GetAllItems())

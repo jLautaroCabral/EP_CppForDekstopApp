@@ -12,8 +12,9 @@ concept ClassDerivedFromDbModelItem = std::derived_from<T, DbModelItem>;
 
 template <ClassDerivedFromDbModelItem T> class DbTable
 {
-	typedef	bool(*Predicade)(T*);
 private:
+	typedef	bool(*Predicate)(T*);
+
 	std::vector<T*> listItems;
 	int tableItemLastIndex;
 	std::vector<T> a;
@@ -21,12 +22,14 @@ public:
 	DbTable();
 	~DbTable();
 
-	void Get();
+	T* GetElementByID(int id);
+	T* GetFirstOrDefaultElementWhich(Predicate func);
+	const std::vector<T*> GetElementsWhich(Predicate func);
 	const std::vector<T*> GetAllItems() const;
 	void Add(T* itemToAdd);
 	void Remove(T itemToRemove);
 	void Remove(std::vector<T*> itemToRemove);
-	void RemoveItemsWich(Predicade func);
+	void RemoveElementsWhich(Predicate func);
 	void ClearTable();
 };
 
@@ -47,9 +50,44 @@ DbTable<T>::~DbTable()
 }
 
 template<ClassDerivedFromDbModelItem T>
-void DbTable<T>::Get()
+T* DbTable<T>::GetElementByID(int id)
 {
+	auto resultIterator = std::find_if(begin(listItems), end(listItems), [&](T* const& p) {  return p->modelID == id; });
 
+	if (resultIterator != end(listItems))
+	{
+		return *resultIterator;
+	}
+	return nullptr;
+}
+
+template<ClassDerivedFromDbModelItem T>
+T* DbTable<T>::GetFirstOrDefaultElementWhich(Predicate func)
+{
+	auto resultIterator = std::find_if(begin(listItems), end(listItems), [&](T* const& p) { return func(p); });
+
+	if (resultIterator != end(listItems))
+	{
+		return *resultIterator;
+	}
+
+	return nullptr;
+}
+
+template<ClassDerivedFromDbModelItem T>
+const std::vector<T*> DbTable<T>::GetElementsWhich(Predicate func)
+{
+	std::vector<T*> vectorToReturn;
+	auto resultIterator = std::find_if(begin(listItems), end(listItems), [&](T* const& p) { return func(p); });
+
+	while (resultIterator != end(listItems))
+	{
+		vectorToReturn.push_back(*resultIterator);
+		resultIterator++;
+		resultIterator = std::find_if(resultIterator, end(listItems), [&](T* const& p) { return func(p); });
+	}
+
+	return vectorToReturn;
 }
 
 /// <summary>
@@ -95,7 +133,7 @@ void DbTable<T>::Remove(std::vector<T*> itemToRemove)
 }
 
 template<ClassDerivedFromDbModelItem T>
-void DbTable<T>::RemoveItemsWich(Predicade func)
+void DbTable<T>::RemoveElementsWhich(Predicate func)
 {
 	listItems.erase(
 		std::remove_if(listItems.begin(), listItems.end(),
