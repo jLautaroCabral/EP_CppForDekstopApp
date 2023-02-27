@@ -1,10 +1,11 @@
 #include <string>
 #include <list>
 #include "Exemplary.h"
+#include "DbModelItem.h"
 
 #ifndef PARTNER_H
 #define PARTNER_H
-class Partner
+class Partner : public DbModelItem
 {
 	std::string name;
 	std::string lastName;

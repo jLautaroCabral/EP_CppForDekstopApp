@@ -4,6 +4,7 @@
 #define DB_MODEL_ITEM_H
 class DbModelItem
 {
-	std::string id;
+public:
+	int modelID;
 };
 #endif
