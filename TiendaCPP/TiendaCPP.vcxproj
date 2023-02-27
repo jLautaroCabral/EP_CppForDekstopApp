@@ -144,6 +144,7 @@
     <ClInclude Include="DbContextLibrary.h" />
     <ClInclude Include="DbModelItem.h" />
     <ClInclude Include="DbTable.h" />
+    <ClInclude Include="DbTableExample.h" />
     <ClInclude Include="Exemplary.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Garment.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="DbContextLibrary.cpp" />
     <ClCompile Include="DbModelItem.cpp" />
     <ClCompile Include="DbTable.cpp" />
+    <ClCompile Include="DbTableExample.cpp" />
     <ClCompile Include="Exemplary.cpp" />
     <ClCompile Include="Garment.cpp" />
     <ClCompile Include="Loan.cpp" />
