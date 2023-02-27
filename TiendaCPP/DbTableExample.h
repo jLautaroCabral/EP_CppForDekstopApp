@@ -1,3 +1,4 @@
+#include <vector>
 #include <list>
 #include <concepts>
 #include "DbModelItem.h"
@@ -9,13 +10,13 @@
 class DbTableExample
 {
 private:
-	std::list<Loan*> listItems;
+	std::vector<Loan*> listItems;
 public:
 	DbTableExample();
 	~DbTableExample();
 
 	void Get();
-	const std::list<Loan*> GetAllItems() const;
+	const std::vector<Loan*> GetAllItems() const;
 	void Add(Loan itemToAdd);
 	void Remove(Loan itemToRemove);
 };

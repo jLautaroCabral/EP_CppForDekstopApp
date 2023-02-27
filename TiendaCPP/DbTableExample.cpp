@@ -13,9 +13,9 @@ void DbTableExample::Get()
 	
 }
 
-const std::list<Loan*> DbTableExample::GetAllItems() const
+const std::vector<Loan*> DbTableExample::GetAllItems() const
 {
-    return std::list<Loan*>();
+    return std::vector<Loan*>();
 }
 
 void DbTableExample::Add(Loan itemToAdd)
@@ -29,5 +29,8 @@ void DbTableExample::Remove(Loan itemToRemove)
 	//	[&](Loan* const& p) { return p->modelID == itemToRemove.modelID; });
 
 	// Se encontró el item
-	listItems.remove_if([&](Loan* const& p) { return p->modelID == itemToRemove.modelID; });
+	listItems.erase(
+		std::remove_if(listItems.begin(), listItems.end(),
+			[&](Loan* const& p) { return p->modelID == itemToRemove.modelID; }),
+		listItems.end());
 }

@@ -26,7 +26,7 @@ void DbContextLibrary::Example()
 	exemplaryExample->libraryUbication = "AAA";
 	//exemplaryTable.Remove(*exemplaryExample);
 	exemplaryTable.RemoveItemsWich([](Exemplary* const p) { return p->libraryUbication == "AAA"; }); // I AM A FUCKING GENIOUS
-	exemplaryTable.Remove(exemplaryTable.GetAllItems());
+	//exemplaryTable.Remove(exemplaryTable.GetAllItems());
 	delete bookExample;
 
 	for (const Exemplary* item : exemplaryTable.GetAllItems())

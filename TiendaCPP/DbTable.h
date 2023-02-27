@@ -1,4 +1,5 @@
 #include <list>
+#include <vector>
 #include <concepts>
 #include "DbModelItem.h"
 
@@ -13,17 +14,18 @@ template <ClassDerivedFromDbModelItem T> class DbTable
 {
 	typedef	bool(*Predicade)(T*);
 private:
-	std::list<T*> listItems;
+	std::vector<T*> listItems;
 	int tableItemLastIndex;
+	std::vector<T> a;
 public:
 	DbTable();
 	~DbTable();
 
 	void Get();
-	const std::list<T*> GetAllItems() const;
+	const std::vector<T*> GetAllItems() const;
 	void Add(T* itemToAdd);
 	void Remove(T itemToRemove);
-	void Remove(std::list<T*> itemToRemove);
+	void Remove(std::vector<T*> itemToRemove);
 	void RemoveItemsWich(Predicade func);
 	void ClearTable();
 };
@@ -56,7 +58,7 @@ void DbTable<T>::Get()
 /// <typeparam name="T">Class derived from DbModelItem</typeparam>
 /// <returns>A const list with all the items</returns>
 template<ClassDerivedFromDbModelItem T>
-const std::list<T*> DbTable<T>::GetAllItems() const
+const std::vector<T*> DbTable<T>::GetAllItems() const
 {
 	return listItems;
 }
@@ -74,28 +76,31 @@ void DbTable<T>::Add(T* itemToAdd)
 	tableItemLastIndex++;
 }
 
-
 template<ClassDerivedFromDbModelItem T>
 void DbTable<T>::Remove(T itemToRemove)
 {
-	
-	//listItems.remove_if()
-	listItems.remove_if([&](T* const& p) { return p->modelID == itemToRemove.modelID; });
+	listItems.erase(
+		std::remove_if(listItems.begin(), listItems.end(),
+			[&](T* const& p) { return p->modelID == itemToRemove.modelID; }),
+		listItems.end());
 }
 
 template<ClassDerivedFromDbModelItem T>
-void DbTable<T>::Remove(std::list<T*> itemToRemove)
+void DbTable<T>::Remove(std::vector<T*> itemToRemove)
 {
 	for (const T* item : itemToRemove)
 	{
-		this->Remove(*item);
+		Remove(*item);
 	}
 }
 
 template<ClassDerivedFromDbModelItem T>
 void DbTable<T>::RemoveItemsWich(Predicade func)
 {
-	listItems.remove_if([&](T* const& p) { return func(p); });
+	listItems.erase(
+		std::remove_if(listItems.begin(), listItems.end(),
+			[&](T* const& p) { return func(p); }),
+		listItems.end());
 }
 
 template<ClassDerivedFromDbModelItem T>
