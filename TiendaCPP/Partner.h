@@ -7,6 +7,7 @@
 #define PARTNER_H
 class Partner : public DbModelItem
 {
+public:
 	std::string name;
 	std::string lastName;
 	std::string idNumber;

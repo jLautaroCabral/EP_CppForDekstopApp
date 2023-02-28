@@ -14,7 +14,7 @@ public:
 	std::string name;
 	std::string ISBNcode;
 	std::string autor;
-	std::vector<Exemplary> exemplaries;
+	std::vector<Exemplary*> exemplaries;
 
 	~Book();
 

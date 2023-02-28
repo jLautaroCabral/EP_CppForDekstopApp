@@ -15,23 +15,19 @@ DbContextLibrary::~DbContextLibrary()
 
 void DbContextLibrary::FillDbContextData()
 {
-	Book* bookExample = BookFactory::CreateRandomBook();
-	bookTable.Add(bookExample);
-	for (int i = 0; i < 2; i++)
+	// Fill Books and Exemplaries
+	for (int i = 0; i < 5; i++)
 	{
-		Exemplary* exemplaryExample = ExemplaryFactory::CreateRandomExemplary();
-		exemplaryTable.Add(exemplaryExample);
-		exemplaryExample->bookID = bookExample->modelID;
+		Book* bookExample = BookFactory::CreateRandomBook();
+		bookTable.Add(bookExample);
+
+		for (int j = 0; j < 2; j++)
+		{
+			Exemplary* exemplaryExample = ExemplaryFactory::CreateRandomExemplary(bookExample);
+			exemplaryTable.Add(exemplaryExample);
+		}
 	}
 
-	bookExample = BookFactory::CreateRandomBook();
-	bookTable.Add(bookExample);
-	for (int i = 0; i < 1; i++)
-	{
-		Exemplary* exemplaryExample = ExemplaryFactory::CreateRandomExemplary();
-		exemplaryTable.Add(exemplaryExample);
-		exemplaryExample->bookID = bookExample->modelID;
-	}
 
 	// = new Book();
 //bookExample->name = "Harry Potter";

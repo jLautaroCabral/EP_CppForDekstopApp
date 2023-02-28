@@ -4,8 +4,9 @@
 
 #ifndef PARTNER_VIP_H
 #define PARTNER_VIP_H
-class ParternVIP : public Partner
+class PartnerVIP : public Partner
 {
+public:
 	float monthlyFee;
 };
 #endif

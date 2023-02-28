@@ -1,10 +1,30 @@
 #include "BookFactory.h"
 #include <cstdlib>
 
-const std::string BookFactory::autorNames[3] = { "Charles Dickens", "Julio Verne", "Oscar Wilde" };
-const std::string BookFactory::booksNames[5] = { "Harry Potter", "Mr. Sandman", "El Senor de los Anillos", "El Codigo da Vinc", "Crepusculo"};
-
-//MainWindowController* MainWindowController::singleton_ = nullptr;
+const std::string BookFactory::autorNames[10] = {
+	"Charles Dickens",
+	"Julio Verne",
+	"Oscar Wilde",
+	"Julio Cortazar",
+	"Ken Follett",
+	"Fiodor Dostoyevski",
+	"Isaac asimov",
+	"Stephen King",
+	"J.R.R.Tolkien",
+	"J.K.Rowling"
+};
+const std::string BookFactory::booksNames[10] = {
+	"Harry Potter",
+	"Mr. Sandman",
+	"El Senior de los Anillos",
+	"El Codigo da Vinci",
+	"Crepusculo",
+	"Luces de bohemia",
+	"100 anios de Soledad",
+	"La casa de los espiritus",
+	"Preludio a la fundación",
+	"Las almas muertas"
+};
 
 std::string BookFactory::CreateRandomISBNCode()
 {
