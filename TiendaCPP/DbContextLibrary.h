@@ -16,6 +16,7 @@ class DbContextLibrary
 public:
 	DbContextLibrary();
 	~DbContextLibrary();
-	void Example();
+	void FillDbContextData();
+	void PrintDebugInfo();
 };
 #endif

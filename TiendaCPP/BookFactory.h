@@ -8,9 +8,9 @@ class BookFactory
 	static const std::string booksNames[5];
 private:
 	
-	static std::string GetRandomISBNCode();
+	static std::string CreateRandomISBNCode();
 public:
-	static Book* GetRandomBook();
+	static Book* CreateRandomBook();
 	static Book* CreateBook(std::string bookName, std::string authorName);
 	static Book* CreateBook(std::string bookName, std::string authorName, std::string isbnCode);
 };

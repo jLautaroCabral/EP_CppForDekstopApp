@@ -6,7 +6,7 @@ const std::string BookFactory::booksNames[5] = { "Harry Potter", "Mr. Sandman", 
 
 //MainWindowController* MainWindowController::singleton_ = nullptr;
 
-std::string BookFactory::GetRandomISBNCode()
+std::string BookFactory::CreateRandomISBNCode()
 {
 	return
 		std::to_string(rand() % 999) + "-" +
@@ -16,30 +16,30 @@ std::string BookFactory::GetRandomISBNCode()
 		std::to_string(rand() % 9);
 }
 
-Book* BookFactory::GetRandomBook()
+Book* BookFactory::CreateRandomBook()
 {
 	Book* book = new Book();
-	book->modelID = 0;
+	book->modelID = -1;
 	book->name = booksNames[rand() % (std::size(booksNames) - 1)];
 	book->autor = autorNames[rand() % (std::size(autorNames) - 1)];
-	book->ISBNcode = GetRandomISBNCode();
+	book->ISBNcode = CreateRandomISBNCode();
     return book;
 }
 
 Book* BookFactory::CreateBook(std::string bookName, std::string authorName)
 {
 	Book* book = new Book();
-	book->modelID = 0;
+	book->modelID = -1;
 	book->name = bookName;
 	book->autor = authorName;
-	book->ISBNcode = GetRandomISBNCode();
+	book->ISBNcode = CreateRandomISBNCode();
 	return book;
 }
 
 Book* BookFactory::CreateBook(std::string bookName, std::string authorName, std::string isbnCode)
 {
 	Book* book = new Book();
-	book->modelID = 0;
+	book->modelID = -1;
 	book->name = bookName;
 	book->autor = authorName;
 	book->ISBNcode = isbnCode;

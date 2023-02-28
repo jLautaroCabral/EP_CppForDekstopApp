@@ -1,60 +1,67 @@
 #include <iostream>
 #include "DbContextLibrary.h"
 #include "BookFactory.h"
+#include "ExemplaryFactory.h"
 
 DbContextLibrary::DbContextLibrary()
 {
-	Example();
+	FillDbContextData();
+	PrintDebugInfo();
 }
 
 DbContextLibrary::~DbContextLibrary()
 {
 }
 
-void DbContextLibrary::Example()
+void DbContextLibrary::FillDbContextData()
 {
-	// = new Book();
-	//bookExample->name = "Harry Potter";
+	Book* bookExample = BookFactory::CreateRandomBook();
 
-	Exemplary* exemplaryExample;
-
-	std::vector<Exemplary*> exemplaries;
-	std::vector<Exemplary> exemplariesInDB;
-	Book* bookExample = BookFactory::GetRandomBook();
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 2; i++)
 	{
-		exemplaryExample = new Exemplary();
-		// Crud test
+		Exemplary* exemplaryExample = ExemplaryFactory::CreateRandomExemplary();
 		exemplaryTable.Add(exemplaryExample);
 		exemplaryExample->bookID = 0;
 	}
 
-	//exemplaryExample->libraryUbication = "AAA";
-	// 
-	//exemplaryTable.Remove(*exemplaryExample);
-	//exemplaryTable.RemoveElementsWich([](Exemplary* const p) { return p->libraryUbication == "AAA"; }); // I AM A FUCKING GENIOUS
-	//exemplaryTable.Remove(exemplaryTable.GetAllItems());
+	// = new Book();
+//bookExample->name = "Harry Potter";
 
-	exemplaryTable.GetElementByID(0)->libraryUbication = "AAA";
-	exemplaryTable.GetElementByID(1)->libraryUbication = "BBB";
-	exemplaryTable.GetElementByID(2)->libraryUbication = "CCC";
+//exemplaryExample->libraryUbication = "AAA";
+// 
+//exemplaryTable.Remove(*exemplaryExample);
+//exemplaryTable.RemoveElementsWich([](Exemplary* const p) { return p->libraryUbication == "AAA"; }); // I AM A FUCKING GENIOUS
+//exemplaryTable.Remove(exemplaryTable.GetAllItems());
 
-	std::vector<Exemplary*> exemList = exemplaryTable.GetElementsWhich([](Exemplary* const ex) { return ex->libraryUbication == "AAA"; });
-	exemList[0]->libraryUbication = "CCC";
+//exemplaryTable.GetElementByID(0)->libraryUbication = "AAA";
+//exemplaryTable.GetElementByID(1)->libraryUbication = "BBB";
+//exemplaryTable.GetElementByID(2)->libraryUbication = "CCC";
 
-	//delete bookExample;
+//std::vector<Exemplary*> exemList = exemplaryTable.GetElementsWhich([](Exemplary* const ex) { return ex->libraryUbication == "AAA"; });
+//exemList[0]->libraryUbication = "CCC";
 
+//delete bookExample;
+
+
+}
+
+void DbContextLibrary::PrintDebugInfo()
+{
 	for (const Exemplary* item : exemplaryTable.GetAllItems())
 	{
+		printf_s("\n\n");
+		printf_s("Exemplary data\n");
+		printf_s("****************************");
 		printf_s("\n");
-		printf_s("Exemplary data: ----------- ********");
+		printf_s(("ID: " + std::to_string(item->modelID)).c_str());
 		printf_s("\n");
-		printf_s(std::to_string(item->modelID).c_str());
+		printf_s(("Edition number: " + std::to_string(item->editionNumber)).c_str());
 		printf_s("\n");
-		printf_s(item->libraryUbication.c_str());
+		printf_s(("Library ubication: " + item->libraryUbication).c_str());
+		printf_s("\n\n");
+		printf_s("Book data\n");
+		printf_s("----------------------------");
 		printf_s("\n");
-		printf_s("Book data: ----------------");
-		printf_s("\n");
-		printf_s("---------------------------");
+		printf_s("****************************");
 	}
 }
