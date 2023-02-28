@@ -7,13 +7,15 @@
 #define BOOK_H
 class Book : public DbModelItem
 {
+	friend class BookFactory;
+private:
+	Book();
 public:
 	std::string name;
 	std::string ISBNcode;
 	std::string autor;
 	std::vector<Exemplary> exemplaries;
 
-	Book();
 	~Book();
 
 	void AddBook();

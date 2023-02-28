@@ -1,5 +1,6 @@
 #include <iostream>
 #include "DbContextLibrary.h"
+#include "BookFactory.h"
 
 DbContextLibrary::DbContextLibrary()
 {
@@ -12,13 +13,14 @@ DbContextLibrary::~DbContextLibrary()
 
 void DbContextLibrary::Example()
 {
-	Book* bookExample = new Book();
-	bookExample->name = "Harry Potter";
+	// = new Book();
+	//bookExample->name = "Harry Potter";
 
 	Exemplary* exemplaryExample;
 
 	std::vector<Exemplary*> exemplaries;
 	std::vector<Exemplary> exemplariesInDB;
+	Book* bookExample = BookFactory::GetRandomBook();
 	for (int i = 0; i < 3; i++)
 	{
 		exemplaryExample = new Exemplary();
@@ -40,7 +42,7 @@ void DbContextLibrary::Example()
 	std::vector<Exemplary*> exemList = exemplaryTable.GetElementsWhich([](Exemplary* const ex) { return ex->libraryUbication == "AAA"; });
 	exemList[0]->libraryUbication = "CCC";
 
-	delete bookExample;
+	//delete bookExample;
 
 	for (const Exemplary* item : exemplaryTable.GetAllItems())
 	{
