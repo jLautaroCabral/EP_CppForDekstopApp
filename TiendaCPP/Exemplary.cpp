@@ -10,7 +10,7 @@ Exemplary::Exemplary(const Exemplary& otherExemplary)
 {
 	modelID = otherExemplary.modelID;
 	editionNumber = otherExemplary.editionNumber;
-	book = otherExemplary.book;
+	bookID = otherExemplary.bookID;
 	libraryUbication = otherExemplary.libraryUbication;
 }
 

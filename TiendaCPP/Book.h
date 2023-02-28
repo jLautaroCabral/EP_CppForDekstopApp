@@ -1,5 +1,7 @@
 #include <string>
+#include <vector>
 #include "DbModelItem.h"
+#include "Exemplary.h"
 
 #ifndef BOOK_H
 #define BOOK_H
@@ -9,6 +11,7 @@ public:
 	std::string name;
 	std::string ISBNcode;
 	std::string autor;
+	std::vector<Exemplary> exemplaries;
 
 	Book();
 	~Book();

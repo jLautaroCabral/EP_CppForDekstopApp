@@ -24,7 +24,7 @@ void DbContextLibrary::Example()
 		exemplaryExample = new Exemplary();
 		// Crud test
 		exemplaryTable.Add(exemplaryExample);
-		exemplaryExample->book = *bookExample;
+		exemplaryExample->bookID = 0;
 	}
 
 	//exemplaryExample->libraryUbication = "AAA";
@@ -52,12 +52,6 @@ void DbContextLibrary::Example()
 		printf_s(item->libraryUbication.c_str());
 		printf_s("\n");
 		printf_s("Book data: ----------------");
-		printf_s("\n");
-		printf_s(item->book.name.c_str());
-		printf_s("\n");
-		printf_s(item->book.autor.c_str());
-		printf_s("\n");
-		printf_s(item->book.ISBNcode.c_str());
 		printf_s("\n");
 		printf_s("---------------------------");
 	}

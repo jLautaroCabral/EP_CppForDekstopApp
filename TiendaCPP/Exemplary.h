@@ -1,4 +1,3 @@
-#include "Book.h"
 #include "DbModelItem.h"
 
 #ifndef EXEMPLARY_H
@@ -6,7 +5,7 @@
 class Exemplary : public DbModelItem
 {
 public:
-	Book book;
+	int bookID;
 	int editionNumber = 0;
 	std::string libraryUbication;
 	Exemplary();
