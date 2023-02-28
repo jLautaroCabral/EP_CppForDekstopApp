@@ -12,7 +12,7 @@ class DbContextLibrary
 	DbTable<Loan> loanTable;
 	DbTable<Partner> partnerTable;
 	DbTable<Exemplary> exemplaryTable;
-	DbTable<Book> bookList;
+	DbTable<Book> bookTable;
 public:
 	DbContextLibrary();
 	~DbContextLibrary();

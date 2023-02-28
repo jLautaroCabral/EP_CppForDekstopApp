@@ -8,6 +8,7 @@
 #include "MainWindowController.h"
 #include "DbContextLibrary.h"
 #include <iostream>
+#include <time.h>
 
 #define MAX_LOADSTRING 100
 
@@ -46,6 +47,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+	srand(time(0));
 	//return 0; // TEMPORAL -----------------------------------------------------------
 
 	//return MessageBox(NULL, L"hello, world", L"caption", 0);

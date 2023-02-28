@@ -7,7 +7,7 @@ Exemplary* ExemplaryFactory::CreateRandomExemplary()
 	Exemplary* exemplary = new Exemplary();
 	exemplary->bookID = -1;
 	exemplary->editionNumber = rand() % 5;
-	exemplary->libraryUbication = libraryUbications[rand() % (std::size(libraryUbications) - 1)];
+	exemplary->libraryUbication = libraryUbications[rand() % (std::size(libraryUbications))];
     return exemplary;
 }
 

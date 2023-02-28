@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 const std::string BookFactory::autorNames[3] = { "Charles Dickens", "Julio Verne", "Oscar Wilde" };
-const std::string BookFactory::booksNames[5] = { "Harry Potter", "Mr. Sandman", "El Señor de los Anillos", "El Código da Vinc", "Crepúsculo"};
+const std::string BookFactory::booksNames[5] = { "Harry Potter", "Mr. Sandman", "El Senor de los Anillos", "El Codigo da Vinc", "Crepusculo"};
 
 //MainWindowController* MainWindowController::singleton_ = nullptr;
 
@@ -20,8 +20,8 @@ Book* BookFactory::CreateRandomBook()
 {
 	Book* book = new Book();
 	book->modelID = -1;
-	book->name = booksNames[rand() % (std::size(booksNames) - 1)];
-	book->autor = autorNames[rand() % (std::size(autorNames) - 1)];
+	book->name = booksNames[rand() % (std::size(booksNames))];
+	book->autor = autorNames[rand() % (std::size(autorNames))];
 	book->ISBNcode = CreateRandomISBNCode();
     return book;
 }
