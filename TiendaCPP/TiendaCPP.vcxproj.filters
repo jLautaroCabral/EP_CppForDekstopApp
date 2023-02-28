@@ -25,6 +25,24 @@
     <Filter Include="Archivos de encabezado\Modelos">
       <UniqueIdentifier>{c6e35980-5eda-4f37-a166-5e30cb876bc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\LibraryModel">
+      <UniqueIdentifier>{a8b591ac-bb74-435a-9564-a460b4666b9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Factories">
+      <UniqueIdentifier>{4f5e90fc-fd44-46b7-8654-c1864a08f05e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\DbFramework">
+      <UniqueIdentifier>{58d02c3b-6e13-432b-a57f-41d927090947}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Factories">
+      <UniqueIdentifier>{d6ec09a4-e6c0-47fe-ac53-dce096f9aa45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\DbFramework">
+      <UniqueIdentifier>{ae341c88-c33b-449e-b43c-1834b123d451}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\LibraryModel">
+      <UniqueIdentifier>{5357854b-5f6b-4b07-b836-92bd754e4695}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -72,6 +90,48 @@
     <ClInclude Include="Shirt.h">
       <Filter>Archivos de encabezado\Modelos</Filter>
     </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Book.h">
+      <Filter>Archivos de encabezado\LibraryModel</Filter>
+    </ClInclude>
+    <ClInclude Include="Partner.h">
+      <Filter>Archivos de encabezado\LibraryModel</Filter>
+    </ClInclude>
+    <ClInclude Include="PartnerVIP.h">
+      <Filter>Archivos de encabezado\LibraryModel</Filter>
+    </ClInclude>
+    <ClInclude Include="Loan.h">
+      <Filter>Archivos de encabezado\LibraryModel</Filter>
+    </ClInclude>
+    <ClInclude Include="Exemplary.h">
+      <Filter>Archivos de encabezado\LibraryModel</Filter>
+    </ClInclude>
+    <ClInclude Include="DbContextLibrary.h">
+      <Filter>Archivos de encabezado\DbFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="DbModelItem.h">
+      <Filter>Archivos de encabezado\DbFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="BookFactory.h">
+      <Filter>Archivos de encabezado\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="ExemplaryFactory.h">
+      <Filter>Archivos de encabezado\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="PartnerFactory.h">
+      <Filter>Archivos de encabezado\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="DbTable.h">
+      <Filter>Archivos de encabezado\DbFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="DbTableExample.h">
+      <Filter>Archivos de encabezado\DbFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="LoanFactory.h">
+      <Filter>Archivos de encabezado\Factories</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainWindowController.cpp">
@@ -109,6 +169,48 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="BookFactory.cpp">
+      <Filter>Archivos de origen\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="ExemplaryFactory.cpp">
+      <Filter>Archivos de origen\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="PartnerFactory.cpp">
+      <Filter>Archivos de origen\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="LoanFactory.cpp">
+      <Filter>Archivos de origen\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="DbContextLibrary.cpp">
+      <Filter>Archivos de origen\DbFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="DbTableExample.cpp">
+      <Filter>Archivos de origen\DbFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="DbTable.cpp">
+      <Filter>Archivos de origen\DbFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="DbModelItem.cpp">
+      <Filter>Archivos de origen\DbFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="Book.cpp">
+      <Filter>Archivos de origen\LibraryModel</Filter>
+    </ClCompile>
+    <ClCompile Include="Exemplary.cpp">
+      <Filter>Archivos de origen\LibraryModel</Filter>
+    </ClCompile>
+    <ClCompile Include="Loan.cpp">
+      <Filter>Archivos de origen\LibraryModel</Filter>
+    </ClCompile>
+    <ClCompile Include="ParternVIP.cpp">
+      <Filter>Archivos de origen\LibraryModel</Filter>
+    </ClCompile>
+    <ClCompile Include="Partner.cpp">
+      <Filter>Archivos de origen\LibraryModel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

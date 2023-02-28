@@ -10,12 +10,12 @@
 #define IDD_ABOUTBOX_DEFAULT            103
 #define IDM_ABOUT                       104
 #define IDM_EXIT                        105
-#define IDD_OLE_PROPPAGE_LARGE          105
 #define IDD_COTIZACIONBOX               106
 #define IDI_TIENDACPP                   107
 #define IDD_ABOUTBOX_NEW2               107
 #define IDD_SETTINGSBOX                 107
 #define IDI_SMALL                       108
+#define IDD_ADMIN_BOOKS                 108
 #define IDC_TIENDACPP                   109
 #define IDR_MAINFRAME                   128
 #define IDD_ABOUTBOX_SLABEL1            128
@@ -49,8 +49,12 @@
 #define INPF_QUANTITY                   1025
 #define IDC_BUTTON1                     1026
 #define LBL_QUANTITY2                   1026
+#define BTN_ADD_BOOK                    1026
 #define IDC_EDIT1                       1027
+#define INPF_BOOK_NAME                  1027
 #define LBL_QUOTATION                   1028
+#define BTN_REMOVE                      1028
+#define BTN_REMOVE_BOOK                 1028
 #define LBL_QUOTATION2                  1029
 #define LBL_QUOTATION_RESUME            1029
 #define BTN_QUOTE                       1030
@@ -62,6 +66,10 @@
 #define LBC_DESCRIPTION                 1035
 #define LBL_STATIC                      1036
 #define LBL_HISTORY_TEXT                1036
+#define LB_BOOKS                        1039
+#define GBC_ADD_BOOK                    1040
+#define LBL_BOOK_NAME                   1041
+#define LBL_BOOKS                       1042
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -71,7 +79,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1037
+#define _APS_NEXT_CONTROL_VALUE         1043
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

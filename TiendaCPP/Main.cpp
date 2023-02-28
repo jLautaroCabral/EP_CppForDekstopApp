@@ -1,9 +1,14 @@
+#define _WIN32_WINNT 0x601
+#include <stdio.h>
 #include "framework.h"
 #include "Main.h"
 #include "QuoteWindowController.h"
 #include "QuotesHistoryWindowController.h"
 #include "SettingsWindowController.h"
 #include "MainWindowController.h"
+#include "DbContextLibrary.h"
+#include <iostream>
+#include <time.h>
 
 #define MAX_LOADSTRING 100
 
@@ -20,12 +25,31 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
+void SetupDebugConsole()
+{
+	FILE* fp;
+
+	AllocConsole();
+	freopen_s(&fp, "CONIN$", "r", stdin);
+	freopen_s(&fp, "CONOUT$", "w", stdout);
+	freopen_s(&fp, "CONOUT$", "w", stderr);
+
+	DbContextLibrary contextLibrary;
+
+	printf_s("\n");
+	printf_s("\n");
+	printf_s("-== End of the program. ==-");
+}
+
 // Entrada del programa para aplicación de escritorio usando este framework
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+	srand(time(0));
+	//return 0; // TEMPORAL -----------------------------------------------------------
+
 	//return MessageBox(NULL, L"hello, world", L"caption", 0);
 
     UNREFERENCED_PARAMETER(hPrevInstance); //
@@ -45,6 +69,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_TIENDACPP));
 
     MSG msg;
+	
+	SetupDebugConsole();
 
     // Bucle principal de mensajes:
     while (GetMessage(&msg, nullptr, 0, 0))
@@ -117,5 +143,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  Procesa mensajes de la ventana principal.
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	//return 0; // TEMPORAL
 	return mainWindow->HandleMainWindowProd(hWnd, message, wParam, lParam);
 }
