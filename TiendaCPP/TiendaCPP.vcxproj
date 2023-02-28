@@ -141,11 +141,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Book.h" />
+    <ClInclude Include="BookFactory.h" />
     <ClInclude Include="DbContextLibrary.h" />
     <ClInclude Include="DbModelItem.h" />
     <ClInclude Include="DbTable.h" />
     <ClInclude Include="DbTableExample.h" />
     <ClInclude Include="Exemplary.h" />
+    <ClInclude Include="ExemplaryFactory.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Garment.h" />
     <ClInclude Include="Loan.h" />
@@ -153,6 +155,7 @@
     <ClInclude Include="Pants.h" />
     <ClInclude Include="ParternVIP.h" />
     <ClInclude Include="Partner.h" />
+    <ClInclude Include="PartnerFactory.h" />
     <ClInclude Include="Quotation.h" />
     <ClInclude Include="QuotesHistoryWindowController.h" />
     <ClInclude Include="QuoteWindowController.h" />
@@ -168,17 +171,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Book.cpp" />
+    <ClCompile Include="BookFactory.cpp" />
     <ClCompile Include="DbContextLibrary.cpp" />
     <ClCompile Include="DbModelItem.cpp" />
     <ClCompile Include="DbTable.cpp" />
     <ClCompile Include="DbTableExample.cpp" />
     <ClCompile Include="Exemplary.cpp" />
+    <ClCompile Include="ExemplaryFactory.cpp" />
     <ClCompile Include="Garment.cpp" />
     <ClCompile Include="Loan.cpp" />
     <ClCompile Include="MainWindowController.cpp" />
     <ClCompile Include="Pants.cpp" />
     <ClCompile Include="ParternVIP.cpp" />
     <ClCompile Include="Partner.cpp" />
+    <ClCompile Include="PartnerFactory.cpp" />
     <ClCompile Include="Quotation.cpp" />
     <ClCompile Include="QuotesHistoryWindowController.cpp" />
     <ClCompile Include="QuoteWindowController.cpp" />
