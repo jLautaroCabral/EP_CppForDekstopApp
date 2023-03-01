@@ -6,6 +6,9 @@
 class Utils
 {
 public:
-	static bool isNumber(const std::string& s);
+	static bool IsNumber(const std::string& s);
+	static void StringToConstWchar_TPointer(const std::string& string, const wchar_t*&);
+	static const wchar_t* StringToConstWchar_TPointer(const std::string& string);
+	static std::string* WCharToString_TPointer(wchar_t* wcharString);
 };
 #endif
