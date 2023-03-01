@@ -19,6 +19,11 @@ bool UtilsUI::TryGetStringFromInputField(HWND hDlg, int resourceID, std::string 
 	
 	wchar_t inputStr[maxAmountOfCharacters];
 	GetWindowText(hInpfBookName, inputStr, inputStrLength + 1);
-	outString = *Utils::WCharToString_TPointer(inputStr);
+
+	// EJEMPLO DE LIMPIEZA A EVALUAR
+	std::string* strPointer = Utils::WCharToString_TPointer(inputStr);
+	//outString = *Utils::WCharToString_TPointer(inputStr);
+	outString = *strPointer;
+	delete strPointer;
 	return true;
 }

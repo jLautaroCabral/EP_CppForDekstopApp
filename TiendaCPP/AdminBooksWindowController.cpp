@@ -8,12 +8,8 @@
 #include "Utils.h"
 #include "UtilsUI.h"
 
-AdminBooksWindowController::AdminBooksWindowController()
-{
-}
-AdminBooksWindowController::~AdminBooksWindowController()
-{
-}
+AdminBooksWindowController::AdminBooksWindowController() {}
+AdminBooksWindowController::~AdminBooksWindowController() {}
 AdminBooksWindowController* AdminBooksWindowController::singleton_ = nullptr;
 
 AdminBooksWindowController* AdminBooksWindowController::GetInstance()
@@ -32,22 +28,6 @@ void AdminBooksWindowController::InitializeWindowHandlersIfNeeded(HWND hDlg)
 {
 	if (!AdminBooksWindowController::GetInstance()->handlersInitialized)
 	{
-		/*
-		hRbtnMangaCorta = GetDlgItem(hDlg, RBTN3_MANGA_CORTA);
-		hRbtnMangaLarga = GetDlgItem(hDlg, RBTN3_MANGA_LARGA);
-		hRbtnCuelloMao = GetDlgItem(hDlg, RBTN4_CUELLO_COMUN);
-		hRbtnCuelloComun = GetDlgItem(hDlg, RBTN4_CUELLO_MAO);
-		hRbtnPantalonComun = GetDlgItem(hDlg, RBTN5_COMUN);
-		hRbtnPantalonChupin = GetDlgItem(hDlg, RBTN5_CHUPIN);
-
-		hInpFPrice = GetDlgItem(hDlg, INPF_PRICE);
-		hInpFQuantity = GetDlgItem(hDlg, INPF_QUANTITY);
-
-		hLblQuotation = GetDlgItem(hDlg, LBL_QUOTATION);
-
-		quotePrice = 10;
-		quoteQuantity = 5;
-		*/
 		AdminBooksWindowController::GetInstance()->handlersInitialized = true;
 	}
 }
@@ -55,12 +35,15 @@ void AdminBooksWindowController::InitializeWindowHandlersIfNeeded(HWND hDlg)
 void AdminBooksWindowController::UpdateListBoxInfo(HWND hDlg)
 {
 	HWND hLbBooks = GetDlgItem(hDlg, LB_BOOKS);
+
+	// First delete all previous elements
 	int itemCount = SendMessage(hLbBooks, LB_GETCOUNT, NULL, NULL);
 	for (int i = 0; i < itemCount; i++)
 	{
 		int itemCount = SendMessage(hLbBooks, LB_DELETESTRING, HIWORD(i), NULL);
 	}
 
+	// Then fill the list box
 	for (const Book* book : DbContextLibrary::GetInstance()->bookTable.GetAllItems())
 	{
 		// From strting to wchar_t
@@ -104,13 +87,7 @@ void AdminBooksWindowController::HandleWindowCommand(HWND hDlg, UINT message, WP
 
 	int lWord = LOWORD(wParam);
 	int hWord = HIWORD(wParam);
-	int iTextLength;
-	int a;
-	//std::wstring strFinal;
-	wchar_t str[100];
-	LPWSTR priceStr(str);
 
-	// TODO: UPGRADE THIS PLS
 	switch (message)
 	{
 		case WM_COMMAND:
@@ -135,13 +112,13 @@ void AdminBooksWindowController::HandleWindowCommand(HWND hDlg, UINT message, WP
 						
 						if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_BOOK_NAME, "Nombre del libro", bookName)) break;
 						if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_ADDBOOK_AUTHORNAME, "Nombre del autor del libro", bookAuthorName)) break;
-						if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_ADDBOOK_ISBNCODE, "Codigo ISB", bookISBNCode)) break;
+						if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_ADDBOOK_ISBNCODE, "Codigo ISNB", bookISBNCode)) break;
+
+						if (!PerformChecks(hDlg)) break;
 
 						Book* newBook = BookFactory::CreateBook(bookName, bookAuthorName, bookISBNCode);
 						DbContextLibrary::GetInstance()->bookTable.Add(newBook);
-
-						DbContextLibrary::GetInstance()->PrintBooksDebugInfo();
-
+						
 						UpdateListBoxInfo(hDlg);
 					}
 				}
@@ -197,147 +174,65 @@ INT_PTR AdminBooksWindowController::HandleWindow(HWND hDlg, UINT message, WPARAM
 
 bool AdminBooksWindowController::PerformChecks(HWND hDlg)
 {
-	/*
+	
 	int dlgItemsIDsToCheck[] =
 	{
-		RBTN_STANDAR,
-		RBTN_PREMIUM,
-		RBTN2_SHIRT,
-		RBTN2_PANT,
-		RBTN3_MANGA_CORTA,
-		RBTN3_MANGA_LARGA,
-		RBTN4_CUELLO_COMUN,
-		RBTN4_CUELLO_MAO,
-		RBTN5_COMUN,
-		RBTN5_CHUPIN,
-		INPF_PRICE,
-		INPF_QUANTITY,
-		INPF_PRICE
+		INPF_BOOK_NAME,
+		INPF_ADDBOOK_AUTHORNAME,
+		INPF_ADDBOOK_ISBNCODE
 	};
 
 	for (int const& id : dlgItemsIDsToCheck)
 	{
-		if (PerformItemCheck(hDlg, id)) return false;
+		if (PerformItemCheck(hDlg, id))
+		{
+			return false; // There is something wrong
+		}
 	}
-	*/
-	return true;
+	
+	return true; // All good
 }
 
 bool AdminBooksWindowController::PerformItemCheck(HWND hDlg, int dlgID)
 {
-	/*
 	bool thereIsAError = false;
 	int iTextLength;
-	LPWSTR stringInTheField;
-	wchar_t str[100];
+	HWND hInpf;
+
 	switch (dlgID)
 	{
-	case RBTN_STANDAR:
-	case RBTN_PREMIUM:
-	{
-		if (IsDlgButtonChecked(hDlg, RBTN_STANDAR) == BST_UNCHECKED && IsDlgButtonChecked(hDlg, RBTN_PREMIUM) == BST_UNCHECKED)
+		case INPF_BOOK_NAME:
 		{
-			thereIsAError = true;
-			MessageBox(NULL, L"Es necesario seleccionar un tipo de calidad (Standar o Premium)", L"Error", MB_ICONERROR);
-		}
-		break;
-	}
-	case RBTN2_PANT:
-	case RBTN2_SHIRT:
-	{
-		if (IsDlgButtonChecked(hDlg, RBTN2_PANT) == BST_UNCHECKED && IsDlgButtonChecked(hDlg, RBTN2_SHIRT) == BST_UNCHECKED)
-		{
-			thereIsAError = true;
-			MessageBox(NULL, L"Es necesario seleccionar un tipo de prenda (Camisa o Pantalón)", L"Error", MB_ICONERROR);
-		}
-		break;
-	}
-	case RBTN3_MANGA_LARGA:
-	case RBTN3_MANGA_CORTA:
-	{
-		if (IsDlgButtonChecked(hDlg, RBTN2_SHIRT) == BST_CHECKED &&
-			IsDlgButtonChecked(hDlg, RBTN3_MANGA_CORTA) == BST_UNCHECKED &&
-			IsDlgButtonChecked(hDlg, RBTN3_MANGA_LARGA) == BST_UNCHECKED)
-		{
-			thereIsAError = true;
-			MessageBox(NULL, L"Es necesario seleccionar un tipo de manga (Manga corta o Manga larga)", L"Error", MB_ICONERROR);
-		}
-		break;
-	}
-	case RBTN4_CUELLO_COMUN:
-	case RBTN4_CUELLO_MAO:
-	{
-		if (IsDlgButtonChecked(hDlg, RBTN2_SHIRT) == BST_CHECKED &&
-			IsDlgButtonChecked(hDlg, RBTN4_CUELLO_COMUN) == BST_UNCHECKED &&
-			IsDlgButtonChecked(hDlg, RBTN4_CUELLO_MAO) == BST_UNCHECKED)
-		{
-			thereIsAError = true;
-			MessageBox(NULL, L"Es necesario seleccionar un tipo de cuello (Cuello común o Cuello Mao)", L"Error", MB_ICONERROR);
-		}
-		break;
-	}
-	case RBTN5_COMUN:
-	case RBTN5_CHUPIN:
-	{
-		if (IsDlgButtonChecked(hDlg, RBTN2_PANT) == BST_CHECKED &&
-			IsDlgButtonChecked(hDlg, RBTN5_COMUN) == BST_UNCHECKED &&
-			IsDlgButtonChecked(hDlg, RBTN5_CHUPIN) == BST_UNCHECKED)
-		{
-			thereIsAError = true;
-			MessageBox(NULL, L"Es necesario seleccionar un tipo de pantalon (Común o Chupín)", L"Error", MB_ICONERROR);
-		}
-		break;
-	}
-	case INPF_QUANTITY:
-	{
-		iTextLength = GetWindowTextLength(hInpFQuantity);
-		if (iTextLength == 0)
-		{
-			thereIsAError = true;
-			MessageBox(NULL, L"Es necesario ingresar una cantidad de prendas a cotizar en el campo 'Cantidad'", L"Error", MB_ICONERROR);
-		}
-		else
-		{
-			GetWindowTextW(hInpFQuantity, str, iTextLength + 1);
-
-			wstring ws(str);
-			string stdStr(ws.begin(), ws.end());
-			if (!Utils::isNumber(stdStr))
+			hInpf = GetDlgItem(hDlg, INPF_BOOK_NAME);
+			iTextLength = GetWindowTextLength(hInpf);
+			if (iTextLength == 0)
 			{
 				thereIsAError = true;
-				MessageBox(NULL, L"Es necesario ingresar un número válido en el campo 'Cantidad'", L"Error", MB_ICONERROR);
+				MessageBox(NULL, L"Es necesario ingresar una cantidad de prendas a cotizar en el campo 'Nombre del libro'", L"Error", MB_ICONERROR);
 			}
 		}
-		break;
-	}
-	case INPF_PRICE:
-	{
-		iTextLength = GetWindowTextLength(hInpFPrice);
-		if (iTextLength == 0)
+		case INPF_ADDBOOK_AUTHORNAME:
 		{
-			thereIsAError = true;
-			MessageBox(NULL, L"Es necesario ingresar un precio unitario a la prenda a cotizar en el campo 'Precio'", L"Error", MB_ICONERROR);
-		}
-		else
-		{
-			GetWindowTextW(hInpFPrice, str, iTextLength + 1);
-
-			wstring ws(str);
-			string stdStr(ws.begin(), ws.end());
-			if (!Utils::isNumber(stdStr))
+			hInpf = GetDlgItem(hDlg, INPF_ADDBOOK_AUTHORNAME);
+			iTextLength = GetWindowTextLength(hInpf);
+			if (iTextLength == 0)
 			{
 				thereIsAError = true;
-				MessageBox(NULL, L"Es necesario ingresar un número válido en el campo 'Precio'", L"Error", MB_ICONERROR);
+				MessageBox(NULL, L"Es necesario ingresar una cantidad de prendas a cotizar en el campo 'Nombre del autor del libro'", L"Error", MB_ICONERROR);
 			}
 		}
-		break;
-	}
-	default:
-		break;
+		case INPF_ADDBOOK_ISBNCODE:
+		{
+			hInpf = GetDlgItem(hDlg, INPF_ADDBOOK_ISBNCODE);
+			iTextLength = GetWindowTextLength(hInpf);
+			if (iTextLength == 0)
+			{
+				thereIsAError = true;
+				MessageBox(NULL, L"Es necesario ingresar una cantidad de prendas a cotizar en el campo 'Codigo ISBN'", L"Error", MB_ICONERROR);
+			}
+		}
 	}
 	return thereIsAError;
-	*/
-	return false;
 }
 
 
