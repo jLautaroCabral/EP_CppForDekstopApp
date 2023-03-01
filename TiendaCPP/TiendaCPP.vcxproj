@@ -169,6 +169,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="UtilsUI.h" />
     <ClInclude Include="WindowController.h" />
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +199,7 @@
     <ClCompile Include="Shirt.cpp" />
     <ClCompile Include="Store.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="UtilsUI.cpp" />
     <ClCompile Include="WindowController.cpp" />
   </ItemGroup>
   <ItemGroup>
