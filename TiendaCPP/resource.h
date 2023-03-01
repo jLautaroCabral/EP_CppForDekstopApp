@@ -17,6 +17,7 @@
 #define IDI_SMALL                       108
 #define IDD_ADMIN_BOOKS                 108
 #define IDC_TIENDACPP                   109
+#define IDD_ADMIN_EXEMPLARIES           109
 #define IDR_MAINFRAME                   128
 #define IDD_ABOUTBOX_SLABEL1            128
 #define IDD_ABOUTBOX_SLABEL2            129
@@ -65,10 +66,10 @@
 #define GBC_MANGA                       1031
 #define GBC_CUELLO                      1032
 #define GBC_PANTALON                    1033
-#define BTN_REMOVE_BOOK3                1033
 #define IDC_COMBO1                      1034
 #define CBC_HISTORY                     1034
 #define LBC_DESCRIPTION                 1035
+#define IDC_COMBO2                      1035
 #define LBL_STATIC                      1036
 #define LBL_HISTORY_TEXT                1036
 #define LB_BOOKS                        1039
@@ -87,6 +88,8 @@
 #define LBL_STATIC_BOOKINFO_EXEMPLARIESAMOUNT 1051
 #define LBL_STATIC_ADDBOOK_AUTHORNAME   1052
 #define LBL_STATIC_ADDBOOK_ISBNCODE     1053
+#define LBL_BOOKS2                      1055
+#define LBL_BOOKS3                      1056
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
