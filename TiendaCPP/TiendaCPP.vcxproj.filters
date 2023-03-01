@@ -132,6 +132,9 @@
     <ClInclude Include="LoanFactory.h">
       <Filter>Archivos de encabezado\Factories</Filter>
     </ClInclude>
+    <ClInclude Include="AdminBooksWindowController.h">
+      <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainWindowController.cpp">
@@ -211,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="Partner.cpp">
       <Filter>Archivos de origen\LibraryModel</Filter>
+    </ClCompile>
+    <ClCompile Include="AdminBooksWindowController.cpp">
+      <Filter>Archivos de origen\Controladores</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

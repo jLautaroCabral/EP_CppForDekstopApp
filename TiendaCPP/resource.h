@@ -50,17 +50,22 @@
 #define IDC_BUTTON1                     1026
 #define LBL_QUANTITY2                   1026
 #define BTN_ADD_BOOK                    1026
+#define BTN_ADDBOOK_ADDBTN              1026
 #define IDC_EDIT1                       1027
 #define INPF_BOOK_NAME                  1027
+#define INPF_ADDBOOK_BOOKNAME           1027
 #define LBL_QUOTATION                   1028
 #define BTN_REMOVE                      1028
 #define BTN_REMOVE_BOOK                 1028
 #define LBL_QUOTATION2                  1029
 #define LBL_QUOTATION_RESUME            1029
+#define INPF_ADDBOOK_AUTHORNAME         1029
 #define BTN_QUOTE                       1030
+#define INPF_ADDBOOK_ISBNCODE           1030
 #define GBC_MANGA                       1031
 #define GBC_CUELLO                      1032
 #define GBC_PANTALON                    1033
+#define BTN_REMOVE_BOOK3                1033
 #define IDC_COMBO1                      1034
 #define CBC_HISTORY                     1034
 #define LBC_DESCRIPTION                 1035
@@ -69,7 +74,19 @@
 #define LB_BOOKS                        1039
 #define GBC_ADD_BOOK                    1040
 #define LBL_BOOK_NAME                   1041
+#define LBL_STATIC_ADDBOOK_BOOKNAME     1041
 #define LBL_BOOKS                       1042
+#define GBC_BOOK_INFO                   1043
+#define LBL_STATIC_BOOKINFO_NAME        1044
+#define LBL_BOOKINFO_NAME               1045
+#define LBL_BOOKINFO_AUTHOR             1046
+#define LBL_STATIC_BOOKINFO_AUTHOR      1047
+#define LBL_BOOKINFO_ISBNCODE           1048
+#define LBL_STATIC_BOOKINFO_ISBNCODE    1049
+#define LBL_BOOKINFO_EXEMPLARIESAMOUNT  1050
+#define LBL_STATIC_BOOKINFO_EXEMPLARIESAMOUNT 1051
+#define LBL_STATIC_ADDBOOK_AUTHORNAME   1052
+#define LBL_STATIC_ADDBOOK_ISBNCODE     1053
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -79,7 +96,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1043
+#define _APS_NEXT_CONTROL_VALUE         1045
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif
