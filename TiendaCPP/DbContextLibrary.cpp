@@ -6,12 +6,26 @@
 DbContextLibrary::DbContextLibrary()
 {
 	FillDbContextData();
-	PrintDebugInfo();
 }
 
 DbContextLibrary::~DbContextLibrary()
 {
 }
+
+DbContextLibrary* DbContextLibrary::singleton_ = nullptr;
+
+DbContextLibrary* DbContextLibrary::GetInstance()
+{
+	/**
+	 * This is a safer way to create an instance. instance = new Singleton is
+	 * dangeruous in case two instance threads wants to access at the same time
+	 */
+	if (singleton_ == nullptr) {
+		singleton_ = new DbContextLibrary();
+	}
+	return singleton_;
+}
+
 
 void DbContextLibrary::FillDbContextData()
 {
@@ -21,7 +35,7 @@ void DbContextLibrary::FillDbContextData()
 		Book* bookExample = BookFactory::CreateRandomBook();
 		bookTable.Add(bookExample);
 
-		for (int j = 0; j < 2; j++)
+		for (int j = 0; j < (rand() % 5) + 1; j++)
 		{
 			Exemplary* exemplaryExample = ExemplaryFactory::CreateRandomExemplary(bookExample);
 			exemplaryTable.Add(exemplaryExample);
@@ -50,10 +64,20 @@ void DbContextLibrary::FillDbContextData()
 
 }
 
-void DbContextLibrary::PrintDebugInfo()
+// TODO: UPGRADE
+void DbContextLibrary::PrintBooksDebugInfo()
 {
-	for (const Exemplary* item : exemplaryTable.GetAllItems())
+	printf_s("*** START: Print book debug info:\n");
+	for (const Book* book : GetInstance()->bookTable.GetAllItems())
 	{
+		printf_s("\n");
+		printf_s("---------------------------------------");
+		printf_s("\n");
+		printf_s(("Book ID: " + std::to_string(book->modelID)).c_str());
+		printf_s("\n");
+		printf_s(("Book name: " + book->name + " - " + book->autor).c_str());
+		printf_s("\n");
+		/*
 		printf_s("\n\n\n");
 		printf_s("Exemplary data\n");
 		printf_s("********************************************");
@@ -69,6 +93,7 @@ void DbContextLibrary::PrintDebugInfo()
 		printf_s(("Book ID: " + std::to_string(bookTable.GetElementByID(item->bookID)->modelID)).c_str());
 		printf_s("\n");
 		printf_s(("Book name: " + bookTable.GetElementByID(item->bookID)->name + " - " + bookTable.GetElementByID(item->bookID)->autor).c_str());
-		
+	*/	
 	}
+	printf_s("*** END: Print book debug info:\n");
 }

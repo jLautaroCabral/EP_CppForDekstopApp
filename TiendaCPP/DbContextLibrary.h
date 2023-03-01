@@ -9,14 +9,24 @@
 #define DB_CONTEXT_LIBRARY_H
 class DbContextLibrary
 {
+protected:
+	DbContextLibrary();
+	static DbContextLibrary* singleton_;
+
+	
+public:
+	static DbContextLibrary* GetInstance();
+	//      * Singletons should not be cloneable.
+	DbContextLibrary(DbContextLibrary& other) = delete;
+	//      * Singletons should not be assignable.
+	void operator=(const DbContextLibrary&) = delete;
+
 	DbTable<Loan> loanTable;
 	DbTable<Partner> partnerTable;
 	DbTable<Exemplary> exemplaryTable;
 	DbTable<Book> bookTable;
-public:
-	DbContextLibrary();
 	~DbContextLibrary();
 	void FillDbContextData();
-	void PrintDebugInfo();
+	static void PrintBooksDebugInfo();
 };
 #endif

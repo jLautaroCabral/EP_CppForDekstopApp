@@ -18,7 +18,7 @@ public:
 
 	~Book();
 
-	void AddBook();
+	//void AddBook();
 	void ConsultExemplary();
 	void LoanExemplary();
 	void RegisterExemplary();

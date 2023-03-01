@@ -381,7 +381,7 @@ bool QuoteWindowController::PerformItemCheck(HWND hDlg, int dlgID)
 
 			wstring ws(str);
 			string stdStr(ws.begin(), ws.end());
-			if (!Utils::isNumber(stdStr))
+			if (!Utils::IsNumber(stdStr))
 			{
 				thereIsAError = true;
 				MessageBox(NULL, L"Es necesario ingresar un número válido en el campo 'Cantidad'", L"Error", MB_ICONERROR);
@@ -403,7 +403,7 @@ bool QuoteWindowController::PerformItemCheck(HWND hDlg, int dlgID)
 
 			wstring ws(str);
 			string stdStr(ws.begin(), ws.end());
-			if (!Utils::isNumber(stdStr))
+			if (!Utils::IsNumber(stdStr))
 			{
 				thereIsAError = true;
 				MessageBox(NULL, L"Es necesario ingresar un número válido en el campo 'Precio'", L"Error", MB_ICONERROR);

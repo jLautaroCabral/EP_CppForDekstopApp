@@ -4,12 +4,13 @@
 #include "QuoteWindowController.h"
 #include "QuotesHistoryWindowController.h"
 #include "SettingsWindowController.h"
+#include "AdminBooksWindowController.h"
 #include "Store.h"
 #include "Shirt.h"
 #include "Pants.h"
 #include "Garment.h"
 
-TCHAR greeting[] = _T("Software para venta de ropa, proyecto estudiantil");
+TCHAR greeting[] = _T("Software para biblioteca, proyecto estudiantil");
 TCHAR storeName[] = _T("Tienda: NombreDeTiendaDeEjemplo");
 TCHAR userName[] = _T("Vendedor: NombreDeVendedorDeEjemplo");
 
@@ -48,82 +49,8 @@ void MainWindowController::Initialize(HINSTANCE* inst, HWND* hwnd)
 	store->storeName = "NombreDeTiendaDeEjemplo";
 	store->storeAddress = "9 de Julio 1";
 
-	Shirt* newShirt;
-	for (int i = 0; i < 500; ++i)
-	{
-		newShirt = new Shirt();
-		newShirt->mangaType = Shirt::MangaCorta;
-		if (i < 200) {
-			newShirt->cuelloType = Shirt::CuelloMao;
-			if (i % 2 == 0)
-				newShirt->qualityType = Garment::Standar;
-			else
-				newShirt->qualityType = Garment::Premium;
-		}
-
-		if (i < 500) {
-			newShirt->cuelloType = Shirt::CuelloComun;
-			if (i % 2 == 0)
-				newShirt->qualityType = Garment::Standar;
-			else
-				newShirt->qualityType = Garment::Premium;
-		}
-		
-		store->garments.push_front(newShirt);
-	}
-
-	for (int i = 0; i < 500; ++i)
-	{
-		newShirt = new Shirt();
-		newShirt->mangaType = Shirt::MangaLarga;
-		if (i < 150) {
-			newShirt->cuelloType = Shirt::CuelloMao;
-			if (i % 2 == 0)
-				newShirt->qualityType = Garment::Standar;
-			else
-				newShirt->qualityType = Garment::Premium;
-		}
-
-		if (i < 500) {
-			newShirt->cuelloType = Shirt::CuelloComun;
-			if (i % 2 == 0)
-				newShirt->qualityType = Garment::Standar;
-			else
-				newShirt->qualityType = Garment::Premium;
-		}
-
-		store->garments.push_front(newShirt);
-	}
-
-	Pants* newPant;
-	for (int i = 0; i < 2000; ++i)
-	{
-		newPant = new Pants();
-		if (i < 1500) {
-			newPant->pantType = Pants::Chupin;
-			if (i % 2 == 0)
-				newPant->qualityType = Garment::Standar;
-			else
-				newPant->qualityType = Garment::Premium;
-		}
-
-		if (i < 2000) {
-			newPant->pantType = Pants::Comun;
-			if (i % 2 == 0)
-				newPant->qualityType = Garment::Standar;
-			else
-				newPant->qualityType = Garment::Premium;
-		}
-
-		store->garments.push_front(newShirt);
-	}
-
 	hInst = inst;
 	hWnd = hwnd;
-
-	windowButtonsInfo[0] = { L"Realizar cotizacion", 0, 0, MAKEINTRESOURCE(IDD_COTIZACIONBOX), hInst, QuoteWindowController::HandleWindow };
-	windowButtonsInfo[1] = { L"Historial de cotizaciones", 0, 0, MAKEINTRESOURCE(IDD_HISTORYBOX), hInst, QuotesHistoryWindowController::HandleWindow };
-	//windowButtonsInfo[2] = { L"Configurar vendedor", 0, 0, MAKEINTRESOURCE(IDD_SETTINGSBOX), hInst, SettingsWindowController::HandleWindow };
 
 	CreateButtons(*hWnd);
 }
@@ -155,6 +82,11 @@ int MainWindowController::HandleButtonClick(HWND hWnd, HWND hButton)
 // the buttons are in a single row at the top of the window.
 void MainWindowController::CreateButtons(HWND hWnd)
 {
+	windowButtonsInfo[0] = { L"Administrar libros", 0, 0, MAKEINTRESOURCE(IDD_ADMIN_BOOKS), hInst, AdminBooksWindowController::HandleWindow };
+	windowButtonsInfo[1] = { L"Administrar ejemplares", 0, 0, MAKEINTRESOURCE(IDD_COTIZACIONBOX), hInst, QuoteWindowController::HandleWindow };
+	windowButtonsInfo[2] = { L"Administrar socios", 0, 0, MAKEINTRESOURCE(IDD_COTIZACIONBOX), hInst, QuoteWindowController::HandleWindow };
+	windowButtonsInfo[3] = { L"Default", 0, 0, MAKEINTRESOURCE(IDD_COTIZACIONBOX), hInst, QuoteWindowController::HandleWindow };
+
 	POINT myPoint = { 100, 300 };  // x, y
 
 	for (auto& button : windowButtonsInfo) {
@@ -230,7 +162,7 @@ LRESULT MainWindowController::HandleMainWindowProd(HWND hWnd, UINT message, WPAR
 		//Sets the coordinates for the rectangle in which the text is to be formatted.
 		SetRect(&rect, 100, 50, 700, 200);
 		SetTextColor(hdc, RGB(0, 0, 0));
-		DrawText(hdc, TEXT("Bienvenidos a TiendaCPP"), -1, &rect, DT_NOCLIP);
+		DrawText(hdc, TEXT("¡Bienvenidos a LibreriaCPP!"), -1, &rect, DT_NOCLIP);
 
 		SelectObject(hdc, hFontOriginal);
 		TextOut(hdc, 100, 105, greeting, _tcslen(greeting));
