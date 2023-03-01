@@ -6,6 +6,7 @@
 #include "DbContextLibrary.h"
 #include "BookFactory.h"
 #include "Utils.h"
+#include "UtilsUI.h"
 
 AdminBooksWindowController::AdminBooksWindowController()
 {
@@ -95,6 +96,8 @@ void AdminBooksWindowController::UpdateItemSelectionOnList(HWND hDlg)
 	SetDlgItemText(hDlg, LBL_BOOKINFO_ISBNCODE, Utils::StringToConstWchar_TPointer(bookSelected->ISBNcode));
 	SetDlgItemText(hDlg, LBL_BOOKINFO_EXEMPLARIESAMOUNT, Utils::StringToConstWchar_TPointer(std::to_string(std::size(bookSelected->exemplaries))));
 }
+
+
 void AdminBooksWindowController::HandleWindowCommand(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	AdminBooksWindowController::GetInstance()->InitializeWindowHandlersIfNeeded(hDlg);
@@ -124,29 +127,15 @@ void AdminBooksWindowController::HandleWindowCommand(HWND hDlg, UINT message, WP
 				{
 					if (hWord == BN_CLICKED)
 					{
-						wchar_t inputStr[100];
-						int inputStrLength;
-
-						HWND hInpfBookName = GetDlgItem(hDlg, INPF_BOOK_NAME);
-						HWND hInpfBookAuthor = GetDlgItem(hDlg, INPF_ADDBOOK_AUTHORNAME);
-						HWND hInpfBookISBNCode = GetDlgItem(hDlg, INPF_ADDBOOK_ISBNCODE);
 						HWND hLbBooks = GetDlgItem(hDlg, LB_BOOKS);
 
 						std::string bookName;
 						std::string bookAuthorName;
 						std::string bookISBNCode;
 						
-						inputStrLength = GetWindowTextLength(hInpfBookName);
-						GetWindowText(hInpfBookName, inputStr, inputStrLength + 1);
-						bookName = *Utils::WCharToString_TPointer(inputStr);
-
-						inputStrLength = GetWindowTextLength(hInpfBookAuthor);
-						GetWindowText(hInpfBookAuthor, inputStr, inputStrLength + 1);
-						bookAuthorName = *Utils::WCharToString_TPointer(inputStr);
-
-						inputStrLength = GetWindowTextLength(hInpfBookISBNCode);
-						GetWindowText(hInpfBookISBNCode, inputStr, inputStrLength + 1);
-						bookISBNCode = *Utils::WCharToString_TPointer(inputStr);
+						if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_BOOK_NAME, "Nombre del libro", bookName)) break;
+						if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_ADDBOOK_AUTHORNAME, "Nombre del autor del libro", bookAuthorName)) break;
+						if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_ADDBOOK_ISBNCODE, "Codigo ISB", bookISBNCode)) break;
 
 						Book* newBook = BookFactory::CreateBook(bookName, bookAuthorName, bookISBNCode);
 						DbContextLibrary::GetInstance()->bookTable.Add(newBook);
@@ -155,7 +144,6 @@ void AdminBooksWindowController::HandleWindowCommand(HWND hDlg, UINT message, WP
 
 						UpdateListBoxInfo(hDlg);
 					}
-					break;
 				}
 				case BTN_REMOVE_BOOK:
 				{
