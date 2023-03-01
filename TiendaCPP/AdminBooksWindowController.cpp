@@ -79,9 +79,21 @@ void AdminBooksWindowController::UpdateListBoxInfo(HWND hDlg)
 }
 
 
-void UpdateList(HWND hDlg)
+void AdminBooksWindowController::UpdateItemSelectionOnList(HWND hDlg)
 {
+	HWND hwndList = GetDlgItem(hDlg, LB_BOOKS);
+	// Get selected index.
+	int selectedItem = (int)SendMessage(hwndList, LB_GETCURSEL, NULL, NULL);
+	// Get item data.
+	int modelIdOfSelectedItem = (int)SendMessage(hwndList, LB_GETITEMDATA, selectedItem, NULL);
+	// Get book from DbContext
+	Book* bookSelected = DbContextLibrary::GetInstance()->bookTable.GetElementByID(modelIdOfSelectedItem);
 
+	// Fill labels
+	SetDlgItemText(hDlg, LBL_BOOKINFO_NAME, Utils::StringToConstWchar_TPointer(bookSelected->name));
+	SetDlgItemText(hDlg, LBL_BOOKINFO_AUTHOR, Utils::StringToConstWchar_TPointer(bookSelected->autor));
+	SetDlgItemText(hDlg, LBL_BOOKINFO_ISBNCODE, Utils::StringToConstWchar_TPointer(bookSelected->ISBNcode));
+	SetDlgItemText(hDlg, LBL_BOOKINFO_EXEMPLARIESAMOUNT, Utils::StringToConstWchar_TPointer(std::to_string(std::size(bookSelected->exemplaries))));
 }
 void AdminBooksWindowController::HandleWindowCommand(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -145,24 +157,27 @@ void AdminBooksWindowController::HandleWindowCommand(HWND hDlg, UINT message, WP
 					}
 					break;
 				}
+				case BTN_REMOVE_BOOK:
+				{
+					if (hWord == BN_CLICKED)
+					{
+						HWND hwndList = GetDlgItem(hDlg, LB_BOOKS);
+						// Get selected index.
+						int selectedItem = (int)SendMessage(hwndList, LB_GETCURSEL, NULL, NULL);
+						// Get item data.
+						int modelIdOfSelectedItem = (int)SendMessage(hwndList, LB_GETITEMDATA, selectedItem, NULL);
+
+						DbContextLibrary::GetInstance()->bookTable.Remove(modelIdOfSelectedItem);
+						UpdateListBoxInfo(hDlg);
+						SendMessage(hwndList, LB_SETCURSEL, (WPARAM)0, NULL);
+						UpdateItemSelectionOnList(hDlg);
+					}
+				}
 				case LB_BOOKS:
 				{
 					if (HIWORD(wParam) == LBN_SELCHANGE)
 					{
-						HWND hwndList = GetDlgItem(hDlg, LB_BOOKS);
-
-						// Get selected index.
-						int selectedItem = (int)SendMessage(hwndList, LB_GETCURSEL, 0, 0);
-						// Get item data.
-						int modelIdOfSelectedItem = (int)SendMessage(hwndList, LB_GETITEMDATA, selectedItem, 0);
-						// Get book from DbContext
-						Book* bookSelected = DbContextLibrary::GetInstance()->bookTable.GetElementByID(modelIdOfSelectedItem);
-
-						// Fill labels
-						SetDlgItemText(hDlg, LBL_BOOKINFO_NAME, Utils::StringToConstWchar_TPointer(bookSelected->name));
-						SetDlgItemText(hDlg, LBL_BOOKINFO_AUTHOR, Utils::StringToConstWchar_TPointer(bookSelected->autor));
-						SetDlgItemText(hDlg, LBL_BOOKINFO_ISBNCODE, Utils::StringToConstWchar_TPointer(bookSelected->ISBNcode));
-						SetDlgItemText(hDlg, LBL_BOOKINFO_EXEMPLARIESAMOUNT, Utils::StringToConstWchar_TPointer(std::to_string(std::size(bookSelected->exemplaries))));
+						UpdateItemSelectionOnList(hDlg);
 					}
 				}
 			}

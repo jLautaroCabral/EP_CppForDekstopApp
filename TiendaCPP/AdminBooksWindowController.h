@@ -27,6 +27,8 @@ public:
 	static bool PerformItemCheck(HWND hDlg, int dlgID);
 
 	static void UpdateListBoxInfo(HWND hDlg);
+	static void UpdateItemSelectionOnList(HWND hDlg);
+	
 
 	static INT_PTR CALLBACK HandleWindow(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 };
