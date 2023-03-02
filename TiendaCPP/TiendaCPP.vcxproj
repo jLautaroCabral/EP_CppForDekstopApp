@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AdminBooksWindowController.h" />
+    <ClInclude Include="AdminExemplariesWindowController.h" />
     <ClInclude Include="Book.h" />
     <ClInclude Include="BookFactory.h" />
     <ClInclude Include="DbContextLibrary.h" />
@@ -174,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdminBooksWindowController.cpp" />
+    <ClCompile Include="AdminExemplariesWindowController.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="BookFactory.cpp" />
     <ClCompile Include="DbContextLibrary.cpp" />

@@ -68,8 +68,9 @@
 #define GBC_PANTALON                    1033
 #define IDC_COMBO1                      1034
 #define CBC_HISTORY                     1034
+#define CB_LISTEXEMPLARIES_SELECTEDBOOK 1034
 #define LBC_DESCRIPTION                 1035
-#define IDC_COMBO2                      1035
+#define CB_ADDEXEMPLARY_SELECTEDBOOK    1035
 #define LBL_STATIC                      1036
 #define LBL_HISTORY_TEXT                1036
 #define LB_BOOKS                        1039
@@ -80,16 +81,26 @@
 #define GBC_BOOK_INFO                   1043
 #define LBL_STATIC_BOOKINFO_NAME        1044
 #define LBL_BOOKINFO_NAME               1045
+#define LB_LISTEXEMPLARIES_EXEMPLARIES  1045
 #define LBL_BOOKINFO_AUTHOR             1046
+#define LBL_STATIC_EXEMPLARIES          1046
 #define LBL_STATIC_BOOKINFO_AUTHOR      1047
+#define GBC_LISTEXEMPLARIES             1047
 #define LBL_BOOKINFO_ISBNCODE           1048
+#define GBC_ADD_EXEMPLARY               1048
 #define LBL_STATIC_BOOKINFO_ISBNCODE    1049
+#define LBL_STATIC_ADDEXEMPLARY_EDITION 1049
 #define LBL_BOOKINFO_EXEMPLARIESAMOUNT  1050
+#define LBL_STATIC_ADDEXEMPLARY_UBICATION 1050
 #define LBL_STATIC_BOOKINFO_EXEMPLARIESAMOUNT 1051
+#define INPF_ADDEXEMPLARY_UBICATION     1051
 #define LBL_STATIC_ADDBOOK_AUTHORNAME   1052
+#define INPF_ADDEXEMPLARY_EDITION       1052
 #define LBL_STATIC_ADDBOOK_ISBNCODE     1053
-#define LBL_BOOKS2                      1055
-#define LBL_BOOKS3                      1056
+#define BTN_ADDEXEMPLARY_ADD            1053
+#define BTN_LISTEXEMPLARIES_REMOVE      1054
+#define LBL_STATIC_LISTEXEMPLARIES_SELECTEDBOOK 1055
+#define LBL_STATIC_ADDEXEMPLARY_SELECTEDBOOK 1056
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -99,7 +110,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1045
+#define _APS_NEXT_CONTROL_VALUE         1055
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

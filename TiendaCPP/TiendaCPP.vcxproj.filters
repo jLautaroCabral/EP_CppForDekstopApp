@@ -138,6 +138,9 @@
     <ClInclude Include="UtilsUI.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="AdminExemplariesWindowController.h">
+      <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainWindowController.cpp">
@@ -223,6 +226,9 @@
     </ClCompile>
     <ClCompile Include="UtilsUI.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="AdminExemplariesWindowController.cpp">
+      <Filter>Archivos de origen\Controladores</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
