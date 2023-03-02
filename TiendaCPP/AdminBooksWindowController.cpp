@@ -175,7 +175,6 @@ INT_PTR AdminBooksWindowController::HandleWindow(HWND hDlg, UINT message, WPARAM
 
 bool AdminBooksWindowController::PerformChecks(HWND hDlg)
 {
-	
 	int dlgItemsIDsToCheck[] =
 	{
 		INPF_BOOK_NAME,

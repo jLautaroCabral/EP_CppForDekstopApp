@@ -74,7 +74,7 @@ void AdminExemplariesWindowController::HandleWindowCommand(HWND hDlg, UINT messa
 				// Get item data.
 				int modelIdOfSelectedItem = (int)SendMessage(hCbSelectedBookAddExemplary, CB_GETITEMDATA, selectedItem, NULL);
 
-				//if (!PerformChecks(hDlg)) break;
+				if (!PerformChecks(hDlg)) break;
 
 				Exemplary* newExemplary = ExemplaryFactory::CreateExemplary(stoi(exemplaryEditionNum), exemplaryUbication, modelIdOfSelectedItem);
 				DbContextLibrary::GetInstance()->bookTable.GetElementByID(modelIdOfSelectedItem)->exemplaries.push_back(newExemplary);
@@ -129,12 +129,61 @@ void AdminExemplariesWindowController::HandlePaintCommand(HWND hDlg, UINT messag
 
 bool AdminExemplariesWindowController::PerformChecks(HWND hDlg)
 {
-    return false;
+	int dlgItemsIDsToCheck[] =
+	{
+		INPF_ADDEXEMPLARY_EDITION,
+		INPF_ADDEXEMPLARY_UBICATION
+	};
+
+	for (int const& id : dlgItemsIDsToCheck)
+	{
+		if (PerformItemCheck(hDlg, id))
+		{
+			return false; // There is something wrong
+		}
+	}
+
+	return true; // All good
 }
 
 bool AdminExemplariesWindowController::PerformItemCheck(HWND hDlg, int dlgID)
 {
-    return false;
+	bool thereIsAError = false;
+	int iTextLength;
+	HWND hInpf;
+
+	switch (dlgID)
+	{
+		case INPF_ADDEXEMPLARY_EDITION:
+		{
+			hInpf = GetDlgItem(hDlg, INPF_ADDEXEMPLARY_EDITION);
+			iTextLength = GetWindowTextLength(hInpf);
+			if (iTextLength == 0)
+			{
+				thereIsAError = true;
+				MessageBox(NULL, L"Es necesario ingresar un valor en el campo 'Numero de edicion'", L"Error", MB_ICONERROR);
+			}
+
+			wchar_t str[100];
+			GetWindowTextW(hInpf, str, iTextLength + 1);
+			if (!Utils::IsNumber(*Utils::WCharToString_TPointer(str)))
+			{
+				thereIsAError = true;
+				MessageBox(NULL, L"Es necesario ingresar un número válido en el campo 'Numero de edicion'", L"Error", MB_ICONERROR);
+			}
+		}
+		case INPF_ADDEXEMPLARY_UBICATION:
+		{
+			hInpf = GetDlgItem(hDlg, INPF_ADDEXEMPLARY_UBICATION);
+			iTextLength = GetWindowTextLength(hInpf);
+			if (iTextLength == 0)
+			{
+				thereIsAError = true;
+				MessageBox(NULL, L"Es necesario ingresar una ubicacion en el campo 'Ubicacion en la biblioteca'", L"Error", MB_ICONERROR);
+			}
+		}
+	}
+	return thereIsAError;
 }
 
 void AdminExemplariesWindowController::UpdateListBoxInfo(HWND hDlg)
@@ -173,14 +222,6 @@ void AdminExemplariesWindowController::UpdateComboBoxesInfo(HWND hDlg)
 	HWND hCbSelectedBookAddExemplary = GetDlgItem(hDlg, CB_ADDEXEMPLARY_SELECTEDBOOK);
 	HWND hCbSelectedBookListExemplaries = GetDlgItem(hDlg, CB_LISTEXEMPLARIES_SELECTEDBOOK);
 
-	/*
-	// First delete all previous elements
-	int itemCount = SendMessage(hLbBooks, LB_GETCOUNT, NULL, NULL);
-	for (int i = 0; i < itemCount; i++)
-	{
-		int itemCount = SendMessage(hLbBooks, LB_DELETESTRING, HIWORD(i), NULL);
-	}
-	*/
 	SendMessage(hCbSelectedBookAddExemplary, CB_RESETCONTENT, NULL, NULL);
 	SendMessage(hCbSelectedBookListExemplaries, CB_RESETCONTENT, NULL, NULL);
 
@@ -191,14 +232,12 @@ void AdminExemplariesWindowController::UpdateComboBoxesInfo(HWND hDlg)
 		std::string stringItemToAdd = "" + book->name + ",   " + book->autor;
 		const wchar_t* result = Utils::StringToConstWchar_TPointer(stringItemToAdd);
 
-		//int itemPos = SendMessage(hLbBooks, LB_ADDSTRING, NULL, (LPARAM)result);
 		int itemPosAddExemplary = SendMessage(hCbSelectedBookAddExemplary, CB_ADDSTRING, NULL, (LPARAM)result);
 		int itemPosListExemplaries = SendMessage(hCbSelectedBookListExemplaries, CB_ADDSTRING, NULL, (LPARAM)result);
 
 		// Set the array index of the player as item data.
 		// This enables us to retrieve the item from the array
 		// even after the items are sorted by the combo box.
-
 		SendMessage(hCbSelectedBookAddExemplary, CB_SETITEMDATA, itemPosAddExemplary, (LPARAM)book->modelID);
 		SendMessage(hCbSelectedBookListExemplaries, CB_SETITEMDATA, itemPosListExemplaries, (LPARAM)book->modelID);
 	}
