@@ -10,6 +10,6 @@ private:
 public:
 	static Exemplary* CreateRandomExemplary();
 	static Exemplary* CreateRandomExemplary(Book* book);
-	static Exemplary* CreateExemplary();
+	static Exemplary* CreateExemplary(int editionNumber, std::string libraryUbication, int bookModelId);
 };
 #endif

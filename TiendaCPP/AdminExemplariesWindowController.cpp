@@ -5,6 +5,7 @@
 #include <string>
 #include "DbContextLibrary.h"
 #include "BookFactory.h"
+#include "ExemplaryFactory.h"
 #include "Utils.h"
 #include "UtilsUI.h"
 
@@ -54,30 +55,38 @@ void AdminExemplariesWindowController::HandleWindowCommand(HWND hDlg, UINT messa
 			EndDialog(hDlg, LOWORD(wParam));
 			break;
 		}
-		case BTN_ADD_BOOK:
+		case BTN_ADDEXEMPLARY_ADD:
 		{
 			if (hWord == BN_CLICKED)
 			{
-				HWND hLbBooks = GetDlgItem(hDlg, LB_BOOKS);
+				HWND hCbSelectedBookListExemplaries = GetDlgItem(hDlg, CB_LISTEXEMPLARIES_SELECTEDBOOK);
+				HWND hCbSelectedBookAddExemplary = GetDlgItem(hDlg, CB_ADDEXEMPLARY_SELECTEDBOOK);
 
-				std::string bookName;
-				std::string bookAuthorName;
-				std::string bookISBNCode;
+				std::string exemplaryEditionNum;
+				std::string exemplaryUbication;
+				int exemplaryBookId;
 
-				if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_BOOK_NAME, "Nombre del libro", bookName)) break;
-				if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_ADDBOOK_AUTHORNAME, "Nombre del autor del libro", bookAuthorName)) break;
-				if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_ADDBOOK_ISBNCODE, "Codigo ISNB", bookISBNCode)) break;
+				if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_ADDEXEMPLARY_EDITION, "Numero de edicion", exemplaryEditionNum)) break;
+				if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_ADDEXEMPLARY_UBICATION, "Ubicacion en la biblioteca", exemplaryUbication)) break;
 
-				if (!PerformChecks(hDlg)) break;
+				// Get selected index.
+				int selectedItem = (int)SendMessage(hCbSelectedBookAddExemplary, CB_GETCURSEL, NULL, NULL);
+				// Get item data.
+				int modelIdOfSelectedItem = (int)SendMessage(hCbSelectedBookAddExemplary, CB_GETITEMDATA, selectedItem, NULL);
 
-				Book* newBook = BookFactory::CreateBook(bookName, bookAuthorName, bookISBNCode);
-				DbContextLibrary::GetInstance()->bookTable.Add(newBook);
+				//if (!PerformChecks(hDlg)) break;
 
+				Exemplary* newExemplary = ExemplaryFactory::CreateExemplary(stoi(exemplaryEditionNum), exemplaryUbication, modelIdOfSelectedItem);
+				DbContextLibrary::GetInstance()->bookTable.GetElementByID(modelIdOfSelectedItem)->exemplaries.push_back(newExemplary);
+
+				SendMessage(hCbSelectedBookListExemplaries, CB_SETCURSEL, (WPARAM)selectedItem, NULL);
 				UpdateListBoxInfo(hDlg);
 			}
 		}
-		case BTN_REMOVE_BOOK:
+		case BTN_LISTEXEMPLARIES_REMOVE:
 		{
+			// TODO: REMOVE, UPDATE MODELS
+			/*
 			if (hWord == BN_CLICKED)
 			{
 				HWND hwndList = GetDlgItem(hDlg, LB_BOOKS);
@@ -91,6 +100,7 @@ void AdminExemplariesWindowController::HandleWindowCommand(HWND hDlg, UINT messa
 				SendMessage(hwndList, LB_SETCURSEL, (WPARAM)0, NULL);
 				UpdateItemSelectionOnList(hDlg);
 			}
+			*/
 		}
 		case LB_BOOKS:
 		{
@@ -171,6 +181,8 @@ void AdminExemplariesWindowController::UpdateComboBoxesInfo(HWND hDlg)
 		int itemCount = SendMessage(hLbBooks, LB_DELETESTRING, HIWORD(i), NULL);
 	}
 	*/
+	SendMessage(hCbSelectedBookAddExemplary, CB_RESETCONTENT, NULL, NULL);
+	SendMessage(hCbSelectedBookListExemplaries, CB_RESETCONTENT, NULL, NULL);
 
 	// Then fill the list box
 	for (const Book* book : DbContextLibrary::GetInstance()->bookTable.GetAllItems())
