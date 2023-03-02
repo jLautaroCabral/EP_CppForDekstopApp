@@ -30,12 +30,12 @@ DbContextLibrary* DbContextLibrary::GetInstance()
 void DbContextLibrary::FillDbContextData()
 {
 	// Fill Books and Exemplaries
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		Book* bookExample = BookFactory::CreateRandomBook();
 		bookTable.Add(bookExample);
 
-		for (int j = 0; j < (rand() % 5) + 1; j++)
+		for (int j = 0; j < (rand() % 15) + 1; j++)
 		{
 			Exemplary* exemplaryExample = ExemplaryFactory::CreateRandomExemplary(bookExample);
 			exemplaryTable.Add(exemplaryExample);

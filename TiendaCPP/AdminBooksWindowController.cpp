@@ -36,22 +36,23 @@ void AdminBooksWindowController::UpdateListBoxInfo(HWND hDlg)
 {
 	HWND hLbBooks = GetDlgItem(hDlg, LB_BOOKS);
 
+	/*
 	// First delete all previous elements
 	int itemCount = SendMessage(hLbBooks, LB_GETCOUNT, NULL, NULL);
 	for (int i = 0; i < itemCount; i++)
 	{
-		int itemCount = SendMessage(hLbBooks, LB_DELETESTRING, HIWORD(i), NULL);
+		//int itemCount = SendMessage(hLbBooks, LB_DELETESTRING, HIWORD(i), NULL);
 	}
+	*/
+	SendMessage(hLbBooks, LB_RESETCONTENT, NULL, NULL);
 
 	// Then fill the list box
 	for (const Book* book : DbContextLibrary::GetInstance()->bookTable.GetAllItems())
 	{
 		// From strting to wchar_t
 		std::string stringItemToAdd = "" + book->name + ",   " + book->autor;
-		std::wstring wide_string = std::wstring(stringItemToAdd.begin(), stringItemToAdd.end());
-		const wchar_t* result = wide_string.c_str();
-
-		int itemPos = SendMessage(hLbBooks, LB_ADDSTRING, NULL, (LPARAM)result);
+		int itemPos = SendMessage(hLbBooks, LB_ADDSTRING, NULL,
+			(LPARAM)Utils::StringToConstWchar_TPointer(stringItemToAdd));
 
 		// Set the array index of the player as item data.
 		// This enables us to retrieve the item from the array
