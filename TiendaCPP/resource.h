@@ -18,12 +18,16 @@
 #define IDD_ADMIN_BOOKS                 108
 #define IDC_TIENDACPP                   109
 #define IDD_ADMIN_EXEMPLARIES           109
+#define IDD_ADMIN_PARTNERS              110
 #define IDR_MAINFRAME                   128
 #define IDD_ABOUTBOX_SLABEL1            128
 #define IDD_ABOUTBOX_SLABEL2            129
 #define IDC_RADIO1                      1004
 #define RBTN3_MANGA_CORTA               1004
+#define RBTN_PARTNERTYPE_COMMON         1004
 #define RBTN3_MANGA_LARGA               1005
+#define IDC_RADIO3                      1005
+#define RBTN_PARTNERTYPE_VIP            1005
 #define RBTN4_CUELLO_COMUN              1006
 #define RBTN4_CUELLO_MAO                1007
 #define IDC_RADIO2                      1008
@@ -101,6 +105,29 @@
 #define BTN_LISTEXEMPLARIES_REMOVE      1054
 #define LBL_STATIC_LISTEXEMPLARIES_SELECTEDBOOK 1055
 #define LBL_STATIC_ADDEXEMPLARY_SELECTEDBOOK 1056
+#define LBL_STATIC_ADDPARTNER_PARTNERNAME 1058
+#define LBL_STATIC_ADDPARTNER_PARTNERLASTNAME 1059
+#define INPF_ADDPARTNER_PARTNERNAME     1061
+#define INPF_ADDPARTNER_PARTNERLASTNAME 1062
+#define BTN_ADDPARTNER_ADD              1063
+#define LBL_STATIC_PARTNERS             1064
+#define GBC_PARTNERINFO                 1065
+#define GBC_ADDPARTNER                  1066
+#define LBL_STATIC_PARTNERINFO_NAME     1067
+#define LBL_STATIC_PARTNERINFO_LASTNAME 1068
+#define LBL_STATIC_PARTNERINFO_PARTNERID 1069
+#define LBL_STATIC_PARTNERINFO_AMOUNT   1070
+#define LBL_PARTNERINFO_NAME            1071
+#define LBL_PARTNERINFO_LASTNAME        1072
+#define LBL_PARTNERINFO_PARTNERID       1073
+#define LBL_PARTNERINFO_AMOUNT          1074
+#define LB_PARTNERS                     1075
+#define BTN_PARTNERINFO_REMOVE          1076
+#define LBL_STATIC_PARTNERINFO_PARTNERID2 1077
+#define LBL_STATIC_PARTNERINFO_PARTNERTYPE 1077
+#define LBL_PARTNERINFO_PARTNERID2      1078
+#define LBL_PARTNERINFO_PARTNERTYPE     1078
+#define GBC_PARTNERTYPE                 1079
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -110,7 +137,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1055
+#define _APS_NEXT_CONTROL_VALUE         1077
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif
