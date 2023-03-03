@@ -5,6 +5,7 @@
 class DbModelItem
 {
 public:
+	virtual ~DbModelItem() = default;
 	int modelID;
 };
 #endif

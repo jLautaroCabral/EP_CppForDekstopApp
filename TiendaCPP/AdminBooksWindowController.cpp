@@ -35,15 +35,6 @@ void AdminBooksWindowController::InitializeWindowHandlersIfNeeded(HWND hDlg)
 void AdminBooksWindowController::UpdateListBoxInfo(HWND hDlg)
 {
 	HWND hLbBooks = GetDlgItem(hDlg, LB_BOOKS);
-
-	/*
-	// First delete all previous elements
-	int itemCount = SendMessage(hLbBooks, LB_GETCOUNT, NULL, NULL);
-	for (int i = 0; i < itemCount; i++)
-	{
-		//int itemCount = SendMessage(hLbBooks, LB_DELETESTRING, HIWORD(i), NULL);
-	}
-	*/
 	SendMessage(hLbBooks, LB_RESETCONTENT, NULL, NULL);
 
 	// Then fill the list box
@@ -105,6 +96,8 @@ void AdminBooksWindowController::HandleWindowCommand(HWND hDlg, UINT message, WP
 				{
 					if (hWord == BN_CLICKED)
 					{
+						if (!PerformChecks(hDlg)) break;
+
 						HWND hLbBooks = GetDlgItem(hDlg, LB_BOOKS);
 
 						std::string bookName;
@@ -114,8 +107,6 @@ void AdminBooksWindowController::HandleWindowCommand(HWND hDlg, UINT message, WP
 						if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_BOOK_NAME, "Nombre del libro", bookName)) break;
 						if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_ADDBOOK_AUTHORNAME, "Nombre del autor del libro", bookAuthorName)) break;
 						if (!UtilsUI::TryGetStringFromInputField(hDlg, INPF_ADDBOOK_ISBNCODE, "Codigo ISNB", bookISBNCode)) break;
-
-						if (!PerformChecks(hDlg)) break;
 
 						Book* newBook = BookFactory::CreateBook(bookName, bookAuthorName, bookISBNCode);
 						DbContextLibrary::GetInstance()->bookTable.Add(newBook);

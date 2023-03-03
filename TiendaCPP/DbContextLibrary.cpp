@@ -2,6 +2,7 @@
 #include "DbContextLibrary.h"
 #include "BookFactory.h"
 #include "ExemplaryFactory.h"
+#include "PartnerFactory.h"
 
 DbContextLibrary::DbContextLibrary()
 {
@@ -42,7 +43,28 @@ void DbContextLibrary::FillDbContextData()
 		}
 	}
 
+	// Fill Partners and its Exampleries
+	for (int i = 0; i < 10; i++)
+	{
+		Partner* partnerSample;
+		if (i % 2 == 0)
+		{
+			partnerSample = PartnerFactory::CreateRandomPartner();
+		}
+		else
+		{
+			partnerSample = PartnerFactory::CreateRandomPartnerVIP();
+		}
 
+		partnerTable.Add(partnerSample);
+		/*
+		for (int j = 0; j < (rand() % 15) + 1; j++)
+		{
+			Exemplary* exemplaryExample = ExemplaryFactory::CreateRandomExemplary(bookExample);
+			exemplaryTable.Add(exemplaryExample);
+		}
+		*/
+	}
 	// = new Book();
 //bookExample->name = "Harry Potter";
 

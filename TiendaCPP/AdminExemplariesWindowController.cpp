@@ -30,7 +30,6 @@ void AdminExemplariesWindowController::InitializeWindowHandlersIfNeeded(HWND hDl
 {
 	if (!AdminExemplariesWindowController::GetInstance()->handlersInitialized)
 	{
-		
 		AdminExemplariesWindowController::GetInstance()->handlersInitialized = true;
 	}
 
@@ -59,6 +58,8 @@ void AdminExemplariesWindowController::HandleWindowCommand(HWND hDlg, UINT messa
 		{
 			if (hWord == BN_CLICKED)
 			{
+				if (!PerformChecks(hDlg)) break;
+
 				HWND hCbSelectedBookListExemplaries = GetDlgItem(hDlg, CB_LISTEXEMPLARIES_SELECTEDBOOK);
 				HWND hCbSelectedBookAddExemplary = GetDlgItem(hDlg, CB_ADDEXEMPLARY_SELECTEDBOOK);
 
@@ -72,9 +73,7 @@ void AdminExemplariesWindowController::HandleWindowCommand(HWND hDlg, UINT messa
 				// Get selected index.
 				int selectedItem = (int)SendMessage(hCbSelectedBookAddExemplary, CB_GETCURSEL, NULL, NULL);
 				// Get item data.
-				int modelIdOfSelectedItem = (int)SendMessage(hCbSelectedBookAddExemplary, CB_GETITEMDATA, selectedItem, NULL);
-
-				if (!PerformChecks(hDlg)) break;
+				int modelIdOfSelectedItem = (int)SendMessage(hCbSelectedBookAddExemplary, CB_GETITEMDATA, selectedItem, NULL);				
 
 				Exemplary* newExemplary = ExemplaryFactory::CreateExemplary(stoi(exemplaryEditionNum), exemplaryUbication, modelIdOfSelectedItem);
 				DbContextLibrary::GetInstance()->bookTable.GetElementByID(modelIdOfSelectedItem)->exemplaries.push_back(newExemplary);
