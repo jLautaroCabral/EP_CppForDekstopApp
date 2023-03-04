@@ -198,21 +198,28 @@ void AdminExemplariesWindowController::UpdateListBoxInfo(HWND hDlg)
 
 	const Book* book = DbContextLibrary::GetInstance()->bookTable.GetElementByID(modelIdOfSelectedItem);
 	
-	// Then fill the list box
-	for (const Exemplary* exemplary : book->exemplaries)
+	if (book->exemplaries.empty())
 	{
-		// From strting to wchar_t
-		std::string stringItemToAdd =
-			"Edition number:  " + std::to_string(exemplary->editionNumber) +
-			",   Ubication:  " + exemplary->libraryUbication;
+		SendMessage(hLbListExemplaries, LB_ADDSTRING, NULL,
+			(LPARAM)L"Actualmente no existen ejemplares de este libro...");
+	}
+	{
+		// Then fill the list box
+		for (const Exemplary* exemplary : book->exemplaries)
+		{
+			// From strting to wchar_t
+			std::string stringItemToAdd =
+				"Edition number:  " + std::to_string(exemplary->editionNumber) +
+				",   Ubication:  " + exemplary->libraryUbication;
 
-		int itemPos = SendMessage(hLbListExemplaries, LB_ADDSTRING, NULL,
-			(LPARAM)Utils::StringToConstWchar_TPointer(stringItemToAdd));
+			int itemPos = SendMessage(hLbListExemplaries, LB_ADDSTRING, NULL,
+				(LPARAM)Utils::StringToConstWchar_TPointer(stringItemToAdd));
 
-		// Set the array index of the player as item data.
-		// This enables us to retrieve the item from the array
-		// even after the items are sorted by the list box.
-		SendMessage(hLbListExemplaries, LB_SETITEMDATA, itemPos, (LPARAM)book->modelID);
+			// Set the array index of the player as item data.
+			// This enables us to retrieve the item from the array
+			// even after the items are sorted by the list box.
+			SendMessage(hLbListExemplaries, LB_SETITEMDATA, itemPos, (LPARAM)book->modelID);
+		}
 	}
 }
 

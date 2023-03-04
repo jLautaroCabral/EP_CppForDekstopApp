@@ -7,6 +7,7 @@
 #include "AdminBooksWindowController.h"
 #include "AdminExemplariesWindowController.h"
 #include "AdminPartnersWindowController.h"
+#include "AdminLoansWindowController.h"
 #include "Store.h"
 #include "Shirt.h"
 #include "Pants.h"
@@ -87,7 +88,8 @@ void MainWindowController::CreateButtons(HWND hWnd)
 	windowButtonsInfo[0] = { L"Administrar libros", 0, 0, MAKEINTRESOURCE(IDD_ADMIN_BOOKS), hInst, AdminBooksWindowController::HandleWindow };
 	windowButtonsInfo[1] = { L"Administrar ejemplares", 0, 0, MAKEINTRESOURCE(IDD_ADMIN_EXEMPLARIES), hInst, AdminExemplariesWindowController::HandleWindow };
 	windowButtonsInfo[2] = { L"Administrar socios", 0, 0, MAKEINTRESOURCE(IDD_ADMIN_PARTNERS), hInst, AdminPartnersWindowController::HandleWindow };
-	windowButtonsInfo[3] = { L"Default", 0, 0, MAKEINTRESOURCE(IDD_COTIZACIONBOX), hInst, QuoteWindowController::HandleWindow };
+	windowButtonsInfo[3] = { L"Administrar prestámos", 0, 0, MAKEINTRESOURCE(IDD_ADMIN_LOANS), hInst, AdminLoansWindowController::HandleWindow };
+	windowButtonsInfo[4] = { L"Default", 0, 0, MAKEINTRESOURCE(IDD_COTIZACIONBOX), hInst, QuoteWindowController::HandleWindow };
 
 	POINT myPoint = { 100, 300 };  // x, y
 

@@ -3,6 +3,7 @@
 #include "BookFactory.h"
 #include "ExemplaryFactory.h"
 #include "PartnerFactory.h"
+#include "LoanFactory.h"
 
 DbContextLibrary::DbContextLibrary()
 {
@@ -30,13 +31,18 @@ DbContextLibrary* DbContextLibrary::GetInstance()
 
 void DbContextLibrary::FillDbContextData()
 {
+	const int amountOfBooksToGenerate = 10;
+	const int amountOfExemplariesPerBookToGenerate = 3;
+	const int amountOfPartnersToGenerate = 8;
+	const int amountOfLoansToGenerate = 5;
+
 	// Fill Books and Exemplaries
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < amountOfBooksToGenerate; i++)
 	{
 		Book* bookExample = BookFactory::CreateRandomBook();
 		bookTable.Add(bookExample);
 
-		for (int j = 0; j < (rand() % 15) + 1; j++)
+		for (int j = 0; j < amountOfExemplariesPerBookToGenerate; j++)
 		{
 			Exemplary* exemplaryExample = ExemplaryFactory::CreateRandomExemplary(bookExample);
 			exemplaryTable.Add(exemplaryExample);
@@ -44,7 +50,7 @@ void DbContextLibrary::FillDbContextData()
 	}
 
 	// Fill Partners and its Exampleries
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < amountOfPartnersToGenerate; i++)
 	{
 		Partner* partnerSample;
 		if (i % 2 == 0)
@@ -65,6 +71,24 @@ void DbContextLibrary::FillDbContextData()
 		}
 		*/
 	}
+
+	// Fill Partners and its Exampleries
+	for (int i = 0; i < amountOfLoansToGenerate; i++)
+	{
+		Partner* randomPartner = partnerTable.GetAllItems()[i];
+		Exemplary* randomExemplary = exemplaryTable.GetAllItems()[i];
+
+		Loan* loanSample = LoanFactory::CreateLoan(randomPartner, randomExemplary);
+		loanTable.Add(loanSample);
+		/*
+		for (int j = 0; j < (rand() % 15) + 1; j++)
+		{
+			Exemplary* exemplaryExample = ExemplaryFactory::CreateRandomExemplary(bookExample);
+			exemplaryTable.Add(exemplaryExample);
+		}
+		*/
+	}
+
 	// = new Book();
 //bookExample->name = "Harry Potter";
 

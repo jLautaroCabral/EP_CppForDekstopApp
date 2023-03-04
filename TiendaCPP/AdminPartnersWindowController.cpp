@@ -220,11 +220,11 @@ void AdminPartnersWindowController::UpdateItemSelectionOnList(HWND hDlg)
 	
 	if (Partner::IsPartnerVIP(partnerSelected))
 	{
-		SetDlgItemText(hDlg, LBL_PARTNERINFO_PARTNERTYPE, L"Común");
+		SetDlgItemText(hDlg, LBL_PARTNERINFO_PARTNERTYPE, L"VIP");
 	}
 	else
 	{
-		SetDlgItemText(hDlg, LBL_PARTNERINFO_PARTNERTYPE, L"VIP");
+		SetDlgItemText(hDlg, LBL_PARTNERINFO_PARTNERTYPE, L"Común");
 	}
 
 	SetDlgItemText(hDlg, LBL_PARTNERINFO_AMOUNT, Utils::StringToConstWchar_TPointer(std::to_string(std::size(partnerSelected->loanedExemplaries))));

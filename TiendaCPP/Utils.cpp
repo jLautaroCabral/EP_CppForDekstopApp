@@ -40,6 +40,15 @@ const wchar_t* Utils::StringToConstWchar_TPointer(const std::string& stringToCon
 	return result;
 }
 
+wchar_t* Utils::Time_tToWChar_tPointer(time_t* date)
+{
+	//#define BUFFER_SIZE 26
+	time_t ltime;
+	wchar_t* buf = new wchar_t[26];
+	_wctime_s(buf, 26, date);
+    return buf;
+}
+
 std::string* Utils::WCharToString_TPointer(wchar_t* wcharString)
 {
 	std::wstring wide_string(wcharString);

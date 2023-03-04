@@ -7,12 +7,14 @@
 #define LOAN_H
 class Loan : public DbModelItem
 {
-	Exemplary exemplary;
-	Partner partner;
-	//TODO: add loan date
-	//TimeSpan loanDate;
 public:
 	Loan();
 	~Loan();
+
+	Exemplary* exemplary;
+	Partner* partner;
+	//TODO: add loan date
+	//TimeSpan loanDate;
+	time_t* loanDate;
 };
 #endif
