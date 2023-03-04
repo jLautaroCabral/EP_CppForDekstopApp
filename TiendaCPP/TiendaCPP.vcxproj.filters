@@ -144,6 +144,12 @@
     <ClInclude Include="AdminPartnersWindowController.h">
       <Filter>Archivos de encabezado\Controladores</Filter>
     </ClInclude>
+    <ClInclude Include="AdminLoansWindowController.h">
+      <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
+    <ClInclude Include="LoanHistoryWindowController.h">
+      <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainWindowController.cpp">
@@ -234,6 +240,12 @@
       <Filter>Archivos de origen\Controladores</Filter>
     </ClCompile>
     <ClCompile Include="AdminPartnersWindowController.cpp">
+      <Filter>Archivos de origen\Controladores</Filter>
+    </ClCompile>
+    <ClCompile Include="AdminLoansWindowController.cpp">
+      <Filter>Archivos de origen\Controladores</Filter>
+    </ClCompile>
+    <ClCompile Include="LoanHistoryWindowController.cpp">
       <Filter>Archivos de origen\Controladores</Filter>
     </ClCompile>
   </ItemGroup>

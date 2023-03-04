@@ -156,6 +156,7 @@
     <ClInclude Include="Garment.h" />
     <ClInclude Include="Loan.h" />
     <ClInclude Include="LoanFactory.h" />
+    <ClInclude Include="LoanHistoryWindowController.h" />
     <ClInclude Include="MainWindowController.h" />
     <ClInclude Include="Pants.h" />
     <ClInclude Include="PartnerVIP.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Garment.cpp" />
     <ClCompile Include="Loan.cpp" />
     <ClCompile Include="LoanFactory.cpp" />
+    <ClCompile Include="LoanHistoryWindowController.cpp" />
     <ClCompile Include="MainWindowController.cpp" />
     <ClCompile Include="Pants.cpp" />
     <ClCompile Include="ParternVIP.cpp" />
