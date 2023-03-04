@@ -130,6 +130,7 @@ void LoanHistoryWindowController::UpdateListBoxInfo(HWND hDlg)
 		// From strting to wchar_t
 		std::string stringItemToAdd =
 			"Fecha:  " + *Utils::WCharToString_TPointer(Utils::Time_tToWChar_tPointer(loan->loanDate)) +
+			",    Tipo:  " + (loan->type == LoanType::Withdrawal ? "Prestamo" : "Devolución") +
 			",    Socio:  " + loan->partner->name + " " + loan->partner->lastName +
 			",    Libro:  " + DbContextLibrary::GetInstance()->bookTable.GetElementByID(loan->exemplary->bookID)->name +
 			",    Edicion:  " + std::to_string(loan->exemplary->editionNumber);
@@ -172,7 +173,7 @@ void LoanHistoryWindowController::UpdateItemInfoOfLoanSelectedOnList(HWND hDlg)
 	SetDlgItemText(hDlg, LBL_LOANHISTORYINFO_PARTNERID, Utils::StringToConstWchar_TPointer(partnerOfLoanSelected->idNumber));
 
 	SetDlgItemText(hDlg, LBL_LOANHISTORYINFO_DATE, Utils::Time_tToWChar_tPointer(loanSelected->loanDate));
-	SetDlgItemText(hDlg, LBL_LOANHISTORYINFO_TYPE, L"Default");
+	SetDlgItemText(hDlg, LBL_LOANHISTORYINFO_TYPE, (loanSelected->type == LoanType::Withdrawal ? L"Prestamo" : L"Devolución"));
 }
 
 INT_PTR LoanHistoryWindowController::HandleWindow(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)

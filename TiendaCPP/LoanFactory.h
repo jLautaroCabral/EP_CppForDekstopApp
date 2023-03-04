@@ -10,6 +10,6 @@
 class LoanFactory
 {
 public:
-	static Loan* CreateLoan(Partner* partner, Exemplary* exemplary);
+	static Loan* CreateLoan(Partner* partner, Exemplary* exemplary, LoanType type);
 };
 #endif // !PARTNER_FACTORY_H

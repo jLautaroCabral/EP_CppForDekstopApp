@@ -88,7 +88,7 @@ void AdminLoansWindowController::HandleWindowCommand(HWND hDlg, UINT message, WP
 				modelIdOfSelectedItem = (int)SendMessage(hCbSelectExemplaryAddLoan, CB_GETITEMDATA, selectedItem, NULL);
 				selectedExemplary = DbContextLibrary::GetInstance()->exemplaryTable.GetElementByID(modelIdOfSelectedItem);
 
-				DbContextLibrary::GetInstance()->loanTable.Add(LoanFactory::CreateLoan(selectedPartner, selectedExemplary));
+				DbContextLibrary::GetInstance()->loanTable.Add(LoanFactory::CreateLoan(selectedPartner, selectedExemplary, LoanType::Withdrawal));
 				UpdateListBoxInfo(hDlg);
 			}
 		}

@@ -78,7 +78,7 @@ void DbContextLibrary::FillDbContextData()
 		Partner* randomPartner = partnerTable.GetAllItems()[i];
 		Exemplary* randomExemplary = exemplaryTable.GetAllItems()[i];
 
-		Loan* loanSample = LoanFactory::CreateLoan(randomPartner, randomExemplary);
+		Loan* loanSample = LoanFactory::CreateLoan(randomPartner, randomExemplary, LoanType::Withdrawal);
 		loanTable.Add(loanSample);
 		/*
 		for (int j = 0; j < (rand() % 15) + 1; j++)
