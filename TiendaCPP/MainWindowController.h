@@ -28,7 +28,7 @@ private:
 
 	HINSTANCE* hInst = nullptr;
 	HWND* hWnd = nullptr;
-	ButtonInfo windowButtonsInfo[5] = { nullptr };
+	ButtonInfo windowButtonsInfo[7] = { nullptr };
 
 	int HandleButtonClick(HWND hWnd, HWND hButton);
 	void CreateButtons(HWND hWnd);
