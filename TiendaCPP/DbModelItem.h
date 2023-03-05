@@ -5,6 +5,8 @@
 class DbModelItem
 {
 public:
+	virtual ~DbModelItem() = default;
+	virtual bool operator==(const DbModelItem& other) const;
 	int modelID;
 };
 #endif

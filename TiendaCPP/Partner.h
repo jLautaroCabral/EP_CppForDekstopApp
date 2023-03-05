@@ -13,11 +13,13 @@ public:
 	std::string idNumber;
 	int maxWithdrawalAmount;
 	
-	std::list<Exemplary*> withdrawnExemplaries;
+	//std::list<Exemplary*> withdrawnExemplaries;
 	std::list<Exemplary*> loanedExemplaries;
 
-	void CanApplyForALoan();
-	void TryLoanExemplary();
-	void ReturnExemplary();
+	bool CanApplyForALoan();
+	void LoanExemplary(Exemplary* exemplaryToLoan);
+	Exemplary* ReturnExemplary(Exemplary* exemplaryToLoan);
+
+	static bool IsPartnerVIP(Partner* partnerInstance);
 };
 #endif

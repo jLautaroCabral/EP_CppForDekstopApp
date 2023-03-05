@@ -2,73 +2,99 @@
 #include "DbContextLibrary.h"
 #include "BookFactory.h"
 #include "ExemplaryFactory.h"
+#include "PartnerFactory.h"
+#include "LoanFactory.h"
 
 DbContextLibrary::DbContextLibrary()
 {
 	FillDbContextData();
-	PrintDebugInfo();
 }
 
 DbContextLibrary::~DbContextLibrary()
 {
 }
 
+DbContextLibrary* DbContextLibrary::singleton_ = nullptr;
+
+DbContextLibrary* DbContextLibrary::GetInstance()
+{
+	/**
+	 * This is a safer way to create an instance. instance = new Singleton is
+	 * dangeruous in case two instance threads wants to access at the same time
+	 */
+	if (singleton_ == nullptr) {
+		singleton_ = new DbContextLibrary();
+	}
+	return singleton_;
+}
+
+
 void DbContextLibrary::FillDbContextData()
 {
-	// Fill Books and Exemplaries
-	for (int i = 0; i < 5; i++)
-	{
-		Book* bookExample = BookFactory::CreateRandomBook();
-		bookTable.Add(bookExample);
+	const int amountOfBooksToGenerate = 10;
+	const int amountOfExemplariesPerBookToGenerate = 3;
+	const int amountOfPartnersToGenerate = 8;
+	const int amountOfLoansToGenerate = 6;
 
-		for (int j = 0; j < 2; j++)
+	// Fill Books and Exemplaries
+	for (int i = 0; i < amountOfBooksToGenerate; i++)
+	{
+		Book* bookSample = BookFactory::CreateRandomBook();
+		bookTable.Add(bookSample);
+
+		for (int j = 0; j < amountOfExemplariesPerBookToGenerate; j++)
 		{
-			Exemplary* exemplaryExample = ExemplaryFactory::CreateRandomExemplary(bookExample);
-			exemplaryTable.Add(exemplaryExample);
+			Exemplary* exemplarySample = ExemplaryFactory::CreateRandomExemplary(bookSample);
+			exemplaryTable.Add(exemplarySample);
+			bookSample->AddExemplary(exemplarySample);
 		}
 	}
 
+	// Fill Partners and its Exampleries
+	for (int i = 0; i < amountOfPartnersToGenerate; i++)
+	{
+		Partner* partnerSample;
+		if (i % 2 == 0)
+		{
+			partnerSample = PartnerFactory::CreateRandomPartner();
+		}
+		else
+		{
+			partnerSample = PartnerFactory::CreateRandomPartnerVIP();
+		}
 
-	// = new Book();
-//bookExample->name = "Harry Potter";
+		partnerTable.Add(partnerSample);
+	}
 
-//exemplaryExample->libraryUbication = "AAA";
-// 
-//exemplaryTable.Remove(*exemplaryExample);
-//exemplaryTable.RemoveElementsWich([](Exemplary* const p) { return p->libraryUbication == "AAA"; }); // I AM A FUCKING GENIOUS
-//exemplaryTable.Remove(exemplaryTable.GetAllItems());
+	// Fill Partners and its Exampleries
+	for (int i = 0; i < amountOfLoansToGenerate; i++)
+	{
+		Partner* randomPartner = partnerTable.GetAllItems()[i];
+		Book* bookOfExemplary = bookTable.GetAllItems()[i];
+		Exemplary* randomExemplary = bookOfExemplary->exemplaries[0];
 
-//exemplaryTable.GetElementByID(0)->libraryUbication = "AAA";
-//exemplaryTable.GetElementByID(1)->libraryUbication = "BBB";
-//exemplaryTable.GetElementByID(2)->libraryUbication = "CCC";
+		randomExemplary = bookOfExemplary->LoanExemplary(randomExemplary);
+		randomPartner->LoanExemplary(randomExemplary);
 
-//std::vector<Exemplary*> exemList = exemplaryTable.GetElementsWhich([](Exemplary* const ex) { return ex->libraryUbication == "AAA"; });
-//exemList[0]->libraryUbication = "CCC";
-
-//delete bookExample;
-
-
+		Loan* loanSample = LoanFactory::CreateLoan(randomPartner, randomExemplary, LoanType::Withdrawal);
+		loanTable.Add(loanSample);
+		loanHistoryTable.Add(loanSample);
+	}
 }
 
-void DbContextLibrary::PrintDebugInfo()
+// TODO: JUST FOR DEBUGGING
+void DbContextLibrary::PrintBooksDebugInfo()
 {
-	for (const Exemplary* item : exemplaryTable.GetAllItems())
+	printf_s("*** START: Print book debug info:\n");
+	for (const Book* book : GetInstance()->bookTable.GetAllItems())
 	{
-		printf_s("\n\n\n");
-		printf_s("Exemplary data\n");
-		printf_s("********************************************");
 		printf_s("\n");
-		printf_s(("ID: " + std::to_string(item->modelID)).c_str());
+		printf_s("---------------------------------------");
 		printf_s("\n");
-		printf_s(("Edition number: " + std::to_string(item->editionNumber)).c_str());
+		printf_s(("Book ID: " + std::to_string(book->modelID)).c_str());
 		printf_s("\n");
-		printf_s(("Library ubication: " + item->libraryUbication).c_str());
+		printf_s(("Book name: " + book->name + " - " + book->autor).c_str());
 		printf_s("\n");
-		printf_s("Book data:                      ------------\n");
-		printf_s("\n");
-		printf_s(("Book ID: " + std::to_string(bookTable.GetElementByID(item->bookID)->modelID)).c_str());
-		printf_s("\n");
-		printf_s(("Book name: " + bookTable.GetElementByID(item->bookID)->name + " - " + bookTable.GetElementByID(item->bookID)->autor).c_str());
-		
 	}
+	printf_s("*** END: Print book debug info:\n");
 }

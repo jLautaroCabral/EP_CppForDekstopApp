@@ -22,7 +22,7 @@ const std::string BookFactory::booksNames[10] = {
 	"Luces de bohemia",
 	"100 anios de Soledad",
 	"La casa de los espiritus",
-	"Preludio a la fundación",
+	"Preludio a la fundacion",
 	"Las almas muertas"
 };
 

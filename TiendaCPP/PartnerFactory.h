@@ -10,6 +10,8 @@ private:
 	static const std::string names[10];
 	static const std::string lastNames[10];
 public:
+	static Partner* CreatePartner(std::string name, std::string lastName);
+	static PartnerVIP* CreatePartnerVIP(std::string name, std::string lastName);
 	static Partner* CreateRandomPartner();
 	static PartnerVIP* CreateRandomPartnerVIP();
 	//static Exemplary* CreateRandomExemplary(Book* book);

@@ -33,12 +33,6 @@ void SetupDebugConsole()
 	freopen_s(&fp, "CONIN$", "r", stdin);
 	freopen_s(&fp, "CONOUT$", "w", stdout);
 	freopen_s(&fp, "CONOUT$", "w", stderr);
-
-	DbContextLibrary contextLibrary;
-
-	printf_s("\n");
-	printf_s("\n");
-	printf_s("-== End of the program. ==-");
 }
 
 // Entrada del programa para aplicación de escritorio usando este framework
@@ -70,7 +64,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 	
-	SetupDebugConsole();
+	// JUST FOR DEBUGGING
+	//SetupDebugConsole();
 
     // Bucle principal de mensajes:
     while (GetMessage(&msg, nullptr, 0, 0))

@@ -50,9 +50,6 @@ void DbTableExample::Add(Loan itemToAdd)
 
 void DbTableExample::Remove(Loan itemToRemove)
 {
-	//std::list<Loan*>::iterator it = std::find_if(std::begin(listItems), std::end(listItems),
-	//	[&](Loan* const& p) { return p->modelID == itemToRemove.modelID; });
-
 	// Se encontró el item
 	listItems.erase(
 		std::remove_if(listItems.begin(), listItems.end(),

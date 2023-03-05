@@ -25,6 +25,27 @@ const std::string PartnerFactory::lastNames[10] = {
 	"Meyer"
 };
 
+Partner* PartnerFactory::CreatePartner(std::string name, std::string lastName)
+{
+	Partner* partner = new Partner();
+	partner->name = name;
+	partner->lastName = lastName;
+	partner->idNumber = std::to_string(rand() % 999) + "-" + std::to_string(rand() % 99) + "-" + std::to_string(rand() % 999);
+	partner->maxWithdrawalAmount = 1;
+	return partner;
+}
+
+PartnerVIP* PartnerFactory::CreatePartnerVIP(std::string name, std::string lastName)
+{
+	PartnerVIP* partner = new PartnerVIP();
+	partner->name = name;
+	partner->lastName = lastName;
+	partner->idNumber = std::to_string(rand() % 999) + "-" + std::to_string(rand() % 99) + "-" + std::to_string(rand() % 999);
+	partner->maxWithdrawalAmount = 3;
+	partner->monthlyFee = 100;
+	return partner;
+}
+
 Partner* PartnerFactory::CreateRandomPartner()
 {
 	Partner* partner = new Partner();

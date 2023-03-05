@@ -27,6 +27,7 @@ public:
 	const std::vector<T*> GetElementsWhich(Predicate func);
 	const std::vector<T*> GetAllItems() const;
 	void Add(T* itemToAdd);
+	void Remove(int itemIDToRemove);
 	void Remove(T itemToRemove);
 	void Remove(std::vector<T*> itemToRemove);
 	void RemoveElementsWhich(Predicate func);
@@ -114,12 +115,20 @@ void DbTable<T>::Add(T* itemToAdd)
 	tableItemLastIndex++;
 }
 
+
+
 template<ClassDerivedFromDbModelItem T>
 void DbTable<T>::Remove(T itemToRemove)
 {
+	Remove(itemToRemove.modelID);
+}
+
+template<ClassDerivedFromDbModelItem T>
+void DbTable<T>::Remove(int itemIDToRemove)
+{
 	listItems.erase(
 		std::remove_if(listItems.begin(), listItems.end(),
-			[&](T* const& p) { return p->modelID == itemToRemove.modelID; }),
+			[&](T* const& p) { return p->modelID == itemIDToRemove; }),
 		listItems.end());
 }
 

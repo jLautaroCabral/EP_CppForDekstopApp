@@ -19,11 +19,14 @@ Exemplary* ExemplaryFactory::CreateRandomExemplary(Book* book)
 	exemplary->libraryUbication = libraryUbications[rand() % (std::size(libraryUbications))];
 
 	exemplary->bookID = book->modelID;
-	book->exemplaries.push_back(exemplary);
 	return exemplary;
 }
 
-Exemplary* ExemplaryFactory::CreateExemplary()
+Exemplary* ExemplaryFactory::CreateExemplary(int editionNumber, std::string libraryUbication, int bookModelId)
 {
-    return nullptr;
+	Exemplary* exemplary = new Exemplary();
+	exemplary->editionNumber = editionNumber;
+	exemplary->libraryUbication = libraryUbication;
+	exemplary->bookID = bookModelId;
+	return exemplary;
 }

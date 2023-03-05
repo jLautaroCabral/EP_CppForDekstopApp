@@ -132,6 +132,24 @@
     <ClInclude Include="LoanFactory.h">
       <Filter>Archivos de encabezado\Factories</Filter>
     </ClInclude>
+    <ClInclude Include="AdminBooksWindowController.h">
+      <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilsUI.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="AdminExemplariesWindowController.h">
+      <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
+    <ClInclude Include="AdminPartnersWindowController.h">
+      <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
+    <ClInclude Include="AdminLoansWindowController.h">
+      <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
+    <ClInclude Include="LoanHistoryWindowController.h">
+      <Filter>Archivos de encabezado\Controladores</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainWindowController.cpp">
@@ -211,6 +229,24 @@
     </ClCompile>
     <ClCompile Include="Partner.cpp">
       <Filter>Archivos de origen\LibraryModel</Filter>
+    </ClCompile>
+    <ClCompile Include="AdminBooksWindowController.cpp">
+      <Filter>Archivos de origen\Controladores</Filter>
+    </ClCompile>
+    <ClCompile Include="UtilsUI.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="AdminExemplariesWindowController.cpp">
+      <Filter>Archivos de origen\Controladores</Filter>
+    </ClCompile>
+    <ClCompile Include="AdminPartnersWindowController.cpp">
+      <Filter>Archivos de origen\Controladores</Filter>
+    </ClCompile>
+    <ClCompile Include="AdminLoansWindowController.cpp">
+      <Filter>Archivos de origen\Controladores</Filter>
+    </ClCompile>
+    <ClCompile Include="LoanHistoryWindowController.cpp">
+      <Filter>Archivos de origen\Controladores</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

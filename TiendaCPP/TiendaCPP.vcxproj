@@ -140,6 +140,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AdminBooksWindowController.h" />
+    <ClInclude Include="AdminExemplariesWindowController.h" />
+    <ClInclude Include="AdminLoansWindowController.h" />
+    <ClInclude Include="AdminPartnersWindowController.h" />
     <ClInclude Include="Book.h" />
     <ClInclude Include="BookFactory.h" />
     <ClInclude Include="DbContextLibrary.h" />
@@ -152,6 +156,7 @@
     <ClInclude Include="Garment.h" />
     <ClInclude Include="Loan.h" />
     <ClInclude Include="LoanFactory.h" />
+    <ClInclude Include="LoanHistoryWindowController.h" />
     <ClInclude Include="MainWindowController.h" />
     <ClInclude Include="Pants.h" />
     <ClInclude Include="PartnerVIP.h" />
@@ -168,9 +173,14 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="UtilsUI.h" />
     <ClInclude Include="WindowController.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AdminBooksWindowController.cpp" />
+    <ClCompile Include="AdminExemplariesWindowController.cpp" />
+    <ClCompile Include="AdminLoansWindowController.cpp" />
+    <ClCompile Include="AdminPartnersWindowController.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="BookFactory.cpp" />
     <ClCompile Include="DbContextLibrary.cpp" />
@@ -182,6 +192,7 @@
     <ClCompile Include="Garment.cpp" />
     <ClCompile Include="Loan.cpp" />
     <ClCompile Include="LoanFactory.cpp" />
+    <ClCompile Include="LoanHistoryWindowController.cpp" />
     <ClCompile Include="MainWindowController.cpp" />
     <ClCompile Include="Pants.cpp" />
     <ClCompile Include="ParternVIP.cpp" />
@@ -196,6 +207,7 @@
     <ClCompile Include="Shirt.cpp" />
     <ClCompile Include="Store.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="UtilsUI.cpp" />
     <ClCompile Include="WindowController.cpp" />
   </ItemGroup>
   <ItemGroup>

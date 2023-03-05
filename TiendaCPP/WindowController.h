@@ -7,7 +7,7 @@
 class WindowController
 {
 protected:
-	bool handlersInitialized;
+	bool handlersInitialized = false;
 	virtual void InitializeWindowHandlersIfNeeded(HWND hDlg) = 0;
 	virtual void HandlePaintCommand(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) = 0;
 	virtual void HandleWindowCommand(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) = 0;
