@@ -76,7 +76,8 @@ void AdminExemplariesWindowController::HandleWindowCommand(HWND hDlg, UINT messa
 				int modelIdOfSelectedItem = (int)SendMessage(hCbSelectedBookAddExemplary, CB_GETITEMDATA, selectedItem, NULL);
 
 				Exemplary* newExemplary = ExemplaryFactory::CreateExemplary(stoi(exemplaryEditionNum), exemplaryUbication, modelIdOfSelectedItem);
-				DbContextLibrary::GetInstance()->bookTable.GetElementByID(modelIdOfSelectedItem)->AddExemplary(newExemplary);
+				DbContextLibrary::GetInstance()->exemplaryTable.Add(newExemplary);
+				DbContextLibrary::GetInstance()->bookTable.GetElementByID(modelIdOfSelectedItem)->AddExemplary(newExemplary);				
 
 				SendMessage(hCbSelectedBookListExemplaries, CB_SETCURSEL, (WPARAM)selectedItem, NULL);
 				UpdateListBoxInfo(hDlg);
@@ -85,21 +86,6 @@ void AdminExemplariesWindowController::HandleWindowCommand(HWND hDlg, UINT messa
 		case BTN_LISTEXEMPLARIES_REMOVE:
 		{
 			// TODO: REMOVE, UPDATE MODELS
-			/*
-			if (hWord == BN_CLICKED)
-			{
-				HWND hwndList = GetDlgItem(hDlg, LB_BOOKS);
-				// Get selected index.
-				int selectedItem = (int)SendMessage(hwndList, LB_GETCURSEL, NULL, NULL);
-				// Get item data.
-				int modelIdOfSelectedItem = (int)SendMessage(hwndList, LB_GETITEMDATA, selectedItem, NULL);
-
-				DbContextLibrary::GetInstance()->bookTable.Remove(modelIdOfSelectedItem);
-				UpdateListBoxInfo(hDlg);
-				SendMessage(hwndList, LB_SETCURSEL, (WPARAM)0, NULL);
-				UpdateItemSelectionOnList(hDlg);
-			}
-			*/
 		}
 		case LB_BOOKS:
 		{

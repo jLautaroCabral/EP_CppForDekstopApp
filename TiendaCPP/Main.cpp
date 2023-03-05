@@ -64,7 +64,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 	
-	SetupDebugConsole();
+	// JUST FOR DEBUGGING
+	//SetupDebugConsole();
 
     // Bucle principal de mensajes:
     while (GetMessage(&msg, nullptr, 0, 0))

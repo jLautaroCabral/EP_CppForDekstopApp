@@ -15,8 +15,8 @@
 #include "Garment.h"
 
 TCHAR greeting[] = _T("Software para biblioteca, proyecto estudiantil");
-TCHAR storeName[] = _T("Tienda: NombreDeTiendaDeEjemplo");
-TCHAR userName[] = _T("Vendedor: NombreDeVendedorDeEjemplo");
+TCHAR storeName[] = _T("Tienda: Nombre De Tienda De Ejemplo");
+TCHAR userName[] = _T("Vendedor: Nombre De Vendedor De Ejemplo");
 
 // Declaraciones de funciones adelantadas incluidas en este módulo de código:
 void CreateButtons(HWND);
@@ -42,17 +42,6 @@ MainWindowController* MainWindowController::GetInstance()
 
 void MainWindowController::Initialize(HINSTANCE* inst, HWND* hwnd)
 {
-	store = new Store();
-	Seller* seller = new Seller();
-	seller->name = "NombreDeTiendaDeEjemplo";
-	seller->lastName = "Simpson";
-	seller->sellerID = "12345";
-
-	store->currentSeller = seller;
-
-	store->storeName = "NombreDeTiendaDeEjemplo";
-	store->storeAddress = "9 de Julio 1";
-
 	hInst = inst;
 	hWnd = hwnd;
 

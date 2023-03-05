@@ -87,6 +87,7 @@ void AdminPartnersWindowController::HandleWindowCommand(HWND hDlg, UINT message,
 		{
 			if (hWord == BN_CLICKED)
 			{
+				// TODO: Update models to support remove
 				/*
 				HWND hwndList = GetDlgItem(hDlg, LB_BOOKS);
 				// Get selected index.
