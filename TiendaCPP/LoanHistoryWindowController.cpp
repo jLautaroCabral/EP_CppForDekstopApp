@@ -79,6 +79,7 @@ void LoanHistoryWindowController::HandlePaintCommand(HWND hDlg, UINT message, WP
 
 bool LoanHistoryWindowController::PerformChecks(HWND hDlg)
 {
+	/*
 	int dlgItemsIDsToCheck[] =
 	{
 		INPF_ADDEXEMPLARY_EDITION,
@@ -92,12 +93,13 @@ bool LoanHistoryWindowController::PerformChecks(HWND hDlg)
 			return false; // There is something wrong
 		}
 	}
-
+	*/
 	return true; // All good
 }
 
 bool LoanHistoryWindowController::PerformItemCheck(HWND hDlg, int dlgID)
 {
+	/*
 	bool thereIsAError = false;
 	int iTextLength;
 	HWND hInpf;
@@ -114,8 +116,8 @@ bool LoanHistoryWindowController::PerformItemCheck(HWND hDlg, int dlgID)
 			MessageBox(NULL, L"Es necesario ingresar un valor en el campo 'Numero de edicion'", L"Error", MB_ICONERROR);
 		}
 	}
-	}
-	return thereIsAError;
+	}*/
+	return false;
 }
 
 void LoanHistoryWindowController::UpdateListBoxInfo(HWND hDlg)
@@ -130,7 +132,7 @@ void LoanHistoryWindowController::UpdateListBoxInfo(HWND hDlg)
 		// From strting to wchar_t
 		std::string stringItemToAdd =
 			"Fecha:  " + *Utils::WCharToString_TPointer(Utils::Time_tToWChar_tPointer(loan->loanDate)) +
-			",    Tipo:  " + (loan->type == LoanType::Withdrawal ? "Prestamo" : "Devolución") +
+			",    Tipo:  " + (loan->type == LoanType::Withdrawal ? "Prestamo" : "Devolucion") +
 			",    Socio:  " + loan->partner->name + " " + loan->partner->lastName +
 			",    Libro:  " + DbContextLibrary::GetInstance()->bookTable.GetElementByID(loan->exemplary->bookID)->name +
 			",    Edicion:  " + std::to_string(loan->exemplary->editionNumber);

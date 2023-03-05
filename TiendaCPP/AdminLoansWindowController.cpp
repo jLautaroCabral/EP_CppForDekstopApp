@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include <string>
+#include <ctime>
+#include <cstring>
+#include <cassert>
+#include <iostream>
 #include "AdminLoansWindowController.h"
 #include "AdminExemplariesWindowController.h"
 #include "resource.h"
@@ -10,10 +14,6 @@
 #include "ExemplaryFactory.h"
 #include "Utils.h"
 #include "UtilsUI.h"
-#include <ctime>
-#include <cstring>
-#include <cassert>
-#include <iostream>
 
 
 AdminLoansWindowController::AdminLoansWindowController() {}
@@ -68,6 +68,8 @@ void AdminLoansWindowController::HandleWindowCommand(HWND hDlg, UINT message, WP
 		{
 			if (hWord == BN_CLICKED)
 			{
+				if(!PerformChecks(hDlg)) return;
+
 				HWND hCbSelectPartnerAddLoan = GetDlgItem(hDlg, CB_ADDLOAN_PARTNER);
 				HWND hCbSelectExemplaryAddLoan = GetDlgItem(hDlg, CB_ADDLOAN_EXEMPLARY);
 				HWND hwndList = GetDlgItem(hDlg, LB_LOANS);
@@ -170,8 +172,7 @@ bool AdminLoansWindowController::PerformChecks(HWND hDlg)
 {
 	int dlgItemsIDsToCheck[] =
 	{
-		INPF_ADDEXEMPLARY_EDITION,
-		INPF_ADDEXEMPLARY_UBICATION
+		CB_ADDLOAN_PARTNER
 	};
 
 	for (int const& id : dlgItemsIDsToCheck)
@@ -189,18 +190,28 @@ bool AdminLoansWindowController::PerformItemCheck(HWND hDlg, int dlgID)
 {
 	bool thereIsAError = false;
 	int iTextLength;
-	HWND hInpf;
+	HWND hComboBx;
 
 	switch (dlgID)
 	{
-		case INPF_ADDEXEMPLARY_EDITION:
+		case CB_ADDLOAN_PARTNER:
 		{
-			hInpf = GetDlgItem(hDlg, INPF_ADDEXEMPLARY_EDITION);
-			iTextLength = GetWindowTextLength(hInpf);
-			if (iTextLength == 0)
+			hComboBx = GetDlgItem(hDlg, CB_ADDLOAN_PARTNER);
+
+			Partner* selectedPartner;
+
+			int selectedItem = 0;
+			int modelIdOfSelectedItem = 0;
+
+			// Get partner
+			selectedItem = (int)SendMessage(hComboBx, CB_GETCURSEL, NULL, NULL);
+			modelIdOfSelectedItem = (int)SendMessage(hComboBx, CB_GETITEMDATA, selectedItem, NULL);
+			selectedPartner = DbContextLibrary::GetInstance()->partnerTable.GetElementByID(modelIdOfSelectedItem);
+
+			if (!selectedPartner->CanApplyForALoan())
 			{
 				thereIsAError = true;
-				MessageBox(NULL, L"Es necesario ingresar un valor en el campo 'Numero de edicion'", L"Error", MB_ICONERROR);
+				MessageBox(NULL, L"Este socio ha llegado a su cantidad máxima de prestamos activos'", L"Error", MB_ICONERROR);
 			}
 		}
 	}

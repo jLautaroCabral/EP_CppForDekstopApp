@@ -34,7 +34,7 @@ void DbContextLibrary::FillDbContextData()
 	const int amountOfBooksToGenerate = 10;
 	const int amountOfExemplariesPerBookToGenerate = 3;
 	const int amountOfPartnersToGenerate = 8;
-	const int amountOfLoansToGenerate = 2;
+	const int amountOfLoansToGenerate = 6;
 
 	// Fill Books and Exemplaries
 	for (int i = 0; i < amountOfBooksToGenerate; i++)

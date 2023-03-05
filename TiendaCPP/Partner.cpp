@@ -3,20 +3,12 @@
 
 bool Partner::CanApplyForALoan()
 {
-	return std::size(loanedExemplaries) <= maxWithdrawalAmount;
+	return std::size(loanedExemplaries) < maxWithdrawalAmount;
 }
 
-bool Partner::LoanExemplary(Exemplary* exemplaryToLoan)
+void Partner::LoanExemplary(Exemplary* exemplaryToLoan)
 {
-	if (CanApplyForALoan())
-	{
-		loanedExemplaries.push_back(exemplaryToLoan);
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	loanedExemplaries.push_back(exemplaryToLoan);
 }
 
 Exemplary* Partner::ReturnExemplary(Exemplary* exemplaryToLoan)
@@ -24,8 +16,9 @@ Exemplary* Partner::ReturnExemplary(Exemplary* exemplaryToLoan)
 	auto resultIterator = std::find_if(begin(loanedExemplaries), end(loanedExemplaries), [&](Exemplary* const p) { return *p == *exemplaryToLoan; });
 	if (resultIterator == end(loanedExemplaries))
 	{
-		throw;
+		return nullptr;
 	}
+
 	Exemplary* resultExemplary = *resultIterator;
 	// TODO: Improve this
 	loanedExemplaries.erase(std::remove(loanedExemplaries.begin(), loanedExemplaries.end(), exemplaryToLoan));
