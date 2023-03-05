@@ -34,18 +34,19 @@ void DbContextLibrary::FillDbContextData()
 	const int amountOfBooksToGenerate = 10;
 	const int amountOfExemplariesPerBookToGenerate = 3;
 	const int amountOfPartnersToGenerate = 8;
-	const int amountOfLoansToGenerate = 5;
+	const int amountOfLoansToGenerate = 2;
 
 	// Fill Books and Exemplaries
 	for (int i = 0; i < amountOfBooksToGenerate; i++)
 	{
-		Book* bookExample = BookFactory::CreateRandomBook();
-		bookTable.Add(bookExample);
+		Book* bookSample = BookFactory::CreateRandomBook();
+		bookTable.Add(bookSample);
 
 		for (int j = 0; j < amountOfExemplariesPerBookToGenerate; j++)
 		{
-			Exemplary* exemplaryExample = ExemplaryFactory::CreateRandomExemplary(bookExample);
-			exemplaryTable.Add(exemplaryExample);
+			Exemplary* exemplarySample = ExemplaryFactory::CreateRandomExemplary(bookSample);
+			exemplaryTable.Add(exemplarySample);
+			bookSample->AddExemplary(exemplarySample);
 		}
 	}
 
@@ -76,10 +77,15 @@ void DbContextLibrary::FillDbContextData()
 	for (int i = 0; i < amountOfLoansToGenerate; i++)
 	{
 		Partner* randomPartner = partnerTable.GetAllItems()[i];
-		Exemplary* randomExemplary = exemplaryTable.GetAllItems()[i];
+		Book* bookOfExemplary = bookTable.GetAllItems()[i];
+		Exemplary* randomExemplary = bookOfExemplary->exemplaries[0];
+
+		randomExemplary = bookOfExemplary->LoanExemplary(randomExemplary);
+		randomPartner->LoanExemplary(randomExemplary);
 
 		Loan* loanSample = LoanFactory::CreateLoan(randomPartner, randomExemplary, LoanType::Withdrawal);
 		loanTable.Add(loanSample);
+		loanHistoryTable.Add(loanSample);
 		/*
 		for (int j = 0; j < (rand() % 15) + 1; j++)
 		{

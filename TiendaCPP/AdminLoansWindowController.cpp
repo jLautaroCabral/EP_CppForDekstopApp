@@ -88,28 +88,51 @@ void AdminLoansWindowController::HandleWindowCommand(HWND hDlg, UINT message, WP
 				modelIdOfSelectedItem = (int)SendMessage(hCbSelectExemplaryAddLoan, CB_GETITEMDATA, selectedItem, NULL);
 				selectedExemplary = DbContextLibrary::GetInstance()->exemplaryTable.GetElementByID(modelIdOfSelectedItem);
 
+				Book* bookOfExemplary = DbContextLibrary::GetInstance()->bookTable.GetElementByID(selectedExemplary->bookID);
+
+				selectedExemplary = bookOfExemplary->LoanExemplary(selectedExemplary);
+				selectedPartner->LoanExemplary(selectedExemplary);
+
 				DbContextLibrary::GetInstance()->loanTable.Add(LoanFactory::CreateLoan(selectedPartner, selectedExemplary, LoanType::Withdrawal));
+				DbContextLibrary::GetInstance()->loanHistoryTable.Add(LoanFactory::CreateLoan(selectedPartner, selectedExemplary, LoanType::Withdrawal));
+				
 				UpdateListBoxInfo(hDlg);
+				UpdateExemplaryComboBox(hDlg);
 			}
+			break;
 		}
-		case BTN_LISTEXEMPLARIES_REMOVE:
+		case BTN_LOANINFO_REMOVE:
 		{
-			// TODO: REMOVE, UPDATE MODELS
-			/*
 			if (hWord == BN_CLICKED)
 			{
-				HWND hwndList = GetDlgItem(hDlg, LB_BOOKS);
-				// Get selected index.
-				int selectedItem = (int)SendMessage(hwndList, LB_GETCURSEL, NULL, NULL);
-				// Get item data.
-				int modelIdOfSelectedItem = (int)SendMessage(hwndList, LB_GETITEMDATA, selectedItem, NULL);
+				HWND hwndList = GetDlgItem(hDlg, LB_LOANS);
+				Loan* loanReturn;
 
-				DbContextLibrary::GetInstance()->bookTable.Remove(modelIdOfSelectedItem);
+				int selectedItem = 0;
+				int modelIdOfSelectedItem = 0;
+
+				// Get loan
+				selectedItem = (int)SendMessage(hwndList, LB_GETCURSEL, NULL, NULL);
+				modelIdOfSelectedItem = (int)SendMessage(hwndList, LB_GETITEMDATA, selectedItem, NULL);
+				loanReturn = DbContextLibrary::GetInstance()->loanTable.GetElementByID(modelIdOfSelectedItem);
+
+				Partner* selectedPartner = loanReturn->partner;
+				Exemplary* selectedExemplary = loanReturn->exemplary;
+
+				Book* bookOfExemplary = DbContextLibrary::GetInstance()->bookTable.GetElementByID(selectedExemplary->bookID);
+
+				selectedExemplary = selectedPartner->ReturnExemplary(selectedExemplary);
+				bookOfExemplary->RegisterReturnOfExemplary(selectedExemplary);
+
+				DbContextLibrary::GetInstance()->loanTable.Remove(loanReturn->modelID);
+				DbContextLibrary::GetInstance()->loanHistoryTable.Add(LoanFactory::CreateLoan(selectedPartner, selectedExemplary, LoanType::Return));
+
 				UpdateListBoxInfo(hDlg);
+				UpdateExemplaryComboBox(hDlg);
 				SendMessage(hwndList, LB_SETCURSEL, (WPARAM)0, NULL);
-				UpdateItemSelectionOnList(hDlg);
+				UpdateItemInfoOfLoanSelectedOnList(hDlg);
 			}
-			*/
+			break;
 		}
 		case LB_LOANS:
 		{

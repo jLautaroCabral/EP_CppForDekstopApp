@@ -16,9 +16,9 @@ public:
 	//std::list<Exemplary*> withdrawnExemplaries;
 	std::list<Exemplary*> loanedExemplaries;
 
-	void CanApplyForALoan();
-	void TryLoanExemplary();
-	void ReturnExemplary();
+	bool CanApplyForALoan();
+	bool LoanExemplary(Exemplary* exemplaryToLoan);
+	Exemplary* ReturnExemplary(Exemplary* exemplaryToLoan);
 
 	static bool IsPartnerVIP(Partner* partnerInstance);
 };

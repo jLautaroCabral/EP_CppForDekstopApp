@@ -91,8 +91,6 @@ void MainWindowController::CreateButtons(HWND hWnd)
 	windowButtonsInfo[2] = { L"Administrar socios", 0, 0, MAKEINTRESOURCE(IDD_ADMIN_PARTNERS), hInst, AdminPartnersWindowController::HandleWindow };
 	windowButtonsInfo[3] = { L"Administrar prestámos", 0, 0, MAKEINTRESOURCE(IDD_ADMIN_LOANS), hInst, AdminLoansWindowController::HandleWindow };
 	windowButtonsInfo[4] = { L"Consultar historial de prestamos y devoluciones", 0, 0, MAKEINTRESOURCE(IDD_LOANSHISTORY), hInst, LoanHistoryWindowController::HandleWindow };
-	windowButtonsInfo[5] = { L"Default", 0, 0, MAKEINTRESOURCE(IDD_COTIZACIONBOX), hInst, QuoteWindowController::HandleWindow };
-	windowButtonsInfo[6] = { L"Default", 0, 0, MAKEINTRESOURCE(IDD_COTIZACIONBOX), hInst, QuoteWindowController::HandleWindow };
 
 	POINT myPoint = { 100, 300 };  // x, y
 

@@ -22,6 +22,7 @@ public:
 	void operator=(const DbContextLibrary&) = delete;
 
 	DbTable<Loan> loanTable;
+	DbTable<Loan> loanHistoryTable;
 	DbTable<Partner> partnerTable;
 	DbTable<Exemplary> exemplaryTable;
 	DbTable<Book> bookTable;

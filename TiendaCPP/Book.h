@@ -11,16 +11,16 @@ class Book : public DbModelItem
 private:
 	Book();
 public:
+	~Book();
+
 	std::string name;
 	std::string ISBNcode;
 	std::string autor;
 	std::vector<Exemplary*> exemplaries;
-
-	~Book();
-
-	//void AddBook();
-	void ConsultExemplary();
-	void LoanExemplary();
-	void RegisterExemplary();
+	
+	bool HaveExemplaries() const;
+	void AddExemplary(Exemplary* exemplaryToAdd);
+	Exemplary* LoanExemplary(Exemplary* exemplaryToLoan);
+	void RegisterReturnOfExemplary(Exemplary* exemplary);
 };
 #endif

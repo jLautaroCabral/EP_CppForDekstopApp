@@ -125,7 +125,7 @@ void LoanHistoryWindowController::UpdateListBoxInfo(HWND hDlg)
 	SendMessage(hLbListLoans, LB_RESETCONTENT, NULL, NULL);
 
 	// Then fill the list box
-	for (const Loan* loan : DbContextLibrary::GetInstance()->loanTable.GetAllItems())
+	for (const Loan* loan : DbContextLibrary::GetInstance()->loanHistoryTable.GetAllItems())
 	{
 		// From strting to wchar_t
 		std::string stringItemToAdd =
@@ -155,7 +155,7 @@ void LoanHistoryWindowController::UpdateItemInfoOfLoanSelectedOnList(HWND hDlg)
 	int modelIdOfSelectedItem = (int)SendMessage(hwndList, LB_GETITEMDATA, selectedItem, NULL);
 
 	// Get data from DbContext
-	Loan* loanSelected = DbContextLibrary::GetInstance()->loanTable.GetElementByID(modelIdOfSelectedItem);
+	Loan* loanSelected = DbContextLibrary::GetInstance()->loanHistoryTable.GetElementByID(modelIdOfSelectedItem);
 	Exemplary* exemplaryOfLoanSelected = loanSelected->exemplary;
 	Book* bookOfLoanSelected = DbContextLibrary::GetInstance()->bookTable.GetElementByID(exemplaryOfLoanSelected->bookID);
 	Partner* partnerOfLoanSelected = loanSelected->partner;

@@ -19,7 +19,6 @@ Exemplary* ExemplaryFactory::CreateRandomExemplary(Book* book)
 	exemplary->libraryUbication = libraryUbications[rand() % (std::size(libraryUbications))];
 
 	exemplary->bookID = book->modelID;
-	book->exemplaries.push_back(exemplary);
 	return exemplary;
 }
 

@@ -73,10 +73,10 @@ void AdminExemplariesWindowController::HandleWindowCommand(HWND hDlg, UINT messa
 				// Get selected index.
 				int selectedItem = (int)SendMessage(hCbSelectedBookAddExemplary, CB_GETCURSEL, NULL, NULL);
 				// Get item data.
-				int modelIdOfSelectedItem = (int)SendMessage(hCbSelectedBookAddExemplary, CB_GETITEMDATA, selectedItem, NULL);				
+				int modelIdOfSelectedItem = (int)SendMessage(hCbSelectedBookAddExemplary, CB_GETITEMDATA, selectedItem, NULL);
 
 				Exemplary* newExemplary = ExemplaryFactory::CreateExemplary(stoi(exemplaryEditionNum), exemplaryUbication, modelIdOfSelectedItem);
-				DbContextLibrary::GetInstance()->bookTable.GetElementByID(modelIdOfSelectedItem)->exemplaries.push_back(newExemplary);
+				DbContextLibrary::GetInstance()->bookTable.GetElementByID(modelIdOfSelectedItem)->AddExemplary(newExemplary);
 
 				SendMessage(hCbSelectedBookListExemplaries, CB_SETCURSEL, (WPARAM)selectedItem, NULL);
 				UpdateListBoxInfo(hDlg);
@@ -196,9 +196,9 @@ void AdminExemplariesWindowController::UpdateListBoxInfo(HWND hDlg)
 	// Get item data.
 	int modelIdOfSelectedItem = (int)SendMessage(hCbSelectedBookListExemplaries, CB_GETITEMDATA, selectedItem, NULL);
 
-	const Book* book = DbContextLibrary::GetInstance()->bookTable.GetElementByID(modelIdOfSelectedItem);
+	Book* book = DbContextLibrary::GetInstance()->bookTable.GetElementByID(modelIdOfSelectedItem);
 	
-	if (book->exemplaries.empty())
+	if (!book->HaveExemplaries())
 	{
 		SendMessage(hLbListExemplaries, LB_ADDSTRING, NULL,
 			(LPARAM)L"Actualmente no existen ejemplares de este libro...");
